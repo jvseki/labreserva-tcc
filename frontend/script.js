@@ -1,4 +1,4 @@
-const API = "https://backend-reserva-n8ru.onrender.com";
+const API = "https://labreserva-tcc.onrender.com";
 
 // =====================================================================
 // ESTOQUE — fixo por tipo, independente do dia

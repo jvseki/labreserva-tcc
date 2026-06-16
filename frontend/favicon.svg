@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#g)"/>
+  <!-- tela do notebook -->
+  <rect x="5" y="6" width="22" height="14" rx="2" fill="#c7d2fe" opacity=".25"/>
+  <rect x="6.5" y="7.5" width="19" height="11" rx="1.5" fill="#1e1b4b"/>
+  <!-- grade na tela (calendário) -->
+  <line x1="9" y1="10" x2="23" y2="10" stroke="#4f46e5" stroke-width=".9" stroke-linecap="round"/>
+  <line x1="9" y1="13" x2="23" y2="13" stroke="#4f46e5" stroke-width=".7" stroke-linecap="round"/>
+  <line x1="9" y1="16" x2="23" y2="16" stroke="#4f46e5" stroke-width=".7" stroke-linecap="round"/>
+  <line x1="13" y1="7.5" x2="13" y2="18.5" stroke="#4f46e5" stroke-width=".7" stroke-linecap="round"/>
+  <line x1="18" y1="7.5" x2="18" y2="18.5" stroke="#4f46e5" stroke-width=".7" stroke-linecap="round"/>
+  <!-- check mark -->
+  <circle cx="20.5" cy="11.5" r="3" fill="#6ee7b7"/>
+  <polyline points="19,11.5 20,12.5 22,10.5" stroke="#065f46" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- base do notebook -->
+  <rect x="3" y="20" width="26" height="3" rx="1.5" fill="#a5b4fc" opacity=".6"/>
+  <rect x="11" y="23" width="10" height="2" rx="1" fill="#c7d2fe" opacity=".5"/>
+</svg>

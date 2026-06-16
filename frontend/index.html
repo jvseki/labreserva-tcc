@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Notebooks">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#182a1a">
   <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="Laboratório Escolar — agendamento de notebooks e tablets do laboratório de informática">
+  <meta name="description"
+    content="Laboratório Escolar — agendamento de notebooks e tablets do laboratório de informática">
   <link rel="manifest" href="manifest.json">
-  <!-- Ícone para iOS (usa o emoji renderizado via canvas no JS) -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="favicon.svg">
   <link rel="apple-touch-icon" href="icon-192.png">
   <title>Agendamento de Notebooks</title>
   <script>
@@ -36,7 +40,7 @@
               }
             });
           });
-        }).catch(() => {});
+        }).catch(() => { });
 
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           if (!aguardandoReloadPorUpdate) return;
@@ -71,80 +75,40 @@
       registro.waiting.postMessage({ type: 'SKIP_WAITING' });
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <link rel="stylesheet" href="style.css?v=admin-topbar-fix">
+  <link rel="stylesheet" href="style.css?v=indigo-tech-v1">
   <!-- © JVSM — João Victor Silva Marcondes -->
 </head>
+
 <body>
 
-<!-- Marca d'água — autoria do sistema (não bloqueia cliques) -->
-<div class="wm-anchor" aria-hidden="true">
-  <div class="wm-card" title="Sistema de reservas - Informativo">
-    <span class="wm-mark">JVSM</span>
-    <span class="wm-divider"></span>
-    <span class="wm-author">João Victor Silva Marcondes</span>
+  <!-- Marca d'água — autoria do sistema (não bloqueia cliques) -->
+  <div class="wm-anchor" aria-hidden="true">
+    <div class="wm-card" title="Sistema de reservas - Informativo">
+      <span class="wm-mark">JVSM</span>
+      <span class="wm-divider"></span>
+      <span class="wm-author">João Victor Silva Marcondes</span>
+    </div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════════
+  <!-- ═══════════════════════════════════
      TELA DE BOAS-VINDAS (antes do login)
 ════════════════════════════════════ -->
-<div id="tela-login" class="tela-login">
-  <div class="login-split">
+  <div id="tela-login" class="tela-login">
+    <div class="login-split">
 
-    <!-- Painel esquerdo — branding (só desktop) -->
-    <div class="login-brand">
-      <div class="login-brand-logo">💻</div>
-      <div class="school-brand school-brand--login-dark">
-        <span class="school-ribbon">Projeto acadêmico · TCC</span>
-        <p class="school-name">Laboratório Escolar</p>
-        <p class="school-lab">Laboratório de Informática</p>
-      </div>
-      <h1 class="login-brand-title">Agendamento de Notebooks</h1>
-      <div class="login-steps">
-        <div class="step-item">
-          <span class="step-icon">📅</span>
-          <div class="step-text">
-            <strong>Escolha o dia e horário</strong>
-            <span>Veja os slots disponíveis na agenda semanal</span>
-          </div>
-        </div>
-        <div class="step-item">
-          <span class="step-icon">🎒</span>
-          <div class="step-text">
-            <strong>Selecione os equipamentos</strong>
-            <span>Tablets, notebooks, TV remota — conforme disponibilidade</span>
-          </div>
-        </div>
-        <div class="step-item">
-          <span class="step-icon">✏️</span>
-          <div class="step-text">
-            <strong>Confirme sua reserva</strong>
-            <span>Seu nome é preenchido automaticamente pelo login</span>
-          </div>
-        </div>
-        <div class="step-item">
-          <span class="step-icon">🔄</span>
-          <div class="step-text">
-            <strong>Edite ou cancele quando quiser</strong>
-            <span>Só você pode alterar seus próprios agendamentos</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Painel direito — formulário -->
-    <div class="login-form-panel">
-      <div class="login-card">
-        <!-- Mobile only -->
-        <div class="login-logo">💻</div>
-        <div class="school-brand school-brand--login-card">
+      <!-- Painel esquerdo — branding (só desktop) -->
+      <div class="login-brand">
+        <div class="login-brand-logo">🗓️</div>
+        <div class="school-brand school-brand--login-dark">
           <span class="school-ribbon">Projeto acadêmico · TCC</span>
           <p class="school-name">Laboratório Escolar</p>
           <p class="school-lab">Laboratório de Informática</p>
         </div>
-        <h1 class="login-title">Agendamento de Notebooks</h1>
+        <h1 class="login-brand-title">Agendamento de Notebooks</h1>
         <div class="login-steps">
           <div class="step-item">
             <span class="step-icon">📅</span>
@@ -175,812 +139,864 @@
             </div>
           </div>
         </div>
-
-        <!-- Desktop only -->
-        <span class="login-card-desktop-title">Bem-vindo(a) 👋</span>
-        <span class="login-card-desktop-sub">Entre com sua conta Gmail institucional<br>para acessar o sistema de agendamento.</span>
-
-        <div id="google-btn-wrap" class="google-btn-wrap">
-          <div id="g_id_onload"
-            data-client_id="576873631654-hetq46i86be7hn0u8i5qmbi9issh31l8.apps.googleusercontent.com"
-            data-callback="handleGoogleLogin"
-            data-auto_prompt="false">
-          </div>
-          <div class="g_id_signin"
-            data-type="standard"
-            data-shape="pill"
-            data-theme="outline"
-            data-text="signin_with"
-            data-size="large"
-            data-locale="pt-BR"
-            data-logo_alignment="left">
-          </div>
-        </div>
-        <p class="login-note">Use sua conta Gmail institucional (gov.br)</p>
-
-        <!-- Seção instalar como app -->
-        <div class="install-section" id="install-section">
-          <div class="install-divider"><span>ou instale como app</span></div>
-
-          <!-- Botão de instalação Android (aparece só quando disponível) -->
-          <button class="install-btn" id="install-btn-android" style="display:none" onclick="instalarPWA()">
-            <span class="install-btn-icon">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.523 15.341L21 12l-3.477-3.341" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M3 12h18M3 5.5h18M3 18.5h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </span>
-            Adicionar à tela inicial — Android
-          </button>
-
-          <!-- Instruções iOS (sempre visível no Safari iOS) -->
-          <div class="install-ios" id="install-ios" style="display:none">
-            <p class="install-ios-title">📱 Instalar no iPhone / iPad</p>
-            <ol class="install-ios-steps">
-              <li>Toque em <strong>Compartilhar</strong> <span class="ios-icon">⎙</span> na barra do Safari</li>
-              <li>Role para baixo e toque em <strong>"Adicionar à Tela de Início"</strong></li>
-              <li>Toque em <strong>Adicionar</strong> no canto superior direito</li>
-            </ol>
-          </div>
-
-          <!-- Instrução genérica para outros navegadores desktop/android -->
-          <div class="install-generic" id="install-generic" style="display:none">
-            <p class="install-generic-text">
-              💡 No <strong>Chrome / Edge</strong>: clique no ícone <strong>⊕</strong> na barra de endereço para instalar como app.
-            </p>
-          </div>
-        </div>
-
-        <p class="login-dev-credit">
-          Sistema <strong>JVSM</strong> · Projeto acadêmico · TCC
-        </p>
       </div>
-    </div>
 
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     APP PRINCIPAL (após login)
-════════════════════════════════════ -->
-<div id="app" class="page-wrap" style="display:none">
-  <header>
-    <div class="header-top">
-      <div class="logo-area">
-        <div class="logo-icon">💻</div>
-        <div class="logo-text">
-          <div class="school-brand school-brand--header">
+      <!-- Painel direito — formulário -->
+      <div class="login-form-panel">
+        <div class="login-card">
+          <!-- Mobile only -->
+          <div class="login-logo">🗓️</div>
+          <div class="school-brand school-brand--login-card">
             <span class="school-ribbon">Projeto acadêmico · TCC</span>
             <p class="school-name">Laboratório Escolar</p>
+            <p class="school-lab">Laboratório de Informática</p>
           </div>
-          <h1>Agendamento de Notebooks</h1>
-          <p class="school-lab-header">Laboratório de Informática</p>
+          <h1 class="login-title">Agendamento de Notebooks</h1>
+          <div class="login-steps">
+            <div class="step-item">
+              <span class="step-icon">📅</span>
+              <div class="step-text">
+                <strong>Escolha o dia e horário</strong>
+                <span>Veja os slots disponíveis na agenda semanal</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-icon">🎒</span>
+              <div class="step-text">
+                <strong>Selecione os equipamentos</strong>
+                <span>Tablets, notebooks, TV remota — conforme disponibilidade</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-icon">✏️</span>
+              <div class="step-text">
+                <strong>Confirme sua reserva</strong>
+                <span>Seu nome é preenchido automaticamente pelo login</span>
+              </div>
+            </div>
+            <div class="step-item">
+              <span class="step-icon">🔄</span>
+              <div class="step-text">
+                <strong>Edite ou cancele quando quiser</strong>
+                <span>Só você pode alterar seus próprios agendamentos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop only -->
+          <span class="login-card-desktop-title">Bem-vindo(a) 👋</span>
+          <span class="login-card-desktop-sub">Entre com sua conta Gmail institucional<br>para acessar o sistema de
+            agendamento.</span>
+
+          <div id="google-btn-wrap" class="google-btn-wrap">
+            <div id="g_id_onload"
+              data-client_id="576873631654-hetq46i86be7hn0u8i5qmbi9issh31l8.apps.googleusercontent.com"
+              data-callback="handleGoogleLogin" data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signin_with"
+              data-size="large" data-locale="pt-BR" data-logo_alignment="left">
+            </div>
+          </div>
+          <p class="login-note">Use sua conta Gmail institucional (gov.br)</p>
+
+          <!-- Seção instalar como app -->
+          <div class="install-section" id="install-section">
+            <div class="install-divider"><span>ou instale como app</span></div>
+
+            <!-- Botão de instalação Android (aparece só quando disponível) -->
+            <button class="install-btn" id="install-btn-android" style="display:none" onclick="instalarPWA()">
+              <span class="install-btn-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.523 15.341L21 12l-3.477-3.341" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M3 12h18M3 5.5h18M3 18.5h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </span>
+              Adicionar à tela inicial — Android
+            </button>
+
+            <!-- Instruções iOS (sempre visível no Safari iOS) -->
+            <div class="install-ios" id="install-ios" style="display:none">
+              <p class="install-ios-title">📱 Instalar no iPhone / iPad</p>
+              <ol class="install-ios-steps">
+                <li>Toque em <strong>Compartilhar</strong> <span class="ios-icon">⎙</span> na barra do Safari</li>
+                <li>Role para baixo e toque em <strong>"Adicionar à Tela de Início"</strong></li>
+                <li>Toque em <strong>Adicionar</strong> no canto superior direito</li>
+              </ol>
+            </div>
+
+            <!-- Instrução genérica para outros navegadores desktop/android -->
+            <div class="install-generic" id="install-generic" style="display:none">
+              <p class="install-generic-text">
+                💡 No <strong>Chrome / Edge</strong>: clique no ícone <strong>⊕</strong> na barra de endereço para
+                instalar como app.
+              </p>
+            </div>
+          </div>
+
+          <p class="login-dev-credit">
+            Sistema <strong>JVSM</strong> · Projeto acadêmico · TCC
+          </p>
         </div>
       </div>
-      <div class="header-actions">
-        <div class="cal-wrap" id="mini-cal"></div>
-        <div class="user-info" id="user-info"></div>
-        <button class="refresh-btn" title="Atualizar agenda" onclick="carregarAgenda()">↺</button>
-        <button class="admin-panel-btn" id="admin-btn" style="display:none" title="Painel do Administrador" onclick="abrirPainelAdmin()">⚙️<span class="admin-btn-label"> Admin</span></button>
-        <button class="update-app-btn" id="update-app-btn" style="display:none" title="Nova versão disponível" onclick="atualizarApp()">⬆ Atualizar</button>
-      </div>
-    </div>
 
-    <!-- Banner de nova versão disponível -->
-    <div class="update-banner" id="update-banner" style="display:none">
-      <span>🆕 Nova versão do app disponível!</span>
-      <button onclick="atualizarApp()">Atualizar agora</button>
-      <button class="update-banner-close" onclick="document.getElementById('update-banner').style.display='none'">✕</button>
-    </div>
-
-    <div class="stats-row">
-      <div class="stat-card green">
-        <span class="stat-num" id="count-livre">—</span>
-        <div><div class="stat-label">Livres</div><div class="stat-sub">esta semana</div></div>
-      </div>
-      <div class="stat-card blue">
-        <span class="stat-num" id="count-reservado">—</span>
-        <div><div class="stat-label">Reservados</div><div class="stat-sub">esta semana</div></div>
-      </div>
-    </div>
-
-    <div class="stock-row">
-      <span class="stock-title">Estoque hoje:</span>
-      <span class="stock-badge tablet" id="stock-tablet">📱 —</span>
-      <span class="stock-badge prata"  id="stock-prata">💻 —</span>
-      <span class="stock-badge preto"  id="stock-preto">🖥️ —</span>
-      <span class="stock-badge tvremota" id="stock-tvremota">📺 —</span>
-    </div>
-
-    <div class="legend-row">
-      <span class="legend-title">Legenda:</span>
-      <span class="badge livre">Livre</span>
-      <span class="badge reservado">Reservado</span>
-      <span class="badge bloqueado">Bloqueado</span>
-      <span class="badge intervalo">☕ Intervalo</span>
-      <span class="badge expirado">🕐 Passado</span>
-    </div>
-  </header>
-
-  <main>
-    <div id="loading" class="loading-wrap">
-      <div class="pencil-loader">✏️</div>
-      <p class="loading-text">Carregando agenda...</p>
-    </div>
-    <div class="table-wrap" id="table-container" style="display:none">
-      <table id="tabela"></table>
-    </div>
-    <div class="cards-view" id="cards-view"></div>
-  </main>
-
-  <footer class="app-dev-footer" aria-hidden="true">
-    <span class="app-dev-mark">JVSM</span>
-    <span class="app-dev-sep">·</span>
-    <span class="app-dev-text">João Victor Silva Marcondes</span>
-  </footer>
-</div>
-
-<!-- MODAL RESERVA -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <button class="modal-close" onclick="fecharModal()">×</button>
-    <div class="modal-header">
-      <span class="modal-emoji">📅</span>
-      <div>
-        <h2 id="modal-title">Reservar</h2>
-        <p class="modal-sub" id="modal-sub">Selecione horários e equipamentos</p>
-      </div>
-    </div>
-    <div class="input-group">
-      <label>👤 Nome do professor(a)</label>
-      <input type="text" id="nome-input" placeholder="Nome completo..."
-        autocomplete="name" autocorrect="off" autocapitalize="words" enterkeyhint="next">
-    </div>
-    <div class="sec-label">⏰ Horários — toque para selecionar (um ou mais)</div>
-    <div id="horarios-lista"></div>
-    <div id="resumo-selecao">Nenhum horário selecionado</div>
-    <div class="sec-label">🎒 Equipamentos — selecione um ou mais</div>
-    <div class="equip-rows" id="equip-rows"></div>
-    <p class="error-msg" id="error-msg"></p>
-    <button class="btn-primary" id="confirm-btn" onclick="confirmarAcao()">✔ Confirmar Reserva</button>
-  </div>
-</div>
-
-<!-- MODAL EDITAR/CANCELAR (agendamentos do próprio usuário) -->
-<div class="overlay" id="overlay-editar">
-  <div class="modal">
-    <button class="modal-close" onclick="fecharModalEditar()">×</button>
-    <div class="modal-header">
-      <span class="modal-emoji">✏️</span>
-      <div>
-        <h2 id="editar-title">Minha Reserva</h2>
-        <p class="modal-sub" id="editar-sub"></p>
-      </div>
-    </div>
-    <div class="sec-label">🎒 Equipamentos</div>
-    <div class="equip-rows" id="editar-equip-rows"></div>
-    <p class="error-msg" id="editar-error"></p>
-    <div class="editar-actions">
-      <button class="btn-danger" id="cancelar-btn" onclick="cancelarReserva()">🗑 Cancelar Reserva</button>
-      <button class="btn-primary" id="salvar-editar-btn" onclick="salvarEdicao()">💾 Salvar Alterações</button>
     </div>
   </div>
-</div>
 
-<!-- BANNER PROMOÇÃO -->
-<div class="promo-banner" id="promo-banner" style="display:none">
-  <div class="promo-inner" id="promo-inner"></div>
-  <button class="promo-close" onclick="fecharBanner()">×</button>
-</div>
-
-<!-- MODAL LISTA DE ESPERA -->
-<div class="overlay" id="overlay-espera">
-  <div class="modal">
-    <button class="modal-close" onclick="fecharModalEspera()">×</button>
-    <div class="modal-header">
-      <span class="modal-emoji">⏳</span>
-      <div>
-        <h2 id="espera-title">Lista de Espera</h2>
-        <p class="modal-sub" id="espera-sub">Equipamento esgotado neste horário</p>
+  <!-- ═══════════════════════════════════
+     APP PRINCIPAL (após login)
+════════════════════════════════════ -->
+  <div id="app" class="page-wrap" style="display:none">
+    <header>
+      <div class="header-top">
+        <div class="logo-area">
+          <div class="logo-icon">🗓️</div>
+          <div class="logo-text">
+            <div class="school-brand school-brand--header">
+              <span class="school-ribbon">Projeto acadêmico · TCC</span>
+              <p class="school-name">Laboratório Escolar</p>
+            </div>
+            <h1>Agendamento de Notebooks</h1>
+            <p class="school-lab-header">Laboratório de Informática</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="cal-wrap" id="mini-cal"></div>
+          <div class="user-info" id="user-info"></div>
+          <button class="refresh-btn" title="Atualizar agenda" onclick="carregarAgenda()">↺</button>
+          <button class="admin-panel-btn" id="admin-btn" style="display:none" title="Painel do Administrador"
+            onclick="abrirPainelAdmin()">⚙️<span class="admin-btn-label"> Admin</span></button>
+          <button class="update-app-btn" id="update-app-btn" style="display:none" title="Nova versão disponível"
+            onclick="atualizarApp()">⬆ Atualizar</button>
+        </div>
       </div>
-    </div>
-    <div class="input-group">
-      <label>👤 Nome do professor(a)</label>
-      <input type="text" id="espera-nome" placeholder="Nome completo..." autocomplete="name" autocorrect="off" autocapitalize="words">
-    </div>
-    <div class="sec-label">🎒 O que você precisa?</div>
-    <div class="equip-rows" id="espera-equip-rows"></div>
-    <div style="background:var(--orange-bg);border:2px solid var(--orange-bd);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--orange);font-weight:700;line-height:1.5">⚠️ Quando o equipamento for liberado, você será promovido automaticamente na próxima atualização do site.</div>
-    <p class="error-msg" id="espera-error"></p>
-    <button class="btn-primary" id="espera-btn" onclick="confirmarEspera()">⏳ Entrar na Lista de Espera</button>
-  </div>
-</div>
 
-<!-- PAINEL ADMIN -->
-<div class="overlay overlay-admin" id="overlay-admin">
-  <div class="modal modal-admin">
-    <div class="admin-topbar">
-      <div class="admin-topbar-info">
-        <span class="admin-topbar-emoji">⚙️</span>
+      <!-- Banner de nova versão disponível -->
+      <div class="update-banner" id="update-banner" style="display:none">
+        <span>🆕 Nova versão do app disponível!</span>
+        <button onclick="atualizarApp()">Atualizar agora</button>
+        <button class="update-banner-close"
+          onclick="document.getElementById('update-banner').style.display='none'">✕</button>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card green">
+          <span class="stat-num" id="count-livre">—</span>
+          <div>
+            <div class="stat-label">Livres</div>
+            <div class="stat-sub">esta semana</div>
+          </div>
+        </div>
+        <div class="stat-card blue">
+          <span class="stat-num" id="count-reservado">—</span>
+          <div>
+            <div class="stat-label">Reservados</div>
+            <div class="stat-sub">esta semana</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stock-row">
+        <span class="stock-title">Estoque hoje:</span>
+        <span class="stock-badge tablet" id="stock-tablet">📱 —</span>
+        <span class="stock-badge prata" id="stock-prata">💻 —</span>
+        <span class="stock-badge preto" id="stock-preto">🖥️ —</span>
+        <span class="stock-badge tvremota" id="stock-tvremota">📺 —</span>
+      </div>
+
+      <div class="legend-row">
+        <span class="legend-title">Legenda:</span>
+        <span class="badge livre">Livre</span>
+        <span class="badge reservado">Reservado</span>
+        <span class="badge bloqueado">Bloqueado</span>
+        <span class="badge intervalo">☕ Intervalo</span>
+        <span class="badge expirado">🕐 Passado</span>
+      </div>
+    </header>
+
+    <main>
+      <div id="loading" class="loading-wrap">
+        <div class="pencil-loader">✏️</div>
+        <p class="loading-text">Carregando agenda...</p>
+      </div>
+      <div class="table-wrap" id="table-container" style="display:none">
+        <table id="tabela"></table>
+      </div>
+      <div class="cards-view" id="cards-view"></div>
+    </main>
+
+    <footer class="app-dev-footer" aria-hidden="true">
+      <span class="app-dev-mark">JVSM</span>
+      <span class="app-dev-sep">·</span>
+      <span class="app-dev-text">João Victor Silva Marcondes</span>
+    </footer>
+  </div>
+
+  <!-- MODAL RESERVA -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <button class="modal-close" onclick="fecharModal()">×</button>
+      <div class="modal-header">
+        <span class="modal-emoji">📅</span>
         <div>
-          <h2 class="admin-topbar-title">Painel do Administrador</h2>
-          <p class="admin-topbar-sub">Edite qualquer reserva da semana</p>
+          <h2 id="modal-title">Reservar</h2>
+          <p class="modal-sub" id="modal-sub">Selecione horários e equipamentos</p>
         </div>
       </div>
-      <button class="modal-close admin-topbar-close" onclick="fecharPainelAdmin()">×</button>
+      <div class="input-group">
+        <label>👤 Nome do professor(a)</label>
+        <input type="text" id="nome-input" placeholder="Nome completo..." autocomplete="name" autocorrect="off"
+          autocapitalize="words" enterkeyhint="next">
+      </div>
+      <div class="sec-label">⏰ Horários — toque para selecionar (um ou mais)</div>
+      <div id="horarios-lista"></div>
+      <div id="resumo-selecao">Nenhum horário selecionado</div>
+      <div class="sec-label">🎒 Equipamentos — selecione um ou mais</div>
+      <div class="equip-rows" id="equip-rows"></div>
+      <p class="error-msg" id="error-msg"></p>
+      <button class="btn-primary" id="confirm-btn" onclick="confirmarAcao()">✔ Confirmar Reserva</button>
     </div>
-    <div id="admin-grid-wrap"></div>
   </div>
-</div>
 
-<!-- ADMIN — EDITAR CÉLULA -->
-<div class="overlay" id="overlay-admin-editar">
-  <div class="modal">
-    <button class="modal-close" onclick="fecharModalAdminEditar()">×</button>
-    <div class="modal-header">
-      <span class="modal-emoji">✏️</span>
-      <div>
-        <h2 id="admin-editar-title">Editar Horário</h2>
-        <p class="modal-sub" id="admin-editar-sub"></p>
+  <!-- MODAL EDITAR/CANCELAR (agendamentos do próprio usuário) -->
+  <div class="overlay" id="overlay-editar">
+    <div class="modal">
+      <button class="modal-close" onclick="fecharModalEditar()">×</button>
+      <div class="modal-header">
+        <span class="modal-emoji">✏️</span>
+        <div>
+          <h2 id="editar-title">Minha Reserva</h2>
+          <p class="modal-sub" id="editar-sub"></p>
+        </div>
+      </div>
+      <div class="sec-label">🎒 Equipamentos</div>
+      <div class="equip-rows" id="editar-equip-rows"></div>
+      <p class="error-msg" id="editar-error"></p>
+      <div class="editar-actions">
+        <button class="btn-danger" id="cancelar-btn" onclick="cancelarReserva()">🗑 Cancelar Reserva</button>
+        <button class="btn-primary" id="salvar-editar-btn" onclick="salvarEdicao()">💾 Salvar Alterações</button>
       </div>
     </div>
-    <div class="input-group">
-      <label>👤 Nome do professor(a)</label>
-      <input type="text" id="admin-nome-input" placeholder="Nome completo..."
-        autocomplete="off" autocorrect="off" autocapitalize="words">
-    </div>
-    <div class="input-group">
-      <label>📧 E-mail (opcional)</label>
-      <input type="email" id="admin-email-input" placeholder="email@escola.gov.br" autocomplete="off">
-    </div>
-    <div class="sec-label">🎒 Equipamentos</div>
-    <div class="equip-rows" id="admin-equip-rows"></div>
-    <p class="error-msg" id="admin-editar-error"></p>
-    <div class="editar-actions">
-      <button class="btn-danger" id="admin-apagar-btn" onclick="apagarAdminCell()" style="display:none">🗑 Apagar Reserva</button>
-      <button class="btn-primary" id="admin-salvar-btn" onclick="salvarAdminCell()">💾 Salvar</button>
+  </div>
+
+  <!-- BANNER PROMOÇÃO -->
+  <div class="promo-banner" id="promo-banner" style="display:none">
+    <div class="promo-inner" id="promo-inner"></div>
+    <button class="promo-close" onclick="fecharBanner()">×</button>
+  </div>
+
+  <!-- MODAL LISTA DE ESPERA -->
+  <div class="overlay" id="overlay-espera">
+    <div class="modal">
+      <button class="modal-close" onclick="fecharModalEspera()">×</button>
+      <div class="modal-header">
+        <span class="modal-emoji">⏳</span>
+        <div>
+          <h2 id="espera-title">Lista de Espera</h2>
+          <p class="modal-sub" id="espera-sub">Equipamento esgotado neste horário</p>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>👤 Nome do professor(a)</label>
+        <input type="text" id="espera-nome" placeholder="Nome completo..." autocomplete="name" autocorrect="off"
+          autocapitalize="words">
+      </div>
+      <div class="sec-label">🎒 O que você precisa?</div>
+      <div class="equip-rows" id="espera-equip-rows"></div>
+      <div
+        style="background:var(--orange-bg);border:2px solid var(--orange-bd);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--orange);font-weight:700;line-height:1.5">
+        ⚠️ Quando o equipamento for liberado, você será promovido automaticamente na próxima atualização do site.</div>
+      <p class="error-msg" id="espera-error"></p>
+      <button class="btn-primary" id="espera-btn" onclick="confirmarEspera()">⏳ Entrar na Lista de Espera</button>
     </div>
   </div>
-</div>
 
-<div class="toast" id="toast"></div>
+  <!-- PAINEL ADMIN -->
+  <div class="overlay overlay-admin" id="overlay-admin">
+    <div class="modal modal-admin">
+      <div class="admin-topbar">
+        <div class="admin-topbar-info">
+          <span class="admin-topbar-emoji">⚙️</span>
+          <div>
+            <h2 class="admin-topbar-title">Painel do Administrador</h2>
+            <p class="admin-topbar-sub">Edite qualquer reserva da semana</p>
+          </div>
+        </div>
+        <button class="modal-close admin-topbar-close" onclick="fecharPainelAdmin()">×</button>
+      </div>
+      <div id="admin-grid-wrap"></div>
+    </div>
+  </div>
 
-<script>
-// ════════════════════════════════════════
-// CONFIG
-// ════════════════════════════════════════
-const API = "https://backend-reserva-n8ru.onrender.com";
+  <!-- ADMIN — EDITAR CÉLULA -->
+  <div class="overlay" id="overlay-admin-editar">
+    <div class="modal">
+      <button class="modal-close" onclick="fecharModalAdminEditar()">×</button>
+      <div class="modal-header">
+        <span class="modal-emoji">✏️</span>
+        <div>
+          <h2 id="admin-editar-title">Editar Horário</h2>
+          <p class="modal-sub" id="admin-editar-sub"></p>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>👤 Nome do professor(a)</label>
+        <input type="text" id="admin-nome-input" placeholder="Nome completo..." autocomplete="off" autocorrect="off"
+          autocapitalize="words">
+      </div>
+      <div class="input-group">
+        <label>📧 E-mail (opcional)</label>
+        <input type="email" id="admin-email-input" placeholder="email@escola.gov.br" autocomplete="off">
+      </div>
+      <div class="sec-label">🎒 Equipamentos</div>
+      <div class="equip-rows" id="admin-equip-rows"></div>
+      <p class="error-msg" id="admin-editar-error"></p>
+      <div class="editar-actions">
+        <button class="btn-danger" id="admin-apagar-btn" onclick="apagarAdminCell()" style="display:none">🗑 Apagar
+          Reserva</button>
+        <button class="btn-primary" id="admin-salvar-btn" onclick="salvarAdminCell()">💾 Salvar</button>
+      </div>
+    </div>
+  </div>
 
-const ESTOQUE = {
-  tablet:   { label:"tablet",         total:12, emoji:"📱", nome:"Tablet" },
-  prata:    { label:"notebook prata", total:23, emoji:"💻", nome:"Note Prata" },
-  preto:    { label:"notebook preto", total:11, emoji:"🖥️", nome:"Note Preto" },
-  tvremota: { label:"tv remota",      total:1,  emoji:"📺", nome:"TV Remota" },
-};
+  <div class="toast" id="toast"></div>
 
-const RE_EQUIP = /(\d+)\s*(tv remota|notebook prata|notebook preto|tablet)/gi;
+  <script>
+    // ════════════════════════════════════════
+    // CONFIG
+    // ════════════════════════════════════════
+const API = "https://labreserva-tcc.onrender.com";
 
-function estoqueZerado() {
-  return Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, 0]));
-}
+    const ESTOQUE = {
+      tablet: { label: "tablet", total: 12, emoji: "📱", nome: "Tablet" },
+      prata: { label: "notebook prata", total: 23, emoji: "💻", nome: "Note Prata" },
+      preto: { label: "notebook preto", total: 11, emoji: "🖥️", nome: "Note Preto" },
+      tvremota: { label: "tv remota", total: 1, emoji: "📺", nome: "TV Remota" },
+    };
 
-function temAlgumDisponivel(disp) {
-  return Object.keys(ESTOQUE).some(t => (disp[t] || 0) > 0);
-}
+    const RE_EQUIP = /(\d+)\s*(tv remota|notebook prata|notebook preto|tablet)/gi;
 
-function slotTotalmenteLotado(disp) {
-  return Object.keys(ESTOQUE).every(t => (disp[t] || 0) <= 0);
-}
+    function estoqueZerado() {
+      return Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, 0]));
+    }
 
-const LINHAS_INTERVALO = new Set([5, 12]);
-let primeiraCargaAgenda = true;
+    function temAlgumDisponivel(disp) {
+      return Object.keys(ESTOQUE).some(t => (disp[t] || 0) > 0);
+    }
 
-// ── Planilha TCC (Google Sheets) ──
-// https://docs.google.com/spreadsheets/d/1xJGkM1ZVYO9rIWBtW2tiqR2V6ZsI9-VIcwqUIHRoWx0
-const COL_DIA_MIN = 2;  // B — Segunda
-const COL_DIA_MAX = 7;  // G — Sábado
-const COL_MARCA_AGUA = 8; // H — créditos (fora da grade)
+    function slotTotalmenteLotado(disp) {
+      return Object.keys(ESTOQUE).every(t => (disp[t] || 0) <= 0);
+    }
 
-const HORARIOS = {
-  2:  ["07:00","07:50"], 3:  ["07:50","08:40"], 4:  ["08:40","09:30"],
-  5:  ["09:30","09:50"], 6:  ["09:50","10:40"], 7:  ["10:40","11:30"],
-  8:  ["11:30","12:20"], 9:  ["12:20","13:30"], 10: ["13:30","14:20"],
-  11: ["14:20","15:10"], 12: ["15:10","15:30"], 13: ["15:30","16:20"],
-  14: ["16:20","17:10"], 15: ["17:10","18:00"],
-};
-const DIAS_NOME = ["","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
-const DIAS_ABREV = ["","Seg","Ter","Qua","Qui","Sex","Sáb"];
+    const LINHAS_INTERVALO = new Set([5, 12]);
+    let primeiraCargaAgenda = true;
 
-// ════════════════════════════════════════
-// ESTADO DO USUÁRIO
-// ════════════════════════════════════════
-let usuarioLogado = null; // { nome, email, picture }
-const USUARIO_STORAGE_KEY = "usuario";
+    // ── Planilha TCC (Google Sheets) ──
+    // https://docs.google.com/spreadsheets/d/1xJGkM1ZVYO9rIWBtW2tiqR2V6ZsI9-VIcwqUIHRoWx0
+    const COL_DIA_MIN = 2;  // B — Segunda
+    const COL_DIA_MAX = 7;  // G — Sábado
+    const COL_MARCA_AGUA = 8; // H — créditos (fora da grade)
 
-function salvarUsuarioLocal(u) {
-  try {
-    localStorage.setItem(USUARIO_STORAGE_KEY, JSON.stringify(u));
-  } catch (e) {}
-}
+    const HORARIOS = {
+      2: ["07:00", "07:50"], 3: ["07:50", "08:40"], 4: ["08:40", "09:30"],
+      5: ["09:30", "09:50"], 6: ["09:50", "10:40"], 7: ["10:40", "11:30"],
+      8: ["11:30", "12:20"], 9: ["12:20", "13:30"], 10: ["13:30", "14:20"],
+      11: ["14:20", "15:10"], 12: ["15:10", "15:30"], 13: ["15:30", "16:20"],
+      14: ["16:20", "17:10"], 15: ["17:10", "18:00"],
+    };
+    const DIAS_NOME = ["", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+    const DIAS_ABREV = ["", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
-function carregarUsuarioLocal() {
-  try {
-    const raw = localStorage.getItem(USUARIO_STORAGE_KEY);
-    if (!raw) return null;
-    const u = JSON.parse(raw);
-    if (u && u.nome && u.email) return u;
-  } catch (e) {}
-  return null;
-}
+    // ════════════════════════════════════════
+    // ESTADO DO USUÁRIO
+    // ════════════════════════════════════════
+    let usuarioLogado = null; // { nome, email, picture }
+    const USUARIO_STORAGE_KEY = "usuario";
 
-function limparUsuarioLocal() {
-  try {
-    localStorage.removeItem(USUARIO_STORAGE_KEY);
-  } catch (e) {}
-}
+    function salvarUsuarioLocal(u) {
+      try {
+        localStorage.setItem(USUARIO_STORAGE_KEY, JSON.stringify(u));
+      } catch (e) { }
+    }
 
-function handleGoogleLogin(response) {
-  const payload = parseJwt(response.credential);
-  usuarioLogado = {
-    nome:    payload.name,
-    email:   payload.email,
-    picture: payload.picture,
-  };
-  // Mantém login no aparelho (localStorage) até o usuário sair
-  salvarUsuarioLocal(usuarioLogado);
-  entrarNoApp();
-}
+    function carregarUsuarioLocal() {
+      try {
+        const raw = localStorage.getItem(USUARIO_STORAGE_KEY);
+        if (!raw) return null;
+        const u = JSON.parse(raw);
+        if (u && u.nome && u.email) return u;
+      } catch (e) { }
+      return null;
+    }
 
-function parseJwt(token) {
-  const base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
-  return JSON.parse(decodeURIComponent(atob(base64).split('').map(c =>
-    '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-}
+    function limparUsuarioLocal() {
+      try {
+        localStorage.removeItem(USUARIO_STORAGE_KEY);
+      } catch (e) { }
+    }
 
-function entrarNoApp() {
-  document.getElementById("tela-login").style.display = "none";
-  document.getElementById("app").style.display        = "block";
-  renderUserInfo();
-  renderCalendario();
-  carregarAgenda();
-  setInterval(carregarAgenda, 60000);
-  const adminBtn = document.getElementById("admin-btn");
-  if (adminBtn) adminBtn.style.display = isAdmin() ? "flex" : "none";
-}
+    function handleGoogleLogin(response) {
+      const payload = parseJwt(response.credential);
+      usuarioLogado = {
+        nome: payload.name,
+        email: payload.email,
+        picture: payload.picture,
+      };
+      // Mantém login no aparelho (localStorage) até o usuário sair
+      salvarUsuarioLocal(usuarioLogado);
+      entrarNoApp();
+    }
 
-function renderUserInfo() {
-  const u = usuarioLogado;
-  if (!u) return;
-  const el = document.getElementById("user-info");
-  // Primeiro nome apenas
-  const primeiro = u.nome.split(" ")[0];
-  el.innerHTML = `
+    function parseJwt(token) {
+      const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      return JSON.parse(decodeURIComponent(atob(base64).split('').map(c =>
+        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+    }
+
+    function entrarNoApp() {
+      document.getElementById("tela-login").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      renderUserInfo();
+      renderCalendario();
+      carregarAgenda();
+      setInterval(carregarAgenda, 60000);
+      const adminBtn = document.getElementById("admin-btn");
+      if (adminBtn) adminBtn.style.display = isAdmin() ? "flex" : "none";
+    }
+
+    function renderUserInfo() {
+      const u = usuarioLogado;
+      if (!u) return;
+      const el = document.getElementById("user-info");
+      // Primeiro nome apenas
+      const primeiro = u.nome.split(" ")[0];
+      el.innerHTML = `
     ${u.picture ? `<img class="user-avatar" src="${u.picture}" alt="${primeiro}">` : ""}
     <span class="user-nome">${primeiro}</span>
     <button class="logout-btn" onclick="logout()" title="Sair">↩</button>
   `;
-}
-
-function logout() {
-  limparUsuarioLocal();
-  usuarioLogado = null;
-  document.getElementById("app").style.display = "none";
-  mostrarTelaLogin();
-}
-
-// Verifica login salvo ao carregar
-window.addEventListener("load", () => {
-  const saved = carregarUsuarioLocal();
-  if (saved) {
-    usuarioLogado = saved;
-    entrarNoApp();
-  } else {
-    setTimeout(mostrarBotoesInstalacao, 400);
-  }
-});
-
-// ════════════════════════════════════════
-// ESTADO DA AGENDA
-// ════════════════════════════════════════
-let dadosGlobais = [];
-let modalDiaColuna = null;
-let horariosSelecionados = [];
-let equipState = resetEquip();
-
-// Estado do modal de edição
-let editarColuna = null;
-let editarLinha  = null;
-let editarEquipState = resetEquip();
-let editarMaxDisp = estoqueZerado(); // máximo fixo calculado ao abrir
-
-function resetEquip() {
-  return Object.fromEntries(
-    Object.keys(ESTOQUE).map(k => [k, { ativo: false, qtd: 1 }])
-  );
-}
-
-// ════════════════════════════════════════
-// TEMPO
-// ════════════════════════════════════════
-function agora()  { const d=new Date(); return d.getHours()*60+d.getMinutes(); }
-function toMin(s) {
-  const parts = (s||"").split(":");
-  return parseInt(parts[0]||0)*60 + parseInt(parts[1]||0);
-}
-function diaSem() { return new Date().getDay(); }
-
-function semanaExibidaEhFutura() {
-  const agr = new Date();
-  const ds = agr.getDay(); // 0=dom … 5=sex, 6=sab
-  return (ds === 5 && agr.getHours() >= 18) || ds === 6 || ds === 0;
-}
-
-function ePassadoHoje(coluna, ln) {
-  const ds = new Date().getDay();
-  if (semanaExibidaEhFutura()) return false;
-  // col 2=seg(ds=1), col 3=ter(ds=2)... col 6=sex(ds=5)
-  // diaDaColuna: col 2→1, col 3→2, col 4→3, col 5→4, col 6→5
-  const diaDaColuna = coluna - 1;
-  // Dias anteriores ao de hoje são sempre passados
-  if (diaDaColuna < ds) return true;
-  // Hoje: verifica se o horário específico já passou
-  if (diaDaColuna === ds) {
-    const h = HORARIOS[ln];
-    if (!h) return false;
-    const agoraMins = new Date().getHours()*60 + new Date().getMinutes();
-    return agoraMins >= parseInt(h[1].split(':')[0])*60 + parseInt(h[1].split(':')[1]);
-  }
-  // Dias futuros: nunca passado
-  return false;
-}
-
-function getSegundaDaSemana() {
-  // Usa horário local explícito para evitar bug de timezone em mobile
-  const agr = new Date();
-  const ds  = agr.getDay(); // 0=dom, 1=seg ... 6=sab
-  const seg = new Date(agr);
-  seg.setHours(0, 0, 0, 0);
-
-  if (ds === 0) {
-    // Domingo → próxima segunda (+1)
-    seg.setDate(agr.getDate() + 1);
-  } else if (ds === 6) {
-    // Sábado → próxima segunda (+2)
-    seg.setDate(agr.getDate() + 2);
-  } else if (ds === 5 && agr.getHours() >= 18) {
-    // Sexta após 18h → próxima segunda (+3)
-    seg.setDate(agr.getDate() + 3);
-  } else {
-    // Segunda a sexta (dentro do horário) → segunda desta semana
-    seg.setDate(agr.getDate() - (ds - 1));
-  }
-  return seg;
-}
-
-// ════════════════════════════════════════
-// CALENDÁRIO MINI
-// ════════════════════════════════════════
-function renderCalendario() {
-  const cal = document.getElementById("mini-cal");
-  if (!cal) return;
-  const hoje = new Date();
-  const seg  = getSegundaDaSemana();
-  const abrev = DIAS_ABREV.slice(1);
-  cal.innerHTML = "";
-  for (let d=0; d<6; d++) {
-    const dt = new Date(seg);
-    dt.setDate(seg.getDate()+d);
-    const div = document.createElement("div");
-    div.className = "cal-day";
-    div.dataset.d = d+1;
-    const isHoje = dt.toDateString()===hoje.toDateString();
-    if (isHoje) div.classList.add("hoje");
-    const col = d+2;
-    const temRes = dadosGlobais.some((row,ri) => ri>0 && (row[col-1]||"").includes("|"));
-    div.innerHTML=`<span class="cal-day-name">${abrev[d]}</span><span class="cal-day-num">${dt.getDate()}</span>${temRes?'<span class="cal-dot"></span>':""}`;
-    div.onclick = () => { if(!dadosGlobais.length) return; abrirModalDia(col, dadosGlobais[0]?.[col-1]||abrev[d], dadosGlobais); };
-    cal.appendChild(div);
-  }
-}
-
-// ════════════════════════════════════════
-// RESET / LIMPEZA
-// ════════════════════════════════════════
-async function resetarPassadosHoje(dados) {
-  // Sexta 18h+ / fim de semana: UI já mostra a PRÓXIMA semana — não apagar nada
-  if (semanaExibidaEhFutura()) return;
-  const hoje = diaSem();
-  const col  = hoje+1;
-  if (col<COL_DIA_MIN||col>COL_DIA_MAX) return;
-  for (const [ls,[,fim]] of Object.entries(HORARIOS)) {
-    const ln = parseInt(ls);
-    if (agora()<toMin(fim)) continue;
-    const ld = dados[ln-1]; if(!ld) continue;
-    const v = (ld[col-1]||"").trim().toUpperCase();
-    if (v && v!=="LIVRE" && v!=="BLOQUEADO") {
-      try {
-        await fetchComTimeout(`${API}/editar`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({linha:ln,coluna:col,valor:""})});
-      } catch(e){}
     }
-  }
-}
 
-function fetchComTimeout(url,opcoes,timeoutMs=10000) {
-  const controller=new AbortController();
-  const timer=setTimeout(()=>controller.abort(),timeoutMs);
-  return fetch(url,{...opcoes,signal:controller.signal})
-    .then(res=>{clearTimeout(timer);return res;})
-    .catch(err=>{clearTimeout(timer);throw err;});
-}
+    function logout() {
+      limparUsuarioLocal();
+      usuarioLogado = null;
+      document.getElementById("app").style.display = "none";
+      mostrarTelaLogin();
+    }
 
-function celulaComoTexto(valor) {
-  if (typeof valor === "string") return valor;
-  if (valor === null || valor === undefined) return "";
-  return String(valor);
-}
-
-// ════════════════════════════════════════
-// ESTOQUE
-// ════════════════════════════════════════
-function extrairReserva(valor) {
-  valor = celulaComoTexto(valor);
-  if (!valor) return null;
-  const v=valor.trim().toUpperCase();
-  if (!v||v==="BLOQUEADO") return null;
-  if (!valor.includes("|")) return null;
-  const res=estoqueZerado();
-  valor.split("§").forEach(bloco => {
-    const partes=bloco.split("|");
-    if (partes.length<2) return;
-    partes[1].split("+").forEach(seg => {
-      RE_EQUIP.lastIndex = 0;
-      let m;
-      while ((m = RE_EQUIP.exec(seg.trim())) !== null) {
-        const n=m[2].toLowerCase();
-        if      (n==="tablet")         res.tablet+=parseInt(m[1],10);
-        else if (n==="notebook prata") res.prata +=parseInt(m[1],10);
-        else if (n==="notebook preto") res.preto +=parseInt(m[1],10);
-        else if (n==="tv remota")      res.tvremota+=parseInt(m[1],10);
+    // Verifica login salvo ao carregar
+    window.addEventListener("load", () => {
+      const saved = carregarUsuarioLocal();
+      if (saved) {
+        usuarioLogado = saved;
+        entrarNoApp();
+      } else {
+        setTimeout(mostrarBotoesInstalacao, 400);
       }
     });
-  });
-  return res;
-}
 
-function listarReservas(valor) {
-  valor = celulaComoTexto(valor);
-  if (!valor||!valor.includes("|")) return [];
-  return valor.split("§").map(bloco=>{
-    const p=bloco.split("|");
-    const rawNome = p[0].trim();
-    // Extrai email se gravado como "Nome [email@x.com]"
-    const emailMatch = rawNome.match(/\[([^\]]+)\]$/);
-    const email = emailMatch ? emailMatch[1] : null;
-    const nome  = emailMatch ? rawNome.replace(/\s*\[[^\]]+\]$/, "").trim() : rawNome;
-    return {nome, email, equip:(p[1]||"").trim()};
-  }).filter(r=>r.nome);
-}
+    // ════════════════════════════════════════
+    // ESTADO DA AGENDA
+    // ════════════════════════════════════════
+    let dadosGlobais = [];
+    let modalDiaColuna = null;
+    let horariosSelecionados = [];
+    let equipState = resetEquip();
 
-function getEmailUsuarioLogado() {
-  return (usuarioLogado && typeof usuarioLogado.email === "string")
-    ? usuarioLogado.email.toLowerCase()
-    : "";
-}
+    // Estado do modal de edição
+    let editarColuna = null;
+    let editarLinha = null;
+    let editarEquipState = resetEquip();
+    let editarMaxDisp = estoqueZerado(); // máximo fixo calculado ao abrir
 
-// Retorna reserva do usuário logado numa célula (null se não tiver)
-function minhaReservaNaCell(valor) {
-  valor = celulaComoTexto(valor);
-  if (!usuarioLogado||!valor) return null;
-  const reservas = listarReservas(valor);
-  const meuEmail = getEmailUsuarioLogado();
-  if (!meuEmail) return null;
-  // Prioriza comparação por email (precisa, independente do nome digitado)
-  return reservas.find(r => r.email && r.email.toLowerCase() === meuEmail) || null;
-}
-
-function dispSlot(coluna,ln,dados) {
-  const ld=dados[ln-1];
-  const base=Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,ESTOQUE[k].total]));
-  if (!ld) return base;
-  const r=extrairReserva(ld[coluna-1]);
-  if (!r) return base;
-  return Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,base[k]-(r[k]||0)]));
-}
-
-function dispSelecao(coluna,linhas,dados) {
-  const total=Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,ESTOQUE[k].total]));
-  if (!linhas||!linhas.length) return total;
-  return linhas.reduce((min,ln)=>{
-    const s=dispSlot(coluna,ln,dados);
-    return Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,Math.min(min[k],s[k])]));
-  },total);
-}
-
-/** Disponibilidade de um equipamento varia entre os horários marcados? */
-function equipDispDiverge(coluna, linhas, dados, tipo) {
-  if (!linhas || linhas.length < 2) return false;
-  const vals = linhas.map(ln => dispSlot(coluna, ln, dados)[tipo] ?? 0);
-  return Math.min(...vals) !== Math.max(...vals);
-}
-
-function labelHorario(ln) {
-  const h = HORARIOS[ln];
-  return h ? `${h[0]}–${h[1]}` : `linha ${ln}`;
-}
-
-/** Ajusta quantidades ao menor horário; desliga equipamento esgotado em algum slot */
-function sincronizarEquipComHorarios(coluna, dados) {
-  if (!horariosSelecionados.length) return;
-  const disp = dispSelecao(coluna, horariosSelecionados, dados);
-  Object.keys(ESTOQUE).forEach(tipo => {
-    if (disp[tipo] <= 0) {
-      equipState[tipo].ativo = false;
-      equipState[tipo].qtd = 1;
-    } else if (equipState[tipo].ativo && equipState[tipo].qtd > disp[tipo]) {
-      equipState[tipo].qtd = disp[tipo];
+    function resetEquip() {
+      return Object.fromEntries(
+        Object.keys(ESTOQUE).map(k => [k, { ativo: false, qtd: 1 }])
+      );
     }
-  });
-}
 
-function dispDia(coluna,dados) {
-  const uso=estoqueZerado();
-  let algumFuturo=false;
-  for (let ln=2;ln<=15;ln++) {
-    const ld=dados[ln-1]; if(!ld) continue;
-    if (LINHAS_INTERVALO.has(ln)) continue;
-    if (ePassadoHoje(coluna,ln)) continue;
-    algumFuturo=true;
-    const r=extrairReserva(ld[coluna-1]);
-    if (r) Object.keys(uso).forEach(k => { uso[k] += r[k] || 0; });
-  }
-  const total=Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,ESTOQUE[k].total]));
-  if (!algumFuturo) return total;
-  return Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,total[k]-uso[k]]));
-}
+    // ════════════════════════════════════════
+    // TEMPO
+    // ════════════════════════════════════════
+    function agora() { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
+    function toMin(s) {
+      const parts = (s || "").split(":");
+      return parseInt(parts[0] || 0) * 60 + parseInt(parts[1] || 0);
+    }
+    function diaSem() { return new Date().getDay(); }
 
-function htmlLabelHorario(linhaNum) {
-  const h = HORARIOS[linhaNum];
-  if (!h) return null;
-  const intervalo = LINHAS_INTERVALO.has(linhaNum);
-  const tarde = linhaNum >= 9;
-  return `
-    <div class="hora-label${intervalo?" hora-intervalo":""}${tarde?" hora-tarde":""}">
+    function semanaExibidaEhFutura() {
+      const agr = new Date();
+      const ds = agr.getDay(); // 0=dom … 5=sex, 6=sab
+      return (ds === 5 && agr.getHours() >= 18) || ds === 6 || ds === 0;
+    }
+
+    function ePassadoHoje(coluna, ln) {
+      const ds = new Date().getDay();
+      if (semanaExibidaEhFutura()) return false;
+      // col 2=seg(ds=1), col 3=ter(ds=2)... col 6=sex(ds=5)
+      // diaDaColuna: col 2→1, col 3→2, col 4→3, col 5→4, col 6→5
+      const diaDaColuna = coluna - 1;
+      // Dias anteriores ao de hoje são sempre passados
+      if (diaDaColuna < ds) return true;
+      // Hoje: verifica se o horário específico já passou
+      if (diaDaColuna === ds) {
+        const h = HORARIOS[ln];
+        if (!h) return false;
+        const agoraMins = new Date().getHours() * 60 + new Date().getMinutes();
+        return agoraMins >= parseInt(h[1].split(':')[0]) * 60 + parseInt(h[1].split(':')[1]);
+      }
+      // Dias futuros: nunca passado
+      return false;
+    }
+
+    function getSegundaDaSemana() {
+      // Usa horário local explícito para evitar bug de timezone em mobile
+      const agr = new Date();
+      const ds = agr.getDay(); // 0=dom, 1=seg ... 6=sab
+      const seg = new Date(agr);
+      seg.setHours(0, 0, 0, 0);
+
+      if (ds === 0) {
+        // Domingo → próxima segunda (+1)
+        seg.setDate(agr.getDate() + 1);
+      } else if (ds === 6) {
+        // Sábado → próxima segunda (+2)
+        seg.setDate(agr.getDate() + 2);
+      } else if (ds === 5 && agr.getHours() >= 18) {
+        // Sexta após 18h → próxima segunda (+3)
+        seg.setDate(agr.getDate() + 3);
+      } else {
+        // Segunda a sexta (dentro do horário) → segunda desta semana
+        seg.setDate(agr.getDate() - (ds - 1));
+      }
+      return seg;
+    }
+
+    // ════════════════════════════════════════
+    // CALENDÁRIO MINI
+    // ════════════════════════════════════════
+    function renderCalendario() {
+      const cal = document.getElementById("mini-cal");
+      if (!cal) return;
+      const hoje = new Date();
+      const seg = getSegundaDaSemana();
+      const abrev = DIAS_ABREV.slice(1);
+      cal.innerHTML = "";
+      for (let d = 0; d < 6; d++) {
+        const dt = new Date(seg);
+        dt.setDate(seg.getDate() + d);
+        const div = document.createElement("div");
+        div.className = "cal-day";
+        div.dataset.d = d + 1;
+        const isHoje = dt.toDateString() === hoje.toDateString();
+        if (isHoje) div.classList.add("hoje");
+        const col = d + 2;
+        const temRes = dadosGlobais.some((row, ri) => ri > 0 && (row[col - 1] || "").includes("|"));
+        div.innerHTML = `<span class="cal-day-name">${abrev[d]}</span><span class="cal-day-num">${dt.getDate()}</span>${temRes ? '<span class="cal-dot"></span>' : ""}`;
+        div.onclick = () => { if (!dadosGlobais.length) return; abrirModalDia(col, dadosGlobais[0]?.[col - 1] || abrev[d], dadosGlobais); };
+        cal.appendChild(div);
+      }
+    }
+
+    // ════════════════════════════════════════
+    // RESET / LIMPEZA
+    // ════════════════════════════════════════
+    async function resetarPassadosHoje(dados) {
+      // Sexta 18h+ / fim de semana: UI já mostra a PRÓXIMA semana — não apagar nada
+      if (semanaExibidaEhFutura()) return;
+      const hoje = diaSem();
+      const col = hoje + 1;
+      if (col < COL_DIA_MIN || col > COL_DIA_MAX) return;
+      for (const [ls, [, fim]] of Object.entries(HORARIOS)) {
+        const ln = parseInt(ls);
+        if (agora() < toMin(fim)) continue;
+        const ld = dados[ln - 1]; if (!ld) continue;
+        const v = (ld[col - 1] || "").trim().toUpperCase();
+        if (v && v !== "LIVRE" && v !== "BLOQUEADO") {
+          try {
+            await fetchComTimeout(`${API}/editar`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ linha: ln, coluna: col, valor: "" }) });
+          } catch (e) { }
+        }
+      }
+    }
+
+    function fetchComTimeout(url, opcoes, timeoutMs = 10000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      return fetch(url, { ...opcoes, signal: controller.signal })
+        .then(res => { clearTimeout(timer); return res; })
+        .catch(err => { clearTimeout(timer); throw err; });
+    }
+
+    function celulaComoTexto(valor) {
+      if (typeof valor === "string") return valor;
+      if (valor === null || valor === undefined) return "";
+      return String(valor);
+    }
+
+    // ════════════════════════════════════════
+    // ESTOQUE
+    // ════════════════════════════════════════
+    function extrairReserva(valor) {
+      valor = celulaComoTexto(valor);
+      if (!valor) return null;
+      const v = valor.trim().toUpperCase();
+      if (!v || v === "BLOQUEADO") return null;
+      if (!valor.includes("|")) return null;
+      const res = estoqueZerado();
+      valor.split("§").forEach(bloco => {
+        const partes = bloco.split("|");
+        if (partes.length < 2) return;
+        partes[1].split("+").forEach(seg => {
+          RE_EQUIP.lastIndex = 0;
+          let m;
+          while ((m = RE_EQUIP.exec(seg.trim())) !== null) {
+            const n = m[2].toLowerCase();
+            if (n === "tablet") res.tablet += parseInt(m[1], 10);
+            else if (n === "notebook prata") res.prata += parseInt(m[1], 10);
+            else if (n === "notebook preto") res.preto += parseInt(m[1], 10);
+            else if (n === "tv remota") res.tvremota += parseInt(m[1], 10);
+          }
+        });
+      });
+      return res;
+    }
+
+    function listarReservas(valor) {
+      valor = celulaComoTexto(valor);
+      if (!valor || !valor.includes("|")) return [];
+      return valor.split("§").map(bloco => {
+        const p = bloco.split("|");
+        const rawNome = p[0].trim();
+        // Extrai email se gravado como "Nome [email@x.com]"
+        const emailMatch = rawNome.match(/\[([^\]]+)\]$/);
+        const email = emailMatch ? emailMatch[1] : null;
+        const nome = emailMatch ? rawNome.replace(/\s*\[[^\]]+\]$/, "").trim() : rawNome;
+        return { nome, email, equip: (p[1] || "").trim() };
+      }).filter(r => r.nome);
+    }
+
+    function getEmailUsuarioLogado() {
+      return (usuarioLogado && typeof usuarioLogado.email === "string")
+        ? usuarioLogado.email.toLowerCase()
+        : "";
+    }
+
+    // Retorna reserva do usuário logado numa célula (null se não tiver)
+    function minhaReservaNaCell(valor) {
+      valor = celulaComoTexto(valor);
+      if (!usuarioLogado || !valor) return null;
+      const reservas = listarReservas(valor);
+      const meuEmail = getEmailUsuarioLogado();
+      if (!meuEmail) return null;
+      // Prioriza comparação por email (precisa, independente do nome digitado)
+      return reservas.find(r => r.email && r.email.toLowerCase() === meuEmail) || null;
+    }
+
+    function dispSlot(coluna, ln, dados) {
+      const ld = dados[ln - 1];
+      const base = Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, ESTOQUE[k].total]));
+      if (!ld) return base;
+      const r = extrairReserva(ld[coluna - 1]);
+      if (!r) return base;
+      return Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, base[k] - (r[k] || 0)]));
+    }
+
+    function dispSelecao(coluna, linhas, dados) {
+      const total = Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, ESTOQUE[k].total]));
+      if (!linhas || !linhas.length) return total;
+      return linhas.reduce((min, ln) => {
+        const s = dispSlot(coluna, ln, dados);
+        return Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, Math.min(min[k], s[k])]));
+      }, total);
+    }
+
+    /** Disponibilidade de um equipamento varia entre os horários marcados? */
+    function equipDispDiverge(coluna, linhas, dados, tipo) {
+      if (!linhas || linhas.length < 2) return false;
+      const vals = linhas.map(ln => dispSlot(coluna, ln, dados)[tipo] ?? 0);
+      return Math.min(...vals) !== Math.max(...vals);
+    }
+
+    function labelHorario(ln) {
+      const h = HORARIOS[ln];
+      return h ? `${h[0]}–${h[1]}` : `linha ${ln}`;
+    }
+
+    /** Ajusta quantidades ao menor horário; desliga equipamento esgotado em algum slot */
+    function sincronizarEquipComHorarios(coluna, dados) {
+      if (!horariosSelecionados.length) return;
+      const disp = dispSelecao(coluna, horariosSelecionados, dados);
+      Object.keys(ESTOQUE).forEach(tipo => {
+        if (disp[tipo] <= 0) {
+          equipState[tipo].ativo = false;
+          equipState[tipo].qtd = 1;
+        } else if (equipState[tipo].ativo && equipState[tipo].qtd > disp[tipo]) {
+          equipState[tipo].qtd = disp[tipo];
+        }
+      });
+    }
+
+    function dispDia(coluna, dados) {
+      const uso = estoqueZerado();
+      let algumFuturo = false;
+      for (let ln = 2; ln <= 15; ln++) {
+        const ld = dados[ln - 1]; if (!ld) continue;
+        if (LINHAS_INTERVALO.has(ln)) continue;
+        if (ePassadoHoje(coluna, ln)) continue;
+        algumFuturo = true;
+        const r = extrairReserva(ld[coluna - 1]);
+        if (r) Object.keys(uso).forEach(k => { uso[k] += r[k] || 0; });
+      }
+      const total = Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, ESTOQUE[k].total]));
+      if (!algumFuturo) return total;
+      return Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, total[k] - uso[k]]));
+    }
+
+    function htmlLabelHorario(linhaNum) {
+      const h = HORARIOS[linhaNum];
+      if (!h) return null;
+      const intervalo = LINHAS_INTERVALO.has(linhaNum);
+      const tarde = linhaNum >= 9;
+      return `
+    <div class="hora-label${intervalo ? " hora-intervalo" : ""}${tarde ? " hora-tarde" : ""}">
       <span class="hora-range"><span class="hora-ini">${h[0]}</span><span class="hora-sep">–</span><span class="hora-fim">${h[1]}</span></span>
-      ${intervalo?'<span class="hora-badge">☕ Intervalo</span>':""}
+      ${intervalo ? '<span class="hora-badge">☕ Intervalo</span>' : ""}
     </div>`;
-}
-
-function slotDispTag(coluna,ln,dados) {
-  const s=dispSlot(coluna,ln,dados);
-  const p=[];
-  Object.keys(ESTOQUE).forEach(tipo=>{
-    if ((s[tipo]||0)>0) p.push(`${ESTOQUE[tipo].emoji}${s[tipo]}`);
-  });
-  return p.join(" · ")||"—";
-}
-
-function slotDispTagHtml(coluna,ln,dados) {
-  const s=dispSlot(coluna,ln,dados);
-  const chips=Object.keys(ESTOQUE)
-    .filter(tipo=>(s[tipo]||0)>0)
-    .map(tipo=>`<span class="disp-chip ${tipo}">${ESTOQUE[tipo].emoji}${s[tipo]}</span>`);
-  return chips.length?`<span class="slot-disp-chips">${chips.join("")}</span>`:"—";
-}
-
-// ════════════════════════════════════════
-// CARREGAR
-// ════════════════════════════════════════
-async function carregarAgenda() {
-  const loadingEl = document.getElementById("loading");
-  loadingEl.style.display="flex";
-  if (primeiraCargaAgenda) {
-    loadingEl.querySelector(".loading-text").textContent =
-      "Carregando agenda… (na 1ª vez do dia o servidor pode levar até 1 min)";
-  }
-  document.getElementById("table-container").style.display="none";
-  document.getElementById("cards-view").innerHTML="";
-  const timeoutMs = primeiraCargaAgenda ? 45000 : 12000;
-  try {
-    const r1 = await fetchComTimeout(`${API}/agenda`, {}, timeoutMs);
-    if (!r1.ok) throw new Error("Falha ao carregar agenda");
-    const d1 = await r1.json();
-    await resetarPassadosHoje(d1);
-    await verificarPromocoes();
-    const r2 = await fetchComTimeout(`${API}/agenda`, {}, timeoutMs);
-    if (!r2.ok) throw new Error("Falha ao atualizar agenda");
-    const dadosFinal = await r2.json();
-    dadosGlobais = dadosFinal;
-    primeiraCargaAgenda = false;
-    loadingEl.querySelector(".loading-text").textContent = "Carregando agenda...";
-    renderCalendario();
-    renderTabela(dadosFinal);
-    renderCards(dadosFinal);
-    atualizarStockHeader(dadosFinal);
-  } catch(e) {
-    document.getElementById("loading").innerHTML=`<p style="color:var(--red);font-family:'Architects Daughter',cursive;font-size:15px;text-align:center;padding:12px">⚠️ Erro ao conectar com o servidor.<br><span style="font-size:13px">Aguarde 1 min e toque ↺ para tentar de novo.</span></p>`;
-  }
-}
-
-function atualizarStockHeader(_dados) {
-  Object.keys(ESTOQUE).forEach(tipo=>{
-    const badge=document.getElementById(`stock-${tipo}`);
-    if(!badge) return;
-    const {emoji,total}=ESTOQUE[tipo];
-    const pl=tipo==="tablet"?"tablets":tipo==="tvremota"?"tv remota":ESTOQUE[tipo].label+"s";
-    badge.classList.remove("esgotado");
-    badge.innerHTML=`${emoji} ${total} ${pl}`;
-  });
-}
-
-// ════════════════════════════════════════
-// RENDER TABELA DESKTOP
-// ════════════════════════════════════════
-function parseEquipList(equip) {
-  const items = [];
-  if (!equip) return items;
-  const re = /(\d+)\s*(tv remota|notebook prata|notebook preto|tablet)/gi;
-  let m;
-  while ((m = re.exec(equip)) !== null) {
-    const n = m[2].toLowerCase();
-    let key = null;
-    if (n === "tablet") key = "tablet";
-    else if (n === "notebook prata") key = "prata";
-    else if (n === "notebook preto") key = "preto";
-    else if (n === "tv remota") key = "tvremota";
-    if (key && ESTOQUE[key]) {
-      items.push({ key, qtd: parseInt(m[1], 10), ...ESTOQUE[key] });
     }
-  }
-  return items;
-}
 
-function fmtEquipBadges(equip) {
-  if (!equip) return "";
-  const items = parseEquipList(equip);
-  if (!items.length) return `<span class="cell-equip">${equip}</span>`;
-  const badges = items.map(it =>
-    `<span class="eq-badge ${it.key}">${it.emoji}${it.qtd}</span>`
-  );
-  return `<span class="eq-badges">${badges.join("")}</span>`;
-}
+    function slotDispTag(coluna, ln, dados) {
+      const s = dispSlot(coluna, ln, dados);
+      const p = [];
+      Object.keys(ESTOQUE).forEach(tipo => {
+        if ((s[tipo] || 0) > 0) p.push(`${ESTOQUE[tipo].emoji}${s[tipo]}`);
+      });
+      return p.join(" · ") || "—";
+    }
 
-function fmtMobEquipChips(equip) {
-  const items = parseEquipList(equip);
-  if (!items.length) {
-    return equip ? `<span class="mob-eq-raw">${equip}</span>` : "";
-  }
-  return `<div class="mob-eq-chips">${items.map(it => `
+    function slotDispTagHtml(coluna, ln, dados) {
+      const s = dispSlot(coluna, ln, dados);
+      const chips = Object.keys(ESTOQUE)
+        .filter(tipo => (s[tipo] || 0) > 0)
+        .map(tipo => `<span class="disp-chip ${tipo}">${ESTOQUE[tipo].emoji}${s[tipo]}</span>`);
+      return chips.length ? `<span class="slot-disp-chips">${chips.join("")}</span>` : "—";
+    }
+
+    // ════════════════════════════════════════
+    // CARREGAR
+    // ════════════════════════════════════════
+    async function carregarAgenda() {
+      const loadingEl = document.getElementById("loading");
+      loadingEl.style.display = "flex";
+      if (primeiraCargaAgenda) {
+        loadingEl.querySelector(".loading-text").textContent =
+          "Carregando agenda… (na 1ª vez do dia o servidor pode levar até 1 min)";
+      }
+      document.getElementById("table-container").style.display = "none";
+      document.getElementById("cards-view").innerHTML = "";
+      const timeoutMs = primeiraCargaAgenda ? 45000 : 12000;
+      try {
+        const r1 = await fetchComTimeout(`${API}/agenda`, {}, timeoutMs);
+        if (!r1.ok) throw new Error("Falha ao carregar agenda");
+        const d1 = await r1.json();
+        await resetarPassadosHoje(d1);
+        await verificarPromocoes();
+        const r2 = await fetchComTimeout(`${API}/agenda`, {}, timeoutMs);
+        if (!r2.ok) throw new Error("Falha ao atualizar agenda");
+        const dadosFinal = await r2.json();
+        dadosGlobais = dadosFinal;
+        primeiraCargaAgenda = false;
+        loadingEl.querySelector(".loading-text").textContent = "Carregando agenda...";
+        renderCalendario();
+        renderTabela(dadosFinal);
+        renderCards(dadosFinal);
+        atualizarStockHeader(dadosFinal);
+      } catch (e) {
+        document.getElementById("loading").innerHTML = `<p style="color:var(--red);font-family:'Space Grotesk',sans-serif;font-size:15px;text-align:center;padding:12px;font-weight:700">⚠️ Erro ao conectar com o servidor.<br><span style="font-size:13px;font-weight:500">Aguarde 1 min e toque ↺ para tentar de novo.</span></p>`;
+      }
+    }
+
+    function atualizarStockHeader(_dados) {
+      Object.keys(ESTOQUE).forEach(tipo => {
+        const badge = document.getElementById(`stock-${tipo}`);
+        if (!badge) return;
+        const { emoji, total } = ESTOQUE[tipo];
+        const pl = tipo === "tablet" ? "tablets" : tipo === "tvremota" ? "tv remota" : ESTOQUE[tipo].label + "s";
+        badge.classList.remove("esgotado");
+        badge.innerHTML = `${emoji} ${total} ${pl}`;
+      });
+    }
+
+    // ════════════════════════════════════════
+    // RENDER TABELA DESKTOP
+    // ════════════════════════════════════════
+    function parseEquipList(equip) {
+      const items = [];
+      if (!equip) return items;
+      const re = /(\d+)\s*(tv remota|notebook prata|notebook preto|tablet)/gi;
+      let m;
+      while ((m = re.exec(equip)) !== null) {
+        const n = m[2].toLowerCase();
+        let key = null;
+        if (n === "tablet") key = "tablet";
+        else if (n === "notebook prata") key = "prata";
+        else if (n === "notebook preto") key = "preto";
+        else if (n === "tv remota") key = "tvremota";
+        if (key && ESTOQUE[key]) {
+          items.push({ key, qtd: parseInt(m[1], 10), ...ESTOQUE[key] });
+        }
+      }
+      return items;
+    }
+
+    function fmtEquipBadges(equip) {
+      if (!equip) return "";
+      const items = parseEquipList(equip);
+      if (!items.length) return `<span class="cell-equip">${equip}</span>`;
+      const badges = items.map(it =>
+        `<span class="eq-badge ${it.key}">${it.emoji}${it.qtd}</span>`
+      );
+      return `<span class="eq-badges">${badges.join("")}</span>`;
+    }
+
+    function fmtMobEquipChips(equip) {
+      const items = parseEquipList(equip);
+      if (!items.length) {
+        return equip ? `<span class="mob-eq-raw">${equip}</span>` : "";
+      }
+      return `<div class="mob-eq-chips">${items.map(it => `
     <span class="mob-eq ${it.key}">
       <span class="mob-eq-ico">${it.emoji}</span>
       <span class="mob-eq-qty">${it.qtd}</span>
       <span class="mob-eq-lbl">${it.nome}</span>
     </span>`).join("")}</div>`;
-}
+    }
 
-function fmtMobDispChips(col, ln, dados) {
-  const d = dispSlot(col, ln, dados);
-  const chips = Object.keys(ESTOQUE)
-    .filter(k => d[k] > 0)
-    .map(k => {
-      const { emoji, nome } = ESTOQUE[k];
-      return `<span class="mob-eq disp ${k}">
+    function fmtMobDispChips(col, ln, dados) {
+      const d = dispSlot(col, ln, dados);
+      const chips = Object.keys(ESTOQUE)
+        .filter(k => d[k] > 0)
+        .map(k => {
+          const { emoji, nome } = ESTOQUE[k];
+          return `<span class="mob-eq disp ${k}">
         <span class="mob-eq-ico">${emoji}</span>
         <span class="mob-eq-qty">${d[k]}</span>
         <span class="mob-eq-lbl">${nome}</span>
       </span>`;
-    });
-  return chips.length ? `<div class="mob-eq-chips mob-disp">${chips.join("")}</div>` : "";
-}
+        });
+      return chips.length ? `<div class="mob-eq-chips mob-disp">${chips.join("")}</div>` : "";
+    }
 
-function fmtMobReservasBlock(reservas, col, ln) {
-  const meuEmail = getEmailUsuarioLogado();
-  return `<div class="mob-reservas">${reservas.map(r => {
-    const ehMeu = !!(meuEmail && r.email && r.email.toLowerCase() === meuEmail);
-    const editBtn = ehMeu
-      ? `<button type="button" class="slot-editar-btn" onclick="event.stopPropagation();abrirModalEditar(${col},${ln})">✏️ Editar</button>`
-      : "";
-    const tagMeu = ehMeu ? '<span class="mob-meu-tag">Minha reserva</span>' : "";
-    return `<div class="mob-reserva${ehMeu ? " meu" : ""}">
+    function fmtMobReservasBlock(reservas, col, ln) {
+      const meuEmail = getEmailUsuarioLogado();
+      return `<div class="mob-reservas">${reservas.map(r => {
+        const ehMeu = !!(meuEmail && r.email && r.email.toLowerCase() === meuEmail);
+        const editBtn = ehMeu
+          ? `<button type="button" class="slot-editar-btn" onclick="event.stopPropagation();abrirModalEditar(${col},${ln})">✏️ Editar</button>`
+          : "";
+        const tagMeu = ehMeu ? '<span class="mob-meu-tag">Minha reserva</span>' : "";
+        return `<div class="mob-reserva${ehMeu ? " meu" : ""}">
       <div class="mob-reserva-head">
         <span class="mob-reserva-nome" title="${r.nome}">${r.nome}</span>
         ${tagMeu}
@@ -988,1073 +1004,1073 @@ function fmtMobReservasBlock(reservas, col, ln) {
       </div>
       ${fmtMobEquipChips(r.equip)}
     </div>`;
-  }).join("")}</div>`;
-}
+      }).join("")}</div>`;
+    }
 
-function buildMobSlotHtml(h, innerHtml, showChevron) {
-  const chevron = showChevron ? '<span class="slot-chevron">›</span>' : "";
-  return `
+    function buildMobSlotHtml(h, innerHtml, showChevron) {
+      const chevron = showChevron ? '<span class="slot-chevron">›</span>' : "";
+      return `
     <div class="slot-row-top">
       <span class="slot-horario">${h[0]}–${h[1]}</span>
       ${chevron ? `<div class="slot-row-actions">${chevron}</div>` : ""}
     </div>
     <div class="slot-row-body">${innerHtml}</div>`;
-}
+    }
 
-function fmtReservado(valor, coluna, linhaNum) {
-  valor = celulaComoTexto(valor);
-  const reservas=listarReservas(valor);
-  const meuEmail = getEmailUsuarioLogado();
-  if (!reservas.length) return `<span>${valor}</span>`;
-  return reservas.map((r,i)=>{
-    // Identifica pelo email — preciso e à prova de homônimos
-    const ehMeu = !!(meuEmail && r.email &&
-      r.email.toLowerCase() === meuEmail);
-    const editTag = ehMeu
-      ? `<span class="meu-badge" onclick="event.stopPropagation();abrirModalEditar(${coluna},${linhaNum})">✏️ editar</span>`
-      : "";
-    return `<div class="cell-reserva">${i>0?'<span class="cell-sep">+</span>':""}
-      <span class="cell-nome ${ehMeu?"meu-nome":""}">${r.nome}</span>
+    function fmtReservado(valor, coluna, linhaNum) {
+      valor = celulaComoTexto(valor);
+      const reservas = listarReservas(valor);
+      const meuEmail = getEmailUsuarioLogado();
+      if (!reservas.length) return `<span>${valor}</span>`;
+      return reservas.map((r, i) => {
+        // Identifica pelo email — preciso e à prova de homônimos
+        const ehMeu = !!(meuEmail && r.email &&
+          r.email.toLowerCase() === meuEmail);
+        const editTag = ehMeu
+          ? `<span class="meu-badge" onclick="event.stopPropagation();abrirModalEditar(${coluna},${linhaNum})">✏️ editar</span>`
+          : "";
+        return `<div class="cell-reserva">${i > 0 ? '<span class="cell-sep">+</span>' : ""}
+      <span class="cell-nome ${ehMeu ? "meu-nome" : ""}">${r.nome}</span>
       ${fmtEquipBadges(r.equip)}${editTag}</div>`;
-  }).join("");
-}
+      }).join("");
+    }
 
-function renderTabela(dados) {
-  const tabela=document.getElementById("tabela");
-  tabela.innerHTML="";
-  const colgroup=document.createElement("colgroup");
-  colgroup.innerHTML='<col class="col-hora"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia">';
-  tabela.appendChild(colgroup);
-  let livre=0,reservado=0;
-  const cab=dados[0]||[];
-  const hoje=new Date();
-  const seg=getSegundaDaSemana();
+    function renderTabela(dados) {
+      const tabela = document.getElementById("tabela");
+      tabela.innerHTML = "";
+      const colgroup = document.createElement("colgroup");
+      colgroup.innerHTML = '<col class="col-hora"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia">';
+      tabela.appendChild(colgroup);
+      let livre = 0, reservado = 0;
+      const cab = dados[0] || [];
+      const hoje = new Date();
+      const seg = getSegundaDaSemana();
 
-  dados.forEach((linha,i)=>{
-    const tr=document.createElement("tr");
-    const linhaNum=i+1;
-    linha.forEach((celula,j)=>{
-      if (j >= COL_DIA_MAX) return; /* colunas A–G — ignora marca d'água em H+ */
-      const isHdr=i===0,isLbl=j===0;
-      const coluna=j+1;
-      const td=document.createElement(isHdr?"th":"td");
-      if (isHdr) {
-        if (j===0) { td.innerText=celula; }
-        else {
-          td.className="dia-header"; td.dataset.dia=coluna;
-          const dt=new Date(seg); dt.setDate(seg.getDate()+(j-1));
-          const dStr=`${dt.getDate().toString().padStart(2,"0")}/${(dt.getMonth()+1).toString().padStart(2,"0")}`;
-          const isHoje=dt.toDateString()===hoje.toDateString();
-          if (isHoje) td.classList.add("hoje-col");
-          td.innerHTML=`<span class="th-dia-nome">${celula}</span><span class="th-dia-data">${dStr}${isHoje?" · hoje":""}</span>`;
-          td.onclick=()=>abrirModalDia(coluna,celula,dados);
-        }
-        tr.appendChild(td); return;
-      }
-      if (isLbl) {
-        td.className="label-col";
-        if (LINHAS_INTERVALO.has(linhaNum)) td.classList.add("label-intervalo");
-        else if (linhaNum >= 9) td.classList.add("label-tarde");
-        else if (linhaNum >= 2) td.classList.add("label-manha");
-        const lblHtml = htmlLabelHorario(linhaNum);
-        if (lblHtml) td.innerHTML = lblHtml;
-        else td.innerText = celula;
-        tr.appendChild(td);
-        return;
-      }
+      dados.forEach((linha, i) => {
+        const tr = document.createElement("tr");
+        const linhaNum = i + 1;
+        linha.forEach((celula, j) => {
+          if (j >= COL_DIA_MAX) return; /* colunas A–G — ignora marca d'água em H+ */
+          const isHdr = i === 0, isLbl = j === 0;
+          const coluna = j + 1;
+          const td = document.createElement(isHdr ? "th" : "td");
+          if (isHdr) {
+            if (j === 0) { td.innerText = celula; }
+            else {
+              td.className = "dia-header"; td.dataset.dia = coluna;
+              const dt = new Date(seg); dt.setDate(seg.getDate() + (j - 1));
+              const dStr = `${dt.getDate().toString().padStart(2, "0")}/${(dt.getMonth() + 1).toString().padStart(2, "0")}`;
+              const isHoje = dt.toDateString() === hoje.toDateString();
+              if (isHoje) td.classList.add("hoje-col");
+              td.innerHTML = `<span class="th-dia-nome">${celula}</span><span class="th-dia-data">${dStr}${isHoje ? " · hoje" : ""}</span>`;
+              td.onclick = () => abrirModalDia(coluna, celula, dados);
+            }
+            tr.appendChild(td); return;
+          }
+          if (isLbl) {
+            td.className = "label-col";
+            if (LINHAS_INTERVALO.has(linhaNum)) td.classList.add("label-intervalo");
+            else if (linhaNum >= 9) td.classList.add("label-tarde");
+            else if (linhaNum >= 2) td.classList.add("label-manha");
+            const lblHtml = htmlLabelHorario(linhaNum);
+            if (lblHtml) td.innerHTML = lblHtml;
+            else td.innerText = celula;
+            tr.appendChild(td);
+            return;
+          }
 
-      const passado=ePassadoHoje(coluna,linhaNum);
-      const intervalo=LINHAS_INTERVALO.has(linhaNum);
-      const val=(celula||"").trim().toUpperCase().replace(/\s+/g," ");
+          const passado = ePassadoHoje(coluna, linhaNum);
+          const intervalo = LINHAS_INTERVALO.has(linhaNum);
+          const val = (celula || "").trim().toUpperCase().replace(/\s+/g, " ");
 
-      if (passado) {
-        td.className="expirado"; td.innerHTML="🕐 Passado";
-      } else if (intervalo) {
-        td.className="intervalo-cell"; td.innerText="☕ Intervalo";
-      } else if (val==="BLOQUEADO") {
-        td.className="bloqueado"; td.innerText="Bloqueado";
-      } else if (val===""||val==="LIVRE") {
-        td.className="livre";
-        const tag=slotDispTagHtml(coluna,linhaNum,dados);
-        td.innerHTML=`<span class="livre-label">Livre</span><span class="slot-disp">${tag}</span>`;
-        livre++;
-        td.onclick=()=>abrirModalDia(coluna,cab[j]||"",dados,linhaNum);
-      } else if (val.includes("|")) {
-        const reservas=listarReservas(celula);
-        const temDisp=dispSlot(coluna,linhaNum,dados);
-        const algumDisp=temAlgumDisponivel(temDisp);
-        const minhaResTabela=minhaReservaNaCell(celula);
-        if (algumDisp) {
-          td.className="livre";
-          const tag=slotDispTagHtml(coluna,linhaNum,dados);
-          td.innerHTML=`<div class="cell-multi">${fmtReservado(celula,coluna,linhaNum)}</div><span class="slot-disp">${tag}<span class="slot-disp-livre">livre</span></span>`;
-          livre++;
-          td.onclick=(e)=>{ if(e.target.closest(".meu-badge")) return; abrirModalDia(coluna,cab[j]||"",dados,linhaNum); };
-        } else if (minhaResTabela) {
-          td.className="reservado";
-          td.innerHTML=`<div class="cell-multi">${fmtReservado(celula,coluna,linhaNum)}</div>`;
-          reservado++;
-          td.style.cursor="default";
-        } else {
-          td.className="reservado espera-disponivel";
-          td.innerHTML=`<div class="cell-multi">${fmtReservado(celula,coluna,linhaNum)}</div><span class="espera-tag">⏳ lista de espera</span>`;
-          reservado++;
-          td.style.cursor="pointer";
-          td.onclick=(e)=>{ if(e.target.closest(".meu-badge")) return; abrirModalEspera(coluna,linhaNum,dadosGlobais); };
-        }
-      } else {
-        td.className="livre";
-        const tag2=slotDispTagHtml(coluna,linhaNum,dados);
-        td.innerHTML=`<span class="livre-label">Livre</span><span class="slot-disp">${tag2}</span>`;
-        livre++;
-        td.onclick=()=>abrirModalDia(coluna,cab[j]||"",dados,linhaNum);
-      }
-      tr.appendChild(td);
-    });
-    tabela.appendChild(tr);
-  });
-
-  document.getElementById("count-livre").textContent=livre;
-  document.getElementById("count-reservado").textContent=reservado;
-  document.getElementById("loading").style.display="none";
-  document.getElementById("table-container").style.display="block";
-}
-
-// ════════════════════════════════════════
-// RENDER CARDS MOBILE
-// ════════════════════════════════════════
-function renderCards(dados) {
-  const view=document.getElementById("cards-view");
-  view.innerHTML="";
-  const cab=dados[0]||[];
-  const agora_d=new Date();
-  const hoje=new Date(agora_d.getFullYear(), agora_d.getMonth(), agora_d.getDate()); // meia-noite local
-  const seg=getSegundaDaSemana();
-  let livreTotal=0,reservadoTotal=0;
-
-  for (let col=COL_DIA_MIN;col<=COL_DIA_MAX;col++) {
-    try {
-      const diaNome=cab[col-1]||DIAS_NOME[col-1]||`Dia ${col-1}`;
-      const dt=new Date(seg); dt.setDate(seg.getDate()+(col-2));
-      const dStr=`${dt.getDate().toString().padStart(2,"0")}/${(dt.getMonth()+1).toString().padStart(2,"0")}`;
-      // Compara só a data (ano/mes/dia) sem depender de toDateString que varia por locale
-      const isHoje = dt.getFullYear()===hoje.getFullYear() && dt.getMonth()===hoje.getMonth() && dt.getDate()===hoje.getDate();
-
-      const card=document.createElement("div");
-      card.className="day-card"; card.dataset.dia=col;
-
-      const hdr=document.createElement("div");
-      hdr.className="day-card-header";
-      hdr.innerHTML=`<div class="day-card-headtext"><div class="day-card-nome">${diaNome}</div><div class="day-card-data">${dStr}${isHoje?" · hoje":""}</div></div><span class="day-card-arrow">▼</span>`;
-      hdr.onclick=()=>card.classList.toggle("collapsed");
-
-      const slots=document.createElement("div");
-      slots.className="day-card-slots";
-
-      // Contadores para decidir se colapsa sem depender de query DOM
-      let slotsNaoIntervalo=0, slotsPassados=0;
-
-      for (let ln=2;ln<=15;ln++) {
-        try {
-          const ld=dados[ln-1]; if(!ld) continue;
-          const h=HORARIOS[ln]; if(!h) continue;
-          const cellRaw = celulaComoTexto(ld[col-1]);
-          const val=cellRaw.trim().toUpperCase().replace(/\s+/g," ");
-          const passado=ePassadoHoje(col,ln);
-          const intervalo=LINHAS_INTERVALO.has(ln);
-          const row=document.createElement("div");
-          row.className="slot-row";
-
-          let innerHtml="", cls="", showChevron=false;
           if (passado) {
-            cls="expirado";
-            innerHtml='<div class="slot-state-pill expirado">🕐 Passado</div>';
+            td.className = "expirado"; td.innerHTML = "🕐 Passado";
           } else if (intervalo) {
-            cls="intervalo";
-            innerHtml='<div class="slot-state-pill intervalo">☕ Intervalo</div>';
-          } else if (val==="BLOQUEADO") {
-            cls="bloqueado";
-            innerHtml='<div class="slot-state-pill bloqueado">Bloqueado</div>';
-          } else if (val===""||val==="LIVRE") {
-            cls="livre"; livreTotal++;
-            innerHtml=`<div class="slot-livre-wrap">
-              <span class="slot-state-pill livre">Livre</span>
-              ${fmtMobDispChips(col,ln,dados)}
-            </div>`;
-            showChevron=true;
-            row.onclick=()=>abrirModalDia(col,diaNome,dados,ln);
+            td.className = "intervalo-cell"; td.innerText = "☕ Intervalo";
+          } else if (val === "BLOQUEADO") {
+            td.className = "bloqueado"; td.innerText = "Bloqueado";
+          } else if (val === "" || val === "LIVRE") {
+            td.className = "livre";
+            const tag = slotDispTagHtml(coluna, linhaNum, dados);
+            td.innerHTML = `<span class="livre-label">Livre</span><span class="slot-disp">${tag}</span>`;
+            livre++;
+            td.onclick = () => abrirModalDia(coluna, cab[j] || "", dados, linhaNum);
           } else if (val.includes("|")) {
-            const reservas=listarReservas(cellRaw);
-            const temDisp=dispSlot(col,ln,dados);
-            const algumDisp=temAlgumDisponivel(temDisp);
-            const resBlock=fmtMobReservasBlock(reservas,col,ln);
+            const reservas = listarReservas(celula);
+            const temDisp = dispSlot(coluna, linhaNum, dados);
+            const algumDisp = temAlgumDisponivel(temDisp);
+            const minhaResTabela = minhaReservaNaCell(celula);
             if (algumDisp) {
-              cls="livre"; livreTotal++;
-              innerHtml=`${resBlock}
-                <div class="slot-disp-footer">
-                  <span class="slot-disp-label">Ainda disponível</span>
-                  ${fmtMobDispChips(col,ln,dados)}
-                </div>`;
-              showChevron=true;
-              row.onclick=()=>abrirModalDia(col,diaNome,dados,ln);
-            } else if (minhaReservaNaCell(cellRaw)) {
-              cls="reservado"; reservadoTotal++;
-              innerHtml=resBlock;
+              td.className = "livre";
+              const tag = slotDispTagHtml(coluna, linhaNum, dados);
+              td.innerHTML = `<div class="cell-multi">${fmtReservado(celula, coluna, linhaNum)}</div><span class="slot-disp">${tag}<span class="slot-disp-livre">livre</span></span>`;
+              livre++;
+              td.onclick = (e) => { if (e.target.closest(".meu-badge")) return; abrirModalDia(coluna, cab[j] || "", dados, linhaNum); };
+            } else if (minhaResTabela) {
+              td.className = "reservado";
+              td.innerHTML = `<div class="cell-multi">${fmtReservado(celula, coluna, linhaNum)}</div>`;
+              reservado++;
+              td.style.cursor = "default";
             } else {
-              cls="reservado espera-disponivel"; reservadoTotal++;
-              innerHtml=`${resBlock}<div class="slot-state-pill espera">⏳ Entrar na lista de espera</div>`;
-              row.onclick=()=>abrirModalEspera(col,ln,dadosGlobais);
+              td.className = "reservado espera-disponivel";
+              td.innerHTML = `<div class="cell-multi">${fmtReservado(celula, coluna, linhaNum)}</div><span class="espera-tag">⏳ lista de espera</span>`;
+              reservado++;
+              td.style.cursor = "pointer";
+              td.onclick = (e) => { if (e.target.closest(".meu-badge")) return; abrirModalEspera(coluna, linhaNum, dadosGlobais); };
             }
           } else {
-            cls="livre"; livreTotal++;
-            innerHtml=`<div class="slot-livre-wrap">
+            td.className = "livre";
+            const tag2 = slotDispTagHtml(coluna, linhaNum, dados);
+            td.innerHTML = `<span class="livre-label">Livre</span><span class="slot-disp">${tag2}</span>`;
+            livre++;
+            td.onclick = () => abrirModalDia(coluna, cab[j] || "", dados, linhaNum);
+          }
+          tr.appendChild(td);
+        });
+        tabela.appendChild(tr);
+      });
+
+      document.getElementById("count-livre").textContent = livre;
+      document.getElementById("count-reservado").textContent = reservado;
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("table-container").style.display = "block";
+    }
+
+    // ════════════════════════════════════════
+    // RENDER CARDS MOBILE
+    // ════════════════════════════════════════
+    function renderCards(dados) {
+      const view = document.getElementById("cards-view");
+      view.innerHTML = "";
+      const cab = dados[0] || [];
+      const agora_d = new Date();
+      const hoje = new Date(agora_d.getFullYear(), agora_d.getMonth(), agora_d.getDate()); // meia-noite local
+      const seg = getSegundaDaSemana();
+      let livreTotal = 0, reservadoTotal = 0;
+
+      for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
+        try {
+          const diaNome = cab[col - 1] || DIAS_NOME[col - 1] || `Dia ${col - 1}`;
+          const dt = new Date(seg); dt.setDate(seg.getDate() + (col - 2));
+          const dStr = `${dt.getDate().toString().padStart(2, "0")}/${(dt.getMonth() + 1).toString().padStart(2, "0")}`;
+          // Compara só a data (ano/mes/dia) sem depender de toDateString que varia por locale
+          const isHoje = dt.getFullYear() === hoje.getFullYear() && dt.getMonth() === hoje.getMonth() && dt.getDate() === hoje.getDate();
+
+          const card = document.createElement("div");
+          card.className = "day-card"; card.dataset.dia = col;
+
+          const hdr = document.createElement("div");
+          hdr.className = "day-card-header";
+          hdr.innerHTML = `<div class="day-card-headtext"><div class="day-card-nome">${diaNome}</div><div class="day-card-data">${dStr}${isHoje ? " · hoje" : ""}</div></div><span class="day-card-arrow">▼</span>`;
+          hdr.onclick = () => card.classList.toggle("collapsed");
+
+          const slots = document.createElement("div");
+          slots.className = "day-card-slots";
+
+          // Contadores para decidir se colapsa sem depender de query DOM
+          let slotsNaoIntervalo = 0, slotsPassados = 0;
+
+          for (let ln = 2; ln <= 15; ln++) {
+            try {
+              const ld = dados[ln - 1]; if (!ld) continue;
+              const h = HORARIOS[ln]; if (!h) continue;
+              const cellRaw = celulaComoTexto(ld[col - 1]);
+              const val = cellRaw.trim().toUpperCase().replace(/\s+/g, " ");
+              const passado = ePassadoHoje(col, ln);
+              const intervalo = LINHAS_INTERVALO.has(ln);
+              const row = document.createElement("div");
+              row.className = "slot-row";
+
+              let innerHtml = "", cls = "", showChevron = false;
+              if (passado) {
+                cls = "expirado";
+                innerHtml = '<div class="slot-state-pill expirado">🕐 Passado</div>';
+              } else if (intervalo) {
+                cls = "intervalo";
+                innerHtml = '<div class="slot-state-pill intervalo">☕ Intervalo</div>';
+              } else if (val === "BLOQUEADO") {
+                cls = "bloqueado";
+                innerHtml = '<div class="slot-state-pill bloqueado">Bloqueado</div>';
+              } else if (val === "" || val === "LIVRE") {
+                cls = "livre"; livreTotal++;
+                innerHtml = `<div class="slot-livre-wrap">
               <span class="slot-state-pill livre">Livre</span>
-              ${fmtMobDispChips(col,ln,dados)}
+              ${fmtMobDispChips(col, ln, dados)}
             </div>`;
-            showChevron=true;
-            row.onclick=()=>abrirModalDia(col,diaNome,dados,ln);
+                showChevron = true;
+                row.onclick = () => abrirModalDia(col, diaNome, dados, ln);
+              } else if (val.includes("|")) {
+                const reservas = listarReservas(cellRaw);
+                const temDisp = dispSlot(col, ln, dados);
+                const algumDisp = temAlgumDisponivel(temDisp);
+                const resBlock = fmtMobReservasBlock(reservas, col, ln);
+                if (algumDisp) {
+                  cls = "livre"; livreTotal++;
+                  innerHtml = `${resBlock}
+                <div class="slot-disp-footer">
+                  <span class="slot-disp-label">Ainda disponível</span>
+                  ${fmtMobDispChips(col, ln, dados)}
+                </div>`;
+                  showChevron = true;
+                  row.onclick = () => abrirModalDia(col, diaNome, dados, ln);
+                } else if (minhaReservaNaCell(cellRaw)) {
+                  cls = "reservado"; reservadoTotal++;
+                  innerHtml = resBlock;
+                } else {
+                  cls = "reservado espera-disponivel"; reservadoTotal++;
+                  innerHtml = `${resBlock}<div class="slot-state-pill espera">⏳ Entrar na lista de espera</div>`;
+                  row.onclick = () => abrirModalEspera(col, ln, dadosGlobais);
+                }
+              } else {
+                cls = "livre"; livreTotal++;
+                innerHtml = `<div class="slot-livre-wrap">
+              <span class="slot-state-pill livre">Livre</span>
+              ${fmtMobDispChips(col, ln, dados)}
+            </div>`;
+                showChevron = true;
+                row.onclick = () => abrirModalDia(col, diaNome, dados, ln);
+              }
+
+              if (!intervalo) {
+                slotsNaoIntervalo++;
+                if (cls === "expirado") slotsPassados++;
+              }
+
+              row.classList.add(cls);
+              row.innerHTML = buildMobSlotHtml(h, innerHtml, showChevron);
+              slots.appendChild(row);
+            } catch (slotErro) {
+              console.warn("Falha ao renderizar slot mobile", { col, ln, slotErro });
+            }
+          }
+          // Colapsa se todos os slots reais (não intervalo) são passados
+          // Hoje nunca colapsa, independente do horário
+          const todosPassados = slotsNaoIntervalo > 0 && slotsPassados === slotsNaoIntervalo;
+          if (todosPassados && !isHoje) {
+            card.classList.add("collapsed");
+            const hint = document.createElement("div");
+            hint.className = "day-card-hint";
+            hint.textContent = "Dia encerrado - toque para abrir";
+            const head = hdr.querySelector(".day-card-headtext");
+            if (head) head.appendChild(hint);
           }
 
-          if (!intervalo) {
-            slotsNaoIntervalo++;
-            if (cls==="expirado") slotsPassados++;
-          }
-
-          row.classList.add(cls);
-          row.innerHTML=buildMobSlotHtml(h, innerHtml, showChevron);
-          slots.appendChild(row);
-        } catch (slotErro) {
-          console.warn("Falha ao renderizar slot mobile", { col, ln, slotErro });
+          card.appendChild(hdr);
+          card.appendChild(slots);
+          view.appendChild(card);
+        } catch (diaErro) {
+          console.warn("Falha ao renderizar dia mobile", { col, diaErro });
         }
       }
-      // Colapsa se todos os slots reais (não intervalo) são passados
-      // Hoje nunca colapsa, independente do horário
-      const todosPassados = slotsNaoIntervalo > 0 && slotsPassados === slotsNaoIntervalo;
-      if (todosPassados && !isHoje) {
-        card.classList.add("collapsed");
-        const hint = document.createElement("div");
-        hint.className = "day-card-hint";
-        hint.textContent = "Dia encerrado - toque para abrir";
-        const head = hdr.querySelector(".day-card-headtext");
-        if (head) head.appendChild(hint);
+    }
+
+    // ════════════════════════════════════════
+    // MODAL RESERVA
+    // ════════════════════════════════════════
+    function abrirModalDia(coluna, diaNome, dados, linhaPreSel = null) {
+      modalDiaColuna = coluna;
+      horariosSelecionados = linhaPreSel ? [linhaPreSel] : [];
+      equipState = resetEquip();
+
+      let subtitulo = "Selecione horários e equipamentos";
+      if (linhaPreSel) {
+        const ld = dados[linhaPreSel - 1];
+        const celVal = ld ? (ld[coluna - 1] || "") : "";
+        if (celVal.includes("|")) {
+          const reservas = listarReservas(celVal);
+          const nomes = reservas.map(r => r.nome).join(", ");
+          subtitulo = "⚠️ Já reservado por: " + nomes + " — escolha o que sobrou";
+        }
       }
 
-      card.appendChild(hdr);
-      card.appendChild(slots);
-      view.appendChild(card);
-    } catch (diaErro) {
-      console.warn("Falha ao renderizar dia mobile", { col, diaErro });
+      document.getElementById("modal-title").textContent = "📅 " + diaNome;
+      document.getElementById("modal-sub").textContent = subtitulo;
+      // Preenche nome automaticamente pelo login
+      const nomeInput = document.getElementById("nome-input");
+      nomeInput.value = usuarioLogado ? usuarioLogado.nome : "";
+      nomeInput.readOnly = true;
+      document.getElementById("error-msg").textContent = "";
+
+      renderHorariosBtns(coluna, dados, linhaPreSel);
+      renderEquipRows(coluna, dados);
+      document.getElementById("overlay").classList.add("open");
     }
-  }
-}
 
-// ════════════════════════════════════════
-// MODAL RESERVA
-// ════════════════════════════════════════
-function abrirModalDia(coluna,diaNome,dados,linhaPreSel=null) {
-  modalDiaColuna=coluna;
-  horariosSelecionados=linhaPreSel?[linhaPreSel]:[];
-  equipState=resetEquip();
-
-  let subtitulo="Selecione horários e equipamentos";
-  if (linhaPreSel) {
-    const ld=dados[linhaPreSel-1];
-    const celVal=ld?(ld[coluna-1]||""):"";
-    if (celVal.includes("|")) {
-      const reservas=listarReservas(celVal);
-      const nomes=reservas.map(r=>r.nome).join(", ");
-      subtitulo="⚠️ Já reservado por: "+nomes+" — escolha o que sobrou";
+    /** Sincroniza classe .selecionado com horariosSelecionados (evita “verde preso” no celular) */
+    function marcarBotoesHorarioSelecionados() {
+      const lista = document.getElementById("horarios-lista");
+      if (!lista) return;
+      lista.querySelectorAll(".horario-btn[data-ln]").forEach(btn => {
+        const ln = parseInt(btn.dataset.ln, 10);
+        const on = horariosSelecionados.includes(ln);
+        btn.classList.toggle("selecionado", on);
+        if (!on) btn.blur();
+      });
     }
-  }
 
-  document.getElementById("modal-title").textContent="📅 "+diaNome;
-  document.getElementById("modal-sub").textContent=subtitulo;
-  // Preenche nome automaticamente pelo login
-  const nomeInput=document.getElementById("nome-input");
-  nomeInput.value=usuarioLogado?usuarioLogado.nome:"";
-  nomeInput.readOnly=true;
-  document.getElementById("error-msg").textContent="";
+    function renderHorariosBtns(coluna, dados, linhaPreSel) {
+      const c = document.getElementById("horarios-lista");
+      c.innerHTML = "";
+      for (let ln = 2; ln <= 15; ln++) {
+        const ld = dados[ln - 1]; if (!ld) continue;
+        const h = HORARIOS[ln]; if (!h) continue;
+        const celVal = ld[coluna - 1] || "";
+        const val = celVal.trim().toUpperCase().replace(/\s+/g, " ");
+        const passado = ePassadoHoje(coluna, ln);
+        const intervalo = LINHAS_INTERVALO.has(ln);
+        const bloqueado = val === "BLOQUEADO" && !intervalo;
+        const temRes = celVal.includes("|");
+        const disp = temRes ? dispSlot(coluna, ln, dados) : null;
+        const lotado = temRes && disp && slotTotalmenteLotado(disp);
 
-  renderHorariosBtns(coluna,dados,linhaPreSel);
-  renderEquipRows(coluna,dados);
-  document.getElementById("overlay").classList.add("open");
-}
+        const btn = document.createElement("button");
+        btn.className = "horario-btn";
+        btn.type = "button";
+        btn.dataset.ln = String(ln);
 
-/** Sincroniza classe .selecionado com horariosSelecionados (evita “verde preso” no celular) */
-function marcarBotoesHorarioSelecionados() {
-  const lista = document.getElementById("horarios-lista");
-  if (!lista) return;
-  lista.querySelectorAll(".horario-btn[data-ln]").forEach(btn => {
-    const ln = parseInt(btn.dataset.ln, 10);
-    const on = horariosSelecionados.includes(ln);
-    btn.classList.toggle("selecionado", on);
-    if (!on) btn.blur();
-  });
-}
-
-function renderHorariosBtns(coluna,dados,linhaPreSel) {
-  const c=document.getElementById("horarios-lista");
-  c.innerHTML="";
-  for (let ln=2;ln<=15;ln++) {
-    const ld=dados[ln-1]; if(!ld) continue;
-    const h=HORARIOS[ln]; if(!h) continue;
-    const celVal=ld[coluna-1]||"";
-    const val=celVal.trim().toUpperCase().replace(/\s+/g," ");
-    const passado=ePassadoHoje(coluna,ln);
-    const intervalo=LINHAS_INTERVALO.has(ln);
-    const bloqueado=val==="BLOQUEADO"&&!intervalo;
-    const temRes=celVal.includes("|");
-    const disp=temRes?dispSlot(coluna,ln,dados):null;
-    const lotado=temRes&&disp&&slotTotalmenteLotado(disp);
-
-    const btn=document.createElement("button");
-    btn.className="horario-btn";
-    btn.type="button";
-    btn.dataset.ln=String(ln);
-
-    if (passado) {
-      btn.classList.add("passado"); btn.disabled=true;
-      btn.innerHTML=`<div class="h-left"><span class="h-hora">🕐 ${h[0]}–${h[1]}</span></div><span class="h-status">passado</span>`;
-    } else if (intervalo) {
-      btn.classList.add("intervalo-slot"); btn.disabled=true;
-      btn.innerHTML=`<div class="h-left"><span class="h-hora">☕ ${h[0]}–${h[1]}</span></div><span class="h-status">intervalo</span>`;
-    } else if (bloqueado) {
-      btn.classList.add("bloqueado-slot"); btn.disabled=true;
-      btn.innerHTML=`<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span></div><span class="h-status">bloqueado</span>`;
-    } else if (lotado) {
-      const reservas=listarReservas(celVal);
-      const nomes=reservas.map(r=>r.nome).join(" + ");
-      btn.classList.add("ocupado-slot");
-      btn.innerHTML=`<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span><span class="h-status">${nomes}</span></div><span style="font-size:10px;color:var(--orange);font-weight:800;white-space:nowrap">⏳ espera</span>`;
-      btn.onclick=()=>abrirModalEspera(coluna,ln,dadosGlobais);
-    } else {
-      let extra="";
-      if (temRes) {
-        const reservas=listarReservas(celVal);
-        extra=`<span class="h-status" style="color:var(--blue)">+${reservas.map(r=>r.nome).join(" + ")}</span>`;
+        if (passado) {
+          btn.classList.add("passado"); btn.disabled = true;
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">🕐 ${h[0]}–${h[1]}</span></div><span class="h-status">passado</span>`;
+        } else if (intervalo) {
+          btn.classList.add("intervalo-slot"); btn.disabled = true;
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">☕ ${h[0]}–${h[1]}</span></div><span class="h-status">intervalo</span>`;
+        } else if (bloqueado) {
+          btn.classList.add("bloqueado-slot"); btn.disabled = true;
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span></div><span class="h-status">bloqueado</span>`;
+        } else if (lotado) {
+          const reservas = listarReservas(celVal);
+          const nomes = reservas.map(r => r.nome).join(" + ");
+          btn.classList.add("ocupado-slot");
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span><span class="h-status">${nomes}</span></div><span style="font-size:10px;color:var(--orange);font-weight:800;white-space:nowrap">⏳ espera</span>`;
+          btn.onclick = () => abrirModalEspera(coluna, ln, dadosGlobais);
+        } else {
+          let extra = "";
+          if (temRes) {
+            const reservas = listarReservas(celVal);
+            extra = `<span class="h-status" style="color:var(--blue)">+${reservas.map(r => r.nome).join(" + ")}</span>`;
+          }
+          const tag = slotDispTag(coluna, ln, dados);
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span><span class="h-disp">${tag}</span>${extra}</div>`;
+          btn.onclick = () => toggleHorario(ln, btn, coluna, dados);
+        }
+        c.appendChild(btn);
       }
-      const tag=slotDispTag(coluna,ln,dados);
-      btn.innerHTML=`<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span><span class="h-disp">${tag}</span>${extra}</div>`;
-      btn.onclick=()=>toggleHorario(ln,btn,coluna,dados);
+      marcarBotoesHorarioSelecionados();
+      atualizarResumo();
     }
-    c.appendChild(btn);
-  }
-  marcarBotoesHorarioSelecionados();
-  atualizarResumo();
-}
 
-function toggleHorario(ln,btn,coluna,dados) {
-  const idx=horariosSelecionados.indexOf(ln);
-  if(idx===-1) horariosSelecionados.push(ln);
-  else horariosSelecionados.splice(idx,1);
-  if (btn) btn.blur();
-  marcarBotoesHorarioSelecionados();
-  const col = coluna || modalDiaColuna;
-  const d = dados || dadosGlobais;
-  sincronizarEquipComHorarios(col, d);
-  atualizarResumo();
-  renderEquipRows(col, d);
-}
-
-function textoAvisoDispDivergente(coluna, dados) {
-  if (horariosSelecionados.length < 2) return "";
-  const partes = [];
-  Object.keys(ESTOQUE).forEach(tipo => {
-    if (!equipDispDiverge(coluna, horariosSelecionados, dados, tipo)) return;
-    const det = horariosSelecionados
-      .map(ln => {
-        const q = dispSlot(coluna, ln, dados)[tipo];
-        return `${labelHorario(ln)}: ${q}`;
-      })
-      .join(" · ");
-    const min = dispSelecao(coluna, horariosSelecionados, dados)[tipo];
-    partes.push(
-      `<strong>${ESTOQUE[tipo].nome}</strong> (${det}). Máximo em todos os horários: <strong>${min}</strong>.`
-    );
-  });
-  if (!partes.length) return "";
-  return (
-    "⚠️ A disponibilidade muda entre os horários — " +
-    partes.join(" ") +
-    " Se precisar de quantidades diferentes, reserve manhã e tarde em duas etapas."
-  );
-}
-
-function atualizarResumo() {
-  const el = document.getElementById("resumo-selecao");
-  const n = horariosSelecionados.length;
-  if (n === 0) {
-    el.textContent = "Nenhum horário selecionado";
-    el.className = "resumo-vazio";
-    return;
-  }
-  const base = `${n} horário${n > 1 ? "s" : ""} selecionado${n > 1 ? "s" : ""}`;
-  const aviso = textoAvisoDispDivergente(modalDiaColuna, dadosGlobais);
-  if (aviso) {
-    el.innerHTML = `${base}<div class="resumo-aviso">${aviso}</div>`;
-    el.className = "com-aviso";
-  } else {
-    el.textContent = base;
-    el.className = "";
-  }
-}
-
-function renderEquipRows(coluna,dados) {
-  const c=document.getElementById("equip-rows");
-  c.innerHTML="";
-  if (horariosSelecionados.length) sincronizarEquipComHorarios(coluna, dados);
-  const disp=horariosSelecionados.length>0
-    ?dispSelecao(coluna,horariosSelecionados,dados)
-    :Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,ESTOQUE[k].total]));
-
-  Object.keys(ESTOQUE).forEach(tipo=>{
-    const {emoji,nome}=ESTOQUE[tipo];
-    const d=disp[tipo];
-    const row=document.createElement("div");
-    row.className=`equip-row ${tipo}`;
-    row.id=`equip-row-${tipo}`;
-    const n=horariosSelecionados.length;
-    let dispLabel;
-    if (d <= 0) {
-      dispLabel = n > 1 ? "esgotado em pelo menos um horário" : "esgotado neste horário";
-    } else if (n > 1 && equipDispDiverge(coluna, horariosSelecionados, dados, tipo)) {
-      const det = horariosSelecionados
-        .map(ln => `${HORARIOS[ln][0]}: ${dispSlot(coluna, ln, dados)[tipo]}`)
-        .join(" · ");
-      dispLabel = `máx. ${d} em todos (${det})`;
-    } else {
-      dispLabel = `${d} disponíve${d === 1 ? "l" : "is"}${n > 1 ? ` em cada um dos ${n} horários` : ""}`;
+    function toggleHorario(ln, btn, coluna, dados) {
+      const idx = horariosSelecionados.indexOf(ln);
+      if (idx === -1) horariosSelecionados.push(ln);
+      else horariosSelecionados.splice(idx, 1);
+      if (btn) btn.blur();
+      marcarBotoesHorarioSelecionados();
+      const col = coluna || modalDiaColuna;
+      const d = dados || dadosGlobais;
+      sincronizarEquipComHorarios(col, d);
+      atualizarResumo();
+      renderEquipRows(col, d);
     }
-    const jaAtivo=equipState[tipo].ativo&&d>0;
-    const jaQtd=Math.min(equipState[tipo].qtd,d>0?d:1);
-    const filaBtn=d<=0
-      ?`<button class="fila-equip-btn" onclick="event.stopPropagation();abrirFilaParcial('${tipo}')">⏳ fila</button>`
-      :"";
 
-    row.innerHTML=`
-      <div class="equip-row-check" id="check-${tipo}">${jaAtivo?"✔":""}</div>
+    function textoAvisoDispDivergente(coluna, dados) {
+      if (horariosSelecionados.length < 2) return "";
+      const partes = [];
+      Object.keys(ESTOQUE).forEach(tipo => {
+        if (!equipDispDiverge(coluna, horariosSelecionados, dados, tipo)) return;
+        const det = horariosSelecionados
+          .map(ln => {
+            const q = dispSlot(coluna, ln, dados)[tipo];
+            return `${labelHorario(ln)}: ${q}`;
+          })
+          .join(" · ");
+        const min = dispSelecao(coluna, horariosSelecionados, dados)[tipo];
+        partes.push(
+          `<strong>${ESTOQUE[tipo].nome}</strong> (${det}). Máximo em todos os horários: <strong>${min}</strong>.`
+        );
+      });
+      if (!partes.length) return "";
+      return (
+        "⚠️ A disponibilidade muda entre os horários — " +
+        partes.join(" ") +
+        " Se precisar de quantidades diferentes, reserve manhã e tarde em duas etapas."
+      );
+    }
+
+    function atualizarResumo() {
+      const el = document.getElementById("resumo-selecao");
+      const n = horariosSelecionados.length;
+      if (n === 0) {
+        el.textContent = "Nenhum horário selecionado";
+        el.className = "resumo-vazio";
+        return;
+      }
+      const base = `${n} horário${n > 1 ? "s" : ""} selecionado${n > 1 ? "s" : ""}`;
+      const aviso = textoAvisoDispDivergente(modalDiaColuna, dadosGlobais);
+      if (aviso) {
+        el.innerHTML = `${base}<div class="resumo-aviso">${aviso}</div>`;
+        el.className = "com-aviso";
+      } else {
+        el.textContent = base;
+        el.className = "";
+      }
+    }
+
+    function renderEquipRows(coluna, dados) {
+      const c = document.getElementById("equip-rows");
+      c.innerHTML = "";
+      if (horariosSelecionados.length) sincronizarEquipComHorarios(coluna, dados);
+      const disp = horariosSelecionados.length > 0
+        ? dispSelecao(coluna, horariosSelecionados, dados)
+        : Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, ESTOQUE[k].total]));
+
+      Object.keys(ESTOQUE).forEach(tipo => {
+        const { emoji, nome } = ESTOQUE[tipo];
+        const d = disp[tipo];
+        const row = document.createElement("div");
+        row.className = `equip-row ${tipo}`;
+        row.id = `equip-row-${tipo}`;
+        const n = horariosSelecionados.length;
+        let dispLabel;
+        if (d <= 0) {
+          dispLabel = n > 1 ? "esgotado em pelo menos um horário" : "esgotado neste horário";
+        } else if (n > 1 && equipDispDiverge(coluna, horariosSelecionados, dados, tipo)) {
+          const det = horariosSelecionados
+            .map(ln => `${HORARIOS[ln][0]}: ${dispSlot(coluna, ln, dados)[tipo]}`)
+            .join(" · ");
+          dispLabel = `máx. ${d} em todos (${det})`;
+        } else {
+          dispLabel = `${d} disponíve${d === 1 ? "l" : "is"}${n > 1 ? ` em cada um dos ${n} horários` : ""}`;
+        }
+        const jaAtivo = equipState[tipo].ativo && d > 0;
+        const jaQtd = Math.min(equipState[tipo].qtd, d > 0 ? d : 1);
+        const filaBtn = d <= 0
+          ? `<button class="fila-equip-btn" onclick="event.stopPropagation();abrirFilaParcial('${tipo}')">⏳ fila</button>`
+          : "";
+
+        row.innerHTML = `
+      <div class="equip-row-check" id="check-${tipo}">${jaAtivo ? "✔" : ""}</div>
       <span class="equip-row-emoji">${emoji}</span>
       <div class="equip-row-info">
         <div class="equip-row-name">${nome}</div>
         <div class="equip-row-disp">${dispLabel}</div>
       </div>
-      ${d<=0?filaBtn:`<div class="equip-row-qty" id="qty-wrap-${tipo}" style="display:${jaAtivo?"flex":"none"}">
+      ${d <= 0 ? filaBtn : `<div class="equip-row-qty" id="qty-wrap-${tipo}" style="display:${jaAtivo ? "flex" : "none"}">
         <button class="qty-btn" onclick="event.stopPropagation();mudaQtd('${tipo}',-1)">−</button>
         <span class="qty-num" id="qty-num-${tipo}">${jaQtd}</span>
         <button class="qty-btn" onclick="event.stopPropagation();mudaQtd('${tipo}',+1)">+</button>
       </div>`}`;
-    if(jaAtivo){row.classList.add("ativo");equipState[tipo].qtd=jaQtd;}
-    if(d>0){
-      row.onclick=()=>toggleEquip(tipo,coluna,dados);
-      row.style.opacity="1";
-    } else {
-      row.classList.add("sem-estoque");
-      row.style.opacity="0.7";
-      // Não bloqueia cursor para o botão fila funcionar
-      row.style.cursor="default";
-      row.onclick=null;
+        if (jaAtivo) { row.classList.add("ativo"); equipState[tipo].qtd = jaQtd; }
+        if (d > 0) {
+          row.onclick = () => toggleEquip(tipo, coluna, dados);
+          row.style.opacity = "1";
+        } else {
+          row.classList.add("sem-estoque");
+          row.style.opacity = "0.7";
+          // Não bloqueia cursor para o botão fila funcionar
+          row.style.cursor = "default";
+          row.onclick = null;
+        }
+        c.appendChild(row);
+      });
     }
-    c.appendChild(row);
-  });
-}
 
-function toggleEquip(tipo,col,dados) {
-  if(document.getElementById(`equip-row-${tipo}`).classList.contains("sem-estoque")) return;
-  const colUse=col||modalDiaColuna;
-  const dadosUse=dados||dadosGlobais;
-  const disp=horariosSelecionados.length>0
-    ?dispSelecao(colUse,horariosSelecionados,dadosUse)
-    :Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,ESTOQUE[k].total]));
-  equipState[tipo].ativo=!equipState[tipo].ativo;
-  const row=document.getElementById(`equip-row-${tipo}`);
-  const check=document.getElementById(`check-${tipo}`);
-  const qw=document.getElementById(`qty-wrap-${tipo}`);
-  if(equipState[tipo].ativo){
-    row.classList.add("ativo");check.textContent="✔";qw.style.display="flex";
-    if(equipState[tipo].qtd>disp[tipo]) equipState[tipo].qtd=Math.max(1,disp[tipo]);
-    document.getElementById(`qty-num-${tipo}`).textContent=equipState[tipo].qtd;
-  } else {
-    row.classList.remove("ativo");check.textContent="";qw.style.display="none";
-  }
-}
-
-function mudaQtd(tipo,delta) {
-  const disp=horariosSelecionados.length>0
-    ?dispSelecao(modalDiaColuna,horariosSelecionados,dadosGlobais)
-    :Object.fromEntries(Object.keys(ESTOQUE).map(k=>[k,ESTOQUE[k].total]));
-  // Garante que nunca ultrapassa o estoque total nem o disponível
-  const maxPermitido = Math.min(disp[tipo], ESTOQUE[tipo].total);
-  equipState[tipo].qtd = Math.max(1, Math.min(maxPermitido, equipState[tipo].qtd+delta));
-  document.getElementById(`qty-num-${tipo}`).textContent=equipState[tipo].qtd;
-  // Atualiza o botão + se chegou no limite
-  const row = document.getElementById(`equip-row-${tipo}`);
-  if (row) {
-    const btns = row.querySelectorAll('.qty-btn');
-    if (btns[1]) btns[1].disabled = equipState[tipo].qtd >= maxPermitido;
-    if (btns[0]) btns[0].disabled = equipState[tipo].qtd <= 1;
-  }
-}
-
-async function confirmarAcao() {
-  const nome=document.getElementById("nome-input").value.trim();
-  const err=document.getElementById("error-msg");
-  err.textContent="";
-  if(!nome){err.textContent="✏️ Digite o nome do professor.";return;}
-  if(horariosSelecionados.length===0){err.textContent="⏰ Selecione ao menos um horário.";return;}
-  const sel=Object.keys(equipState).filter(t=>equipState[t].ativo);
-  if(sel.length===0){err.textContent="🎒 Selecione ao menos um equipamento.";return;}
-
-  const dispMin=dispSelecao(modalDiaColuna,horariosSelecionados,dadosGlobais);
-  for(const t of sel){
-    if(equipState[t].qtd>dispMin[t]){
-      err.textContent=`⚠️ Só há ${dispMin[t]} ${ESTOQUE[t].label}(s) disponíveis em todos os horários selecionados.`;
-      return;
-    }
-  }
-  for (const ln of horariosSelecionados) {
-    const dispLn = dispSlot(modalDiaColuna, ln, dadosGlobais);
-    for (const t of sel) {
-      if (equipState[t].qtd > dispLn[t]) {
-        err.textContent =
-          `⚠️ Em ${labelHorario(ln)} só há ${dispLn[t]} ${ESTOQUE[t].label}(s), mas você pediu ${equipState[t].qtd}. ` +
-          `Reduza a quantidade ou desmarque horários com menos disponibilidade (ex.: reserve manhã e tarde separado).`;
-        return;
+    function toggleEquip(tipo, col, dados) {
+      if (document.getElementById(`equip-row-${tipo}`).classList.contains("sem-estoque")) return;
+      const colUse = col || modalDiaColuna;
+      const dadosUse = dados || dadosGlobais;
+      const disp = horariosSelecionados.length > 0
+        ? dispSelecao(colUse, horariosSelecionados, dadosUse)
+        : Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, ESTOQUE[k].total]));
+      equipState[tipo].ativo = !equipState[tipo].ativo;
+      const row = document.getElementById(`equip-row-${tipo}`);
+      const check = document.getElementById(`check-${tipo}`);
+      const qw = document.getElementById(`qty-wrap-${tipo}`);
+      if (equipState[tipo].ativo) {
+        row.classList.add("ativo"); check.textContent = "✔"; qw.style.display = "flex";
+        if (equipState[tipo].qtd > disp[tipo]) equipState[tipo].qtd = Math.max(1, disp[tipo]);
+        document.getElementById(`qty-num-${tipo}`).textContent = equipState[tipo].qtd;
+      } else {
+        row.classList.remove("ativo"); check.textContent = ""; qw.style.display = "none";
       }
     }
-  }
 
-  const equipStr=sel.map(t=>`${equipState[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
-  // Grava email entre [] para identificação segura (não aparece na exibição)
-  const tagEmail = (usuarioLogado && usuarioLogado.email) ? ` [${usuarioLogado.email}]` : "";
-  const novaReserva=`${nome}${tagEmail} | ${equipStr}`;
-  const btn=document.getElementById("confirm-btn");
-  btn.textContent="Salvando...";btn.disabled=true;
-
-  let salvos=0,erros=0;
-  const falhasHorario=[];
-  for(const ln of horariosSelecionados){
-    const dispLn = dispSlot(modalDiaColuna, ln, dadosGlobais);
-    const bloqueado = sel.some(t => equipState[t].qtd > dispLn[t]);
-    if (bloqueado) {
-      falhasHorario.push(labelHorario(ln));
-      erros++;
-      continue;
+    function mudaQtd(tipo, delta) {
+      const disp = horariosSelecionados.length > 0
+        ? dispSelecao(modalDiaColuna, horariosSelecionados, dadosGlobais)
+        : Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, ESTOQUE[k].total]));
+      // Garante que nunca ultrapassa o estoque total nem o disponível
+      const maxPermitido = Math.min(disp[tipo], ESTOQUE[tipo].total);
+      equipState[tipo].qtd = Math.max(1, Math.min(maxPermitido, equipState[tipo].qtd + delta));
+      document.getElementById(`qty-num-${tipo}`).textContent = equipState[tipo].qtd;
+      // Atualiza o botão + se chegou no limite
+      const row = document.getElementById(`equip-row-${tipo}`);
+      if (row) {
+        const btns = row.querySelectorAll('.qty-btn');
+        if (btns[1]) btns[1].disabled = equipState[tipo].qtd >= maxPermitido;
+        if (btns[0]) btns[0].disabled = equipState[tipo].qtd <= 1;
+      }
     }
-    try{
-      const ld=dadosGlobais[ln-1];
-      const valorAtual=ld?(ld[modalDiaColuna-1]||"").trim():"";
-      const vUp=valorAtual.toUpperCase();
-      const valorFinal=(!valorAtual||vUp===""||vUp==="BLOQUEADO")
-        ?novaReserva:`${valorAtual} § ${novaReserva}`;
-      const res=await fetchComTimeout(`${API}/editar`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({linha:ln,coluna:modalDiaColuna,valor:valorFinal})},12000);
-      if(!res.ok) throw new Error();
-      salvos++;
-      const ld2=dadosGlobais[ln-1];
-      if (ld2) ld2[modalDiaColuna-1]=valorFinal;
-    }catch(e){erros++;falhasHorario.push(labelHorario(ln));}
-  }
-  if (falhasHorario.length && salvos === 0) {
-    err.textContent=`✗ Não foi possível salvar (${falhasHorario.join(", ")}). Atualize a agenda e tente de novo.`;
-    btn.textContent="✔ Confirmar Reserva";btn.disabled=false;
-    return;
-  }
 
-  btn.textContent="✔ Confirmar Reserva";btn.disabled=false;
-  if(erros===0){fecharModal();showToast(`✔ ${salvos} horário${salvos>1?"s":""} reservado${salvos>1?"s":""}!`,"success");carregarAgenda();}
-  else if(salvos>0){fecharModal();showToast(`⚠️ ${salvos} salvo(s), ${erros} falhou.`,"error-toast");carregarAgenda();}
-  else showToast("✗ Erro ao salvar. Tente novamente.","error-toast");
-}
+    async function confirmarAcao() {
+      const nome = document.getElementById("nome-input").value.trim();
+      const err = document.getElementById("error-msg");
+      err.textContent = "";
+      if (!nome) { err.textContent = "✏️ Digite o nome do professor."; return; }
+      if (horariosSelecionados.length === 0) { err.textContent = "⏰ Selecione ao menos um horário."; return; }
+      const sel = Object.keys(equipState).filter(t => equipState[t].ativo);
+      if (sel.length === 0) { err.textContent = "🎒 Selecione ao menos um equipamento."; return; }
 
-function fecharModal() {
-  document.getElementById("overlay").classList.remove("open");
-  horariosSelecionados=[];equipState=resetEquip();
-}
-document.getElementById("overlay").addEventListener("click",function(e){if(e.target===this)fecharModal();});
+      const dispMin = dispSelecao(modalDiaColuna, horariosSelecionados, dadosGlobais);
+      for (const t of sel) {
+        if (equipState[t].qtd > dispMin[t]) {
+          err.textContent = `⚠️ Só há ${dispMin[t]} ${ESTOQUE[t].label}(s) disponíveis em todos os horários selecionados.`;
+          return;
+        }
+      }
+      for (const ln of horariosSelecionados) {
+        const dispLn = dispSlot(modalDiaColuna, ln, dadosGlobais);
+        for (const t of sel) {
+          if (equipState[t].qtd > dispLn[t]) {
+            err.textContent =
+              `⚠️ Em ${labelHorario(ln)} só há ${dispLn[t]} ${ESTOQUE[t].label}(s), mas você pediu ${equipState[t].qtd}. ` +
+              `Reduza a quantidade ou desmarque horários com menos disponibilidade (ex.: reserve manhã e tarde separado).`;
+            return;
+          }
+        }
+      }
 
-// ════════════════════════════════════════
-// MODAL EDITAR / CANCELAR
-// ════════════════════════════════════════
-function abrirModalEditar(coluna, ln) {
-  const ld = dadosGlobais[ln-1];
-  if (!ld) return;
-  const celVal = ld[coluna-1] || "";
-  const minhaRes = minhaReservaNaCell(celVal);
-  if (!minhaRes) return;
+      const equipStr = sel.map(t => `${equipState[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
+      // Grava email entre [] para identificação segura (não aparece na exibição)
+      const tagEmail = (usuarioLogado && usuarioLogado.email) ? ` [${usuarioLogado.email}]` : "";
+      const novaReserva = `${nome}${tagEmail} | ${equipStr}`;
+      const btn = document.getElementById("confirm-btn");
+      btn.textContent = "Salvando..."; btn.disabled = true;
 
-  editarColuna = coluna;
-  editarLinha  = ln;
-  editarEquipState = resetEquip();
+      let salvos = 0, erros = 0;
+      const falhasHorario = [];
+      for (const ln of horariosSelecionados) {
+        const dispLn = dispSlot(modalDiaColuna, ln, dadosGlobais);
+        const bloqueado = sel.some(t => equipState[t].qtd > dispLn[t]);
+        if (bloqueado) {
+          falhasHorario.push(labelHorario(ln));
+          erros++;
+          continue;
+        }
+        try {
+          const ld = dadosGlobais[ln - 1];
+          const valorAtual = ld ? (ld[modalDiaColuna - 1] || "").trim() : "";
+          const vUp = valorAtual.toUpperCase();
+          const valorFinal = (!valorAtual || vUp === "" || vUp === "BLOQUEADO")
+            ? novaReserva : `${valorAtual} § ${novaReserva}`;
+          const res = await fetchComTimeout(`${API}/editar`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ linha: ln, coluna: modalDiaColuna, valor: valorFinal }) }, 12000);
+          if (!res.ok) throw new Error();
+          salvos++;
+          const ld2 = dadosGlobais[ln - 1];
+          if (ld2) ld2[modalDiaColuna - 1] = valorFinal;
+        } catch (e) { erros++; falhasHorario.push(labelHorario(ln)); }
+      }
+      if (falhasHorario.length && salvos === 0) {
+        err.textContent = `✗ Não foi possível salvar (${falhasHorario.join(", ")}). Atualize a agenda e tente de novo.`;
+        btn.textContent = "✔ Confirmar Reserva"; btn.disabled = false;
+        return;
+      }
 
-  // Pré-preenche com equipamentos atuais
-  const m1 = minhaRes.equip.match(/(\d+)\s*tablet/i);
-  const m2 = minhaRes.equip.match(/(\d+)\s*notebook prata/i);
-  const m3 = minhaRes.equip.match(/(\d+)\s*notebook preto/i);
-  const m4 = minhaRes.equip.match(/(\d+)\s*tv remota/i);
-  if(m1){editarEquipState.tablet.ativo=true;editarEquipState.tablet.qtd=parseInt(m1[1],10);}
-  if(m2){editarEquipState.prata.ativo=true; editarEquipState.prata.qtd=parseInt(m2[1],10);}
-  if(m3){editarEquipState.preto.ativo=true; editarEquipState.preto.qtd=parseInt(m3[1],10);}
-  if(m4){editarEquipState.tvremota.ativo=true; editarEquipState.tvremota.qtd=parseInt(m4[1],10);}
+      btn.textContent = "✔ Confirmar Reserva"; btn.disabled = false;
+      if (erros === 0) { fecharModal(); showToast(`✔ ${salvos} horário${salvos > 1 ? "s" : ""} reservado${salvos > 1 ? "s" : ""}!`, "success"); carregarAgenda(); }
+      else if (salvos > 0) { fecharModal(); showToast(`⚠️ ${salvos} salvo(s), ${erros} falhou.`, "error-toast"); carregarAgenda(); }
+      else showToast("✗ Erro ao salvar. Tente novamente.", "error-toast");
+    }
 
-  // Calcula o máximo disponível UMA VEZ e guarda fixo (disponível atual + o que eu uso)
-  const _dispAtual = dispSlot(coluna, ln, dadosGlobais);
-  editarMaxDisp = Object.fromEntries(
-    Object.keys(ESTOQUE).map(k => [
-      k,
-      _dispAtual[k] + (editarEquipState[k].ativo ? editarEquipState[k].qtd : 0),
-    ])
-  );
+    function fecharModal() {
+      document.getElementById("overlay").classList.remove("open");
+      horariosSelecionados = []; equipState = resetEquip();
+    }
+    document.getElementById("overlay").addEventListener("click", function (e) { if (e.target === this) fecharModal(); });
 
-  const cab = dadosGlobais[0]||[];
-  const h   = HORARIOS[ln]||["?","?"];
-  const dia = cab[coluna-1]||"";
+    // ════════════════════════════════════════
+    // MODAL EDITAR / CANCELAR
+    // ════════════════════════════════════════
+    function abrirModalEditar(coluna, ln) {
+      const ld = dadosGlobais[ln - 1];
+      if (!ld) return;
+      const celVal = ld[coluna - 1] || "";
+      const minhaRes = minhaReservaNaCell(celVal);
+      if (!minhaRes) return;
 
-  document.getElementById("editar-title").textContent = "✏️ Minha Reserva";
-  document.getElementById("editar-sub").textContent   = `${dia} · ${h[0]}–${h[1]}`;
-  document.getElementById("editar-error").textContent = "";
+      editarColuna = coluna;
+      editarLinha = ln;
+      editarEquipState = resetEquip();
 
-  renderEditarEquipRows(coluna, ln);
-  document.getElementById("overlay-editar").classList.add("open");
-}
+      // Pré-preenche com equipamentos atuais
+      const m1 = minhaRes.equip.match(/(\d+)\s*tablet/i);
+      const m2 = minhaRes.equip.match(/(\d+)\s*notebook prata/i);
+      const m3 = minhaRes.equip.match(/(\d+)\s*notebook preto/i);
+      const m4 = minhaRes.equip.match(/(\d+)\s*tv remota/i);
+      if (m1) { editarEquipState.tablet.ativo = true; editarEquipState.tablet.qtd = parseInt(m1[1], 10); }
+      if (m2) { editarEquipState.prata.ativo = true; editarEquipState.prata.qtd = parseInt(m2[1], 10); }
+      if (m3) { editarEquipState.preto.ativo = true; editarEquipState.preto.qtd = parseInt(m3[1], 10); }
+      if (m4) { editarEquipState.tvremota.ativo = true; editarEquipState.tvremota.qtd = parseInt(m4[1], 10); }
 
-function renderEditarEquipRows(coluna, ln) {
-  const c = document.getElementById("editar-equip-rows");
-  c.innerHTML = "";
+      // Calcula o máximo disponível UMA VEZ e guarda fixo (disponível atual + o que eu uso)
+      const _dispAtual = dispSlot(coluna, ln, dadosGlobais);
+      editarMaxDisp = Object.fromEntries(
+        Object.keys(ESTOQUE).map(k => [
+          k,
+          _dispAtual[k] + (editarEquipState[k].ativo ? editarEquipState[k].qtd : 0),
+        ])
+      );
 
-  Object.keys(ESTOQUE).forEach(tipo => {
-    const {emoji, nome} = ESTOQUE[tipo];
-    const d = editarMaxDisp[tipo]; // máximo fixo — não muda conforme qtd
-    const jaAtivo = editarEquipState[tipo].ativo;
-    const jaQtd   = editarEquipState[tipo].qtd;
+      const cab = dadosGlobais[0] || [];
+      const h = HORARIOS[ln] || ["?", "?"];
+      const dia = cab[coluna - 1] || "";
 
-    const row = document.createElement("div");
-    row.className = `equip-row ${tipo}`;
-    row.id = `editar-row-${tipo}`;
-    if (jaAtivo) row.classList.add("ativo");
+      document.getElementById("editar-title").textContent = "✏️ Minha Reserva";
+      document.getElementById("editar-sub").textContent = `${dia} · ${h[0]}–${h[1]}`;
+      document.getElementById("editar-error").textContent = "";
 
-    row.innerHTML = `
-      <div class="equip-row-check" id="editar-check-${tipo}">${jaAtivo?"✔":""}</div>
+      renderEditarEquipRows(coluna, ln);
+      document.getElementById("overlay-editar").classList.add("open");
+    }
+
+    function renderEditarEquipRows(coluna, ln) {
+      const c = document.getElementById("editar-equip-rows");
+      c.innerHTML = "";
+
+      Object.keys(ESTOQUE).forEach(tipo => {
+        const { emoji, nome } = ESTOQUE[tipo];
+        const d = editarMaxDisp[tipo]; // máximo fixo — não muda conforme qtd
+        const jaAtivo = editarEquipState[tipo].ativo;
+        const jaQtd = editarEquipState[tipo].qtd;
+
+        const row = document.createElement("div");
+        row.className = `equip-row ${tipo}`;
+        row.id = `editar-row-${tipo}`;
+        if (jaAtivo) row.classList.add("ativo");
+
+        row.innerHTML = `
+      <div class="equip-row-check" id="editar-check-${tipo}">${jaAtivo ? "✔" : ""}</div>
       <span class="equip-row-emoji">${emoji}</span>
       <div class="equip-row-info">
         <div class="equip-row-name">${nome}</div>
-        <div class="equip-row-disp">${d} disponíve${d===1?"l":"is"}</div>
+        <div class="equip-row-disp">${d} disponíve${d === 1 ? "l" : "is"}</div>
       </div>
-      <div class="equip-row-qty" id="editar-qty-wrap-${tipo}" style="display:${jaAtivo?"flex":"none"}">
-        <button class="qty-btn" id="editar-btn-minus-${tipo}" onclick="event.stopPropagation();mudaQtdEditar('${tipo}',-1)" ${jaQtd<=1?"disabled":""}>−</button>
+      <div class="equip-row-qty" id="editar-qty-wrap-${tipo}" style="display:${jaAtivo ? "flex" : "none"}">
+        <button class="qty-btn" id="editar-btn-minus-${tipo}" onclick="event.stopPropagation();mudaQtdEditar('${tipo}',-1)" ${jaQtd <= 1 ? "disabled" : ""}>−</button>
         <span class="qty-num" id="editar-qty-num-${tipo}">${jaQtd}</span>
-        <button class="qty-btn" id="editar-btn-plus-${tipo}" onclick="event.stopPropagation();mudaQtdEditar('${tipo}',+1)" ${jaQtd>=d?"disabled":""}>+</button>
+        <button class="qty-btn" id="editar-btn-plus-${tipo}" onclick="event.stopPropagation();mudaQtdEditar('${tipo}',+1)" ${jaQtd >= d ? "disabled" : ""}>+</button>
       </div>`;
 
-    row.onclick = () => toggleEquipEditar(tipo, d);
-    c.appendChild(row);
-  });
-}
-
-function toggleEquipEditar(tipo, maxDisp) {
-  editarEquipState[tipo].ativo = !editarEquipState[tipo].ativo;
-  const row   = document.getElementById(`editar-row-${tipo}`);
-  const check = document.getElementById(`editar-check-${tipo}`);
-  const qw    = document.getElementById(`editar-qty-wrap-${tipo}`);
-  if (editarEquipState[tipo].ativo) {
-    row.classList.add("ativo"); check.textContent="✔"; qw.style.display="flex";
-  } else {
-    row.classList.remove("ativo"); check.textContent=""; qw.style.display="none";
-  }
-}
-
-function mudaQtdEditar(tipo, delta) {
-  const maxPermitido = editarMaxDisp[tipo]; // sempre fixo, nunca encolhe
-  const novoVal = Math.max(0, Math.min(maxPermitido, editarEquipState[tipo].qtd + delta));
-
-  if (novoVal === 0) {
-    // Chegou a 0 — desativa automaticamente o tipo
-    editarEquipState[tipo].ativo = false;
-    editarEquipState[tipo].qtd = 1; // reset para 1 caso ative de novo
-    const row   = document.getElementById(`editar-row-${tipo}`);
-    const check = document.getElementById(`editar-check-${tipo}`);
-    const qw    = document.getElementById(`editar-qty-wrap-${tipo}`);
-    if (row)   row.classList.remove("ativo");
-    if (check) check.textContent = "";
-    if (qw)    qw.style.display = "none";
-  } else {
-    editarEquipState[tipo].qtd = novoVal;
-    const maxP = editarMaxDisp[tipo];
-    const numEl = document.getElementById(`editar-qty-num-${tipo}`);
-    const btnMinus = document.getElementById(`editar-btn-minus-${tipo}`);
-    const btnPlus  = document.getElementById(`editar-btn-plus-${tipo}`);
-    if (numEl) numEl.textContent = novoVal;
-    if (btnMinus) btnMinus.disabled = novoVal <= 1;
-    if (btnPlus)  btnPlus.disabled  = novoVal >= maxP;
-  }
-}
-
-async function cancelarReserva() {
-  const err = document.getElementById("editar-error");
-  err.textContent = "";
-  const ld      = dadosGlobais[editarLinha-1];
-  const celVal  = ld ? (ld[editarColuna-1]||"") : "";
-  const minhaRes = minhaReservaNaCell(celVal);
-  if (!minhaRes) return;
-
-  const btn = document.getElementById("cancelar-btn");
-  btn.textContent="Cancelando..."; btn.disabled=true;
-
-  // Remove meu bloco do valor da célula
-  const meuEmailCanc = getEmailUsuarioLogado();
-  if (!meuEmailCanc) {
-    err.textContent = "✗ Não foi possível validar o usuário logado.";
-    btn.textContent="🗑 Cancelar Reserva"; btn.disabled=false;
-    return;
-  }
-  const novoValor = celVal.split("§")
-    .filter(bloco => {
-      const rawNome = bloco.split("|")[0].trim();
-      const emailMatch = rawNome.match(/\[([^\]]+)\]$/);
-      const emailBloco = emailMatch ? emailMatch[1].toLowerCase() : null;
-      // Remove só o bloco com o email do usuário logado
-      return !emailBloco || emailBloco !== meuEmailCanc;
-    })
-    .join(" § ").trim();
-
-  try {
-    const res = await fetchComTimeout(`${API}/editar`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({linha:editarLinha,coluna:editarColuna,valor:novoValor})},12000);
-    if (!res.ok) throw new Error();
-    fecharModalEditar();
-    showToast("🗑 Reserva cancelada com sucesso!","success");
-    carregarAgenda();
-  } catch(e) {
-    err.textContent="✗ Erro ao cancelar. Tente novamente.";
-  }
-  btn.textContent="🗑 Cancelar Reserva"; btn.disabled=false;
-}
-
-async function salvarEdicao() {
-  const err = document.getElementById("editar-error");
-  err.textContent = "";
-  const sel = Object.keys(editarEquipState).filter(t=>editarEquipState[t].ativo);
-  if (!sel.length) {
-    // Nenhum equipamento selecionado = cancelar a reserva inteira
-    if (confirm("Nenhum equipamento selecionado. Deseja cancelar sua reserva?")) {
-      await cancelarReserva();
+        row.onclick = () => toggleEquipEditar(tipo, d);
+        c.appendChild(row);
+      });
     }
-    return;
-  }
 
-  const ld     = dadosGlobais[editarLinha-1];
-  const celVal = ld ? (ld[editarColuna-1]||"") : "";
-  const nome   = usuarioLogado.nome;
-  const equipStr = sel.map(t=>`${editarEquipState[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
-  const tagEmail = (usuarioLogado && usuarioLogado.email) ? ` [${usuarioLogado.email}]` : "";
-  const novaEntrada = `${nome}${tagEmail} | ${equipStr}`;
+    function toggleEquipEditar(tipo, maxDisp) {
+      editarEquipState[tipo].ativo = !editarEquipState[tipo].ativo;
+      const row = document.getElementById(`editar-row-${tipo}`);
+      const check = document.getElementById(`editar-check-${tipo}`);
+      const qw = document.getElementById(`editar-qty-wrap-${tipo}`);
+      if (editarEquipState[tipo].ativo) {
+        row.classList.add("ativo"); check.textContent = "✔"; qw.style.display = "flex";
+      } else {
+        row.classList.remove("ativo"); check.textContent = ""; qw.style.display = "none";
+      }
+    }
 
-  // Substitui meu bloco pelo novo
-  const meuEmailEdit = getEmailUsuarioLogado() || null;
-  const novoValor = celVal.split("§").map(bloco => {
-    const rawNomeBloco = bloco.split("|")[0].trim();
-    const emailMatch = rawNomeBloco.match(/\[([^\]]+)\]$/);
-    const emailBloco = emailMatch ? emailMatch[1].toLowerCase() : null;
-    if (meuEmailEdit && emailBloco && emailBloco === meuEmailEdit)
-      return novaEntrada;
-    return bloco.trim();
-  }).join(" § ");
+    function mudaQtdEditar(tipo, delta) {
+      const maxPermitido = editarMaxDisp[tipo]; // sempre fixo, nunca encolhe
+      const novoVal = Math.max(0, Math.min(maxPermitido, editarEquipState[tipo].qtd + delta));
 
-  const btn = document.getElementById("salvar-editar-btn");
-  btn.textContent="Salvando..."; btn.disabled=true;
+      if (novoVal === 0) {
+        // Chegou a 0 — desativa automaticamente o tipo
+        editarEquipState[tipo].ativo = false;
+        editarEquipState[tipo].qtd = 1; // reset para 1 caso ative de novo
+        const row = document.getElementById(`editar-row-${tipo}`);
+        const check = document.getElementById(`editar-check-${tipo}`);
+        const qw = document.getElementById(`editar-qty-wrap-${tipo}`);
+        if (row) row.classList.remove("ativo");
+        if (check) check.textContent = "";
+        if (qw) qw.style.display = "none";
+      } else {
+        editarEquipState[tipo].qtd = novoVal;
+        const maxP = editarMaxDisp[tipo];
+        const numEl = document.getElementById(`editar-qty-num-${tipo}`);
+        const btnMinus = document.getElementById(`editar-btn-minus-${tipo}`);
+        const btnPlus = document.getElementById(`editar-btn-plus-${tipo}`);
+        if (numEl) numEl.textContent = novoVal;
+        if (btnMinus) btnMinus.disabled = novoVal <= 1;
+        if (btnPlus) btnPlus.disabled = novoVal >= maxP;
+      }
+    }
 
-  try {
-    const res = await fetchComTimeout(`${API}/editar`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({linha:editarLinha,coluna:editarColuna,valor:novoValor})},12000);
-    if (!res.ok) throw new Error();
-    fecharModalEditar();
-    showToast("💾 Reserva atualizada!","success");
-    carregarAgenda();
-  } catch(e) {
-    err.textContent="✗ Erro ao salvar. Tente novamente.";
-  }
-  btn.textContent="💾 Salvar Alterações"; btn.disabled=false;
-}
+    async function cancelarReserva() {
+      const err = document.getElementById("editar-error");
+      err.textContent = "";
+      const ld = dadosGlobais[editarLinha - 1];
+      const celVal = ld ? (ld[editarColuna - 1] || "") : "";
+      const minhaRes = minhaReservaNaCell(celVal);
+      if (!minhaRes) return;
 
-function fecharModalEditar() {
-  document.getElementById("overlay-editar").classList.remove("open");
-}
-document.getElementById("overlay-editar").addEventListener("click",function(e){if(e.target===this)fecharModalEditar();});
+      const btn = document.getElementById("cancelar-btn");
+      btn.textContent = "Cancelando..."; btn.disabled = true;
 
-// ════════════════════════════════════════
-// TOAST
-// ════════════════════════════════════════
-function showToast(msg,type){
-  const t=document.getElementById("toast");
-  t.textContent=msg;t.className=`toast ${type} show`;
-  setTimeout(()=>t.classList.remove("show"),3500);
-}
+      // Remove meu bloco do valor da célula
+      const meuEmailCanc = getEmailUsuarioLogado();
+      if (!meuEmailCanc) {
+        err.textContent = "✗ Não foi possível validar o usuário logado.";
+        btn.textContent = "🗑 Cancelar Reserva"; btn.disabled = false;
+        return;
+      }
+      const novoValor = celVal.split("§")
+        .filter(bloco => {
+          const rawNome = bloco.split("|")[0].trim();
+          const emailMatch = rawNome.match(/\[([^\]]+)\]$/);
+          const emailBloco = emailMatch ? emailMatch[1].toLowerCase() : null;
+          // Remove só o bloco com o email do usuário logado
+          return !emailBloco || emailBloco !== meuEmailCanc;
+        })
+        .join(" § ").trim();
 
-// ════════════════════════════════════════
-// LISTA DE ESPERA
-// ════════════════════════════════════════
-let esperaColuna=null,esperaLinha=null,esperaEquip=resetEquip();
+      try {
+        const res = await fetchComTimeout(`${API}/editar`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ linha: editarLinha, coluna: editarColuna, valor: novoValor }) }, 12000);
+        if (!res.ok) throw new Error();
+        fecharModalEditar();
+        showToast("🗑 Reserva cancelada com sucesso!", "success");
+        carregarAgenda();
+      } catch (e) {
+        err.textContent = "✗ Erro ao cancelar. Tente novamente.";
+      }
+      btn.textContent = "🗑 Cancelar Reserva"; btn.disabled = false;
+    }
 
-function abrirFilaParcial(tipo) {
-  if (horariosSelecionados.length === 0) {
-    showToast("⚠️ Selecione um horário antes de entrar na fila.","error-toast");
-    return;
-  }
-  // Fecha o modal de reserva e abre o de fila de espera
-  document.getElementById("overlay").classList.remove("open");
-  setTimeout(() => {
-    abrirModalEspera(modalDiaColuna, horariosSelecionados[0], dadosGlobais, tipo);
-  }, 200);
-}
+    async function salvarEdicao() {
+      const err = document.getElementById("editar-error");
+      err.textContent = "";
+      const sel = Object.keys(editarEquipState).filter(t => editarEquipState[t].ativo);
+      if (!sel.length) {
+        // Nenhum equipamento selecionado = cancelar a reserva inteira
+        if (confirm("Nenhum equipamento selecionado. Deseja cancelar sua reserva?")) {
+          await cancelarReserva();
+        }
+        return;
+      }
 
-function abrirModalEspera(coluna,ln,dados,tipoPreSel=null) {
-  if (!ln) { showToast("⚠️ Selecione um horário primeiro.","error-toast"); return; }
-  esperaColuna=coluna;esperaLinha=ln;esperaEquip=resetEquip();
-  const h=HORARIOS[ln]||["?","?"];
-  const cab=dadosGlobais[0]||[];
-  const diaNome=cab[coluna-1]||"";
-  document.getElementById("espera-title").textContent="⏳ Lista de Espera";
-  document.getElementById("espera-sub").textContent=`${diaNome} · ${h[0]}–${h[1]}`;
-  const esperaNome=document.getElementById("espera-nome");
-  esperaNome.value=usuarioLogado?usuarioLogado.nome:"";
-  esperaNome.readOnly=!!usuarioLogado;
-  document.getElementById("espera-error").textContent="";
+      const ld = dadosGlobais[editarLinha - 1];
+      const celVal = ld ? (ld[editarColuna - 1] || "") : "";
+      const nome = usuarioLogado.nome;
+      const equipStr = sel.map(t => `${editarEquipState[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
+      const tagEmail = (usuarioLogado && usuarioLogado.email) ? ` [${usuarioLogado.email}]` : "";
+      const novaEntrada = `${nome}${tagEmail} | ${equipStr}`;
 
-  const c=document.getElementById("espera-equip-rows");
-  c.innerHTML="";
-  Object.keys(ESTOQUE).forEach(tipo=>{
-    const {emoji,nome,total}=ESTOQUE[tipo];
-    const row=document.createElement("div");
-    row.className=`equip-row ${tipo}`;
-    row.id=`espera-row-${tipo}`;
-    const preAtivo=tipoPreSel===tipo;
-    if(preAtivo){esperaEquip[tipo].ativo=true;}
-    row.innerHTML=`
-      <div class="equip-row-check" id="espera-check-${tipo}">${preAtivo?"✔":""}</div>
+      // Substitui meu bloco pelo novo
+      const meuEmailEdit = getEmailUsuarioLogado() || null;
+      const novoValor = celVal.split("§").map(bloco => {
+        const rawNomeBloco = bloco.split("|")[0].trim();
+        const emailMatch = rawNomeBloco.match(/\[([^\]]+)\]$/);
+        const emailBloco = emailMatch ? emailMatch[1].toLowerCase() : null;
+        if (meuEmailEdit && emailBloco && emailBloco === meuEmailEdit)
+          return novaEntrada;
+        return bloco.trim();
+      }).join(" § ");
+
+      const btn = document.getElementById("salvar-editar-btn");
+      btn.textContent = "Salvando..."; btn.disabled = true;
+
+      try {
+        const res = await fetchComTimeout(`${API}/editar`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ linha: editarLinha, coluna: editarColuna, valor: novoValor }) }, 12000);
+        if (!res.ok) throw new Error();
+        fecharModalEditar();
+        showToast("💾 Reserva atualizada!", "success");
+        carregarAgenda();
+      } catch (e) {
+        err.textContent = "✗ Erro ao salvar. Tente novamente.";
+      }
+      btn.textContent = "💾 Salvar Alterações"; btn.disabled = false;
+    }
+
+    function fecharModalEditar() {
+      document.getElementById("overlay-editar").classList.remove("open");
+    }
+    document.getElementById("overlay-editar").addEventListener("click", function (e) { if (e.target === this) fecharModalEditar(); });
+
+    // ════════════════════════════════════════
+    // TOAST
+    // ════════════════════════════════════════
+    function showToast(msg, type) {
+      const t = document.getElementById("toast");
+      t.textContent = msg; t.className = `toast ${type} show`;
+      setTimeout(() => t.classList.remove("show"), 3500);
+    }
+
+    // ════════════════════════════════════════
+    // LISTA DE ESPERA
+    // ════════════════════════════════════════
+    let esperaColuna = null, esperaLinha = null, esperaEquip = resetEquip();
+
+    function abrirFilaParcial(tipo) {
+      if (horariosSelecionados.length === 0) {
+        showToast("⚠️ Selecione um horário antes de entrar na fila.", "error-toast");
+        return;
+      }
+      // Fecha o modal de reserva e abre o de fila de espera
+      document.getElementById("overlay").classList.remove("open");
+      setTimeout(() => {
+        abrirModalEspera(modalDiaColuna, horariosSelecionados[0], dadosGlobais, tipo);
+      }, 200);
+    }
+
+    function abrirModalEspera(coluna, ln, dados, tipoPreSel = null) {
+      if (!ln) { showToast("⚠️ Selecione um horário primeiro.", "error-toast"); return; }
+      esperaColuna = coluna; esperaLinha = ln; esperaEquip = resetEquip();
+      const h = HORARIOS[ln] || ["?", "?"];
+      const cab = dadosGlobais[0] || [];
+      const diaNome = cab[coluna - 1] || "";
+      document.getElementById("espera-title").textContent = "⏳ Lista de Espera";
+      document.getElementById("espera-sub").textContent = `${diaNome} · ${h[0]}–${h[1]}`;
+      const esperaNome = document.getElementById("espera-nome");
+      esperaNome.value = usuarioLogado ? usuarioLogado.nome : "";
+      esperaNome.readOnly = !!usuarioLogado;
+      document.getElementById("espera-error").textContent = "";
+
+      const c = document.getElementById("espera-equip-rows");
+      c.innerHTML = "";
+      Object.keys(ESTOQUE).forEach(tipo => {
+        const { emoji, nome, total } = ESTOQUE[tipo];
+        const row = document.createElement("div");
+        row.className = `equip-row ${tipo}`;
+        row.id = `espera-row-${tipo}`;
+        const preAtivo = tipoPreSel === tipo;
+        if (preAtivo) { esperaEquip[tipo].ativo = true; }
+        row.innerHTML = `
+      <div class="equip-row-check" id="espera-check-${tipo}">${preAtivo ? "✔" : ""}</div>
       <span class="equip-row-emoji">${emoji}</span>
       <div class="equip-row-info">
         <div class="equip-row-name">${nome}</div>
         <div class="equip-row-disp">máx. ${total}</div>
       </div>
-      <div class="equip-row-qty" id="espera-qty-wrap-${tipo}" style="display:${preAtivo?"flex":"none"}">
+      <div class="equip-row-qty" id="espera-qty-wrap-${tipo}" style="display:${preAtivo ? "flex" : "none"}">
         <button class="qty-btn" onclick="event.stopPropagation();mudaQtdEspera('${tipo}',-1)">−</button>
         <span class="qty-num" id="espera-qty-num-${tipo}">1</span>
         <button class="qty-btn" onclick="event.stopPropagation();mudaQtdEspera('${tipo}',+1)">+</button>
       </div>`;
-    if(preAtivo) row.classList.add("ativo");
-    row.onclick=()=>toggleEquipEspera(tipo);
-    c.appendChild(row);
-  });
-  document.getElementById("overlay-espera").classList.add("open");
-  setTimeout(()=>document.getElementById("espera-nome").focus(),150);
-}
+        if (preAtivo) row.classList.add("ativo");
+        row.onclick = () => toggleEquipEspera(tipo);
+        c.appendChild(row);
+      });
+      document.getElementById("overlay-espera").classList.add("open");
+      setTimeout(() => document.getElementById("espera-nome").focus(), 150);
+    }
 
-function toggleEquipEspera(tipo){
-  esperaEquip[tipo].ativo=!esperaEquip[tipo].ativo;
-  const row=document.getElementById(`espera-row-${tipo}`);
-  const check=document.getElementById(`espera-check-${tipo}`);
-  const qw=document.getElementById(`espera-qty-wrap-${tipo}`);
-  if(esperaEquip[tipo].ativo){row.classList.add("ativo");check.textContent="✔";qw.style.display="flex";}
-  else{row.classList.remove("ativo");check.textContent="";qw.style.display="none";}
-}
+    function toggleEquipEspera(tipo) {
+      esperaEquip[tipo].ativo = !esperaEquip[tipo].ativo;
+      const row = document.getElementById(`espera-row-${tipo}`);
+      const check = document.getElementById(`espera-check-${tipo}`);
+      const qw = document.getElementById(`espera-qty-wrap-${tipo}`);
+      if (esperaEquip[tipo].ativo) { row.classList.add("ativo"); check.textContent = "✔"; qw.style.display = "flex"; }
+      else { row.classList.remove("ativo"); check.textContent = ""; qw.style.display = "none"; }
+    }
 
-function mudaQtdEspera(tipo,delta){
-  const max=ESTOQUE[tipo].total;
-  esperaEquip[tipo].qtd=Math.max(1,Math.min(max,esperaEquip[tipo].qtd+delta));
-  document.getElementById(`espera-qty-num-${tipo}`).textContent=esperaEquip[tipo].qtd;
-  // Atualiza botões de limite
-  const row = document.getElementById(`espera-row-${tipo}`);
-  if (row) {
-    const btns = row.querySelectorAll('.qty-btn');
-    if (btns[1]) btns[1].disabled = esperaEquip[tipo].qtd >= max;
-    if (btns[0]) btns[0].disabled = esperaEquip[tipo].qtd <= 1;
-  }
-}
+    function mudaQtdEspera(tipo, delta) {
+      const max = ESTOQUE[tipo].total;
+      esperaEquip[tipo].qtd = Math.max(1, Math.min(max, esperaEquip[tipo].qtd + delta));
+      document.getElementById(`espera-qty-num-${tipo}`).textContent = esperaEquip[tipo].qtd;
+      // Atualiza botões de limite
+      const row = document.getElementById(`espera-row-${tipo}`);
+      if (row) {
+        const btns = row.querySelectorAll('.qty-btn');
+        if (btns[1]) btns[1].disabled = esperaEquip[tipo].qtd >= max;
+        if (btns[0]) btns[0].disabled = esperaEquip[tipo].qtd <= 1;
+      }
+    }
 
-async function confirmarEspera(){
-  const nome=document.getElementById("espera-nome").value.trim();
-  const err=document.getElementById("espera-error");
-  err.textContent="";
-  const emailEspera=getEmailUsuarioLogado();
-  if(!nome){err.textContent="✏️ Digite o nome.";return;}
-  if(!emailEspera){err.textContent="🔐 Entre com sua conta Google para usar a fila de espera.";return;}
-  const sel=Object.keys(esperaEquip).filter(t=>esperaEquip[t].ativo);
-  if(!sel.length){err.textContent="🎒 Selecione ao menos um equipamento.";return;}
-  const equipStr=sel.map(t=>`${esperaEquip[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
-  const btn=document.getElementById("espera-btn");
-  btn.textContent="Salvando...";btn.disabled=true;
-  try{
-    const res=await fetchComTimeout(`${API}/espera`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nome,email:emailEspera,linha:esperaLinha,coluna:esperaColuna,equipamentos:equipStr})},12000);
-    const data=await res.json().catch(()=>({}));
-    if(!res.ok) throw new Error(data.erro||"Erro ao salvar");
-    fecharModalEspera();
-    showToast(`⏳ ${nome} entrou na lista de espera!`,"success");
-  }catch(e){err.textContent=e.message?`✗ ${e.message}`:"✗ Erro ao salvar. Tente novamente.";}
-  btn.textContent="⏳ Entrar na Lista de Espera";btn.disabled=false;
-}
+    async function confirmarEspera() {
+      const nome = document.getElementById("espera-nome").value.trim();
+      const err = document.getElementById("espera-error");
+      err.textContent = "";
+      const emailEspera = getEmailUsuarioLogado();
+      if (!nome) { err.textContent = "✏️ Digite o nome."; return; }
+      if (!emailEspera) { err.textContent = "🔐 Entre com sua conta Google para usar a fila de espera."; return; }
+      const sel = Object.keys(esperaEquip).filter(t => esperaEquip[t].ativo);
+      if (!sel.length) { err.textContent = "🎒 Selecione ao menos um equipamento."; return; }
+      const equipStr = sel.map(t => `${esperaEquip[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
+      const btn = document.getElementById("espera-btn");
+      btn.textContent = "Salvando..."; btn.disabled = true;
+      try {
+        const res = await fetchComTimeout(`${API}/espera`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nome, email: emailEspera, linha: esperaLinha, coluna: esperaColuna, equipamentos: equipStr }) }, 12000);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.erro || "Erro ao salvar");
+        fecharModalEspera();
+        showToast(`⏳ ${nome} entrou na lista de espera!`, "success");
+      } catch (e) { err.textContent = e.message ? `✗ ${e.message}` : "✗ Erro ao salvar. Tente novamente."; }
+      btn.textContent = "⏳ Entrar na Lista de Espera"; btn.disabled = false;
+    }
 
-function fecharModalEspera(){document.getElementById("overlay-espera").classList.remove("open");}
-document.getElementById("overlay-espera").addEventListener("click",function(e){if(e.target===this)fecharModalEspera();});
+    function fecharModalEspera() { document.getElementById("overlay-espera").classList.remove("open"); }
+    document.getElementById("overlay-espera").addEventListener("click", function (e) { if (e.target === this) fecharModalEspera(); });
 
-// ════════════════════════════════════════
-// PROMOÇÕES
-// ════════════════════════════════════════
-async function verificarPromocoes(){
-  try{
-    const res=await fetchComTimeout(`${API}/promover`,{method:"POST"},15000);
-    const data=await res.json();
-    if(data.promovidos&&data.promovidos.length>0) mostrarBannerPromocao(data.promovidos);
-  }catch(e){}
-}
+    // ════════════════════════════════════════
+    // PROMOÇÕES
+    // ════════════════════════════════════════
+    async function verificarPromocoes() {
+      try {
+        const res = await fetchComTimeout(`${API}/promover`, { method: "POST" }, 15000);
+        const data = await res.json();
+        if (data.promovidos && data.promovidos.length > 0) mostrarBannerPromocao(data.promovidos);
+      } catch (e) { }
+    }
 
-function mostrarBannerPromocao(promovidos){
-  const banner=document.getElementById("promo-banner");
-  const inner=document.getElementById("promo-inner");
-  const cab=dadosGlobais[0]||[];
-  const DIAS_ABV=["","Seg","Ter","Qua","Qui","Sex"];
-  const itens=promovidos.map(p=>{
-    const h=HORARIOS[p.linha]||["?","?"];
-    const dia=cab[p.coluna-1]||DIAS_ABV[p.coluna-1]||"";
-    return `<strong>${p.nome}</strong> — ${dia} ${h[0]}–${h[1]} · ${p.equipamentos}`;
-  }).join("<br>");
-  inner.innerHTML=`✅ Promovido da lista de espera:<br>${itens}`;
-  banner.style.display="flex";
-  setTimeout(fecharBanner,12000);
-}
+    function mostrarBannerPromocao(promovidos) {
+      const banner = document.getElementById("promo-banner");
+      const inner = document.getElementById("promo-inner");
+      const cab = dadosGlobais[0] || [];
+      const DIAS_ABV = ["", "Seg", "Ter", "Qua", "Qui", "Sex"];
+      const itens = promovidos.map(p => {
+        const h = HORARIOS[p.linha] || ["?", "?"];
+        const dia = cab[p.coluna - 1] || DIAS_ABV[p.coluna - 1] || "";
+        return `<strong>${p.nome}</strong> — ${dia} ${h[0]}–${h[1]} · ${p.equipamentos}`;
+      }).join("<br>");
+      inner.innerHTML = `✅ Promovido da lista de espera:<br>${itens}`;
+      banner.style.display = "flex";
+      setTimeout(fecharBanner, 12000);
+    }
 
-function fecharBanner(){document.getElementById("promo-banner").style.display="none";}
+    function fecharBanner() { document.getElementById("promo-banner").style.display = "none"; }
 
-// ESC fecha qualquer modal aberto
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){
-    fecharModal(); fecharModalEditar(); fecharModalEspera();
-  }
-});
+    // ESC fecha qualquer modal aberto
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        fecharModal(); fecharModalEditar(); fecharModalEspera();
+      }
+    });
 
-// ════════════════════════════════════════
-// PWA — Instalação
-// ════════════════════════════════════════
-let deferredPrompt = null;
+    // ════════════════════════════════════════
+    // PWA — Instalação
+    // ════════════════════════════════════════
+    let deferredPrompt = null;
 
-// Detecta iOS Safari
-function isIOS() {
-  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-}
-function isSafari() {
-  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-}
-function isStandalone() {
-  return window.matchMedia("(display-mode: standalone)").matches
-    || navigator.standalone === true;
-}
+    // Detecta iOS Safari
+    function isIOS() {
+      return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+    }
+    function isSafari() {
+      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    }
+    function isStandalone() {
+      return window.matchMedia("(display-mode: standalone)").matches
+        || navigator.standalone === true;
+    }
 
-function mostrarBotoesInstalacao() {
-  if (isStandalone()) return; // já instalado, não mostra nada
+    function mostrarBotoesInstalacao() {
+      if (isStandalone()) return; // já instalado, não mostra nada
 
-  const secao = document.getElementById("install-section");
-  if (secao) secao.style.display = "block";
+      const secao = document.getElementById("install-section");
+      if (secao) secao.style.display = "block";
 
-  if (isIOS() && isSafari()) {
-    const el = document.getElementById("install-ios");
-    if (el) el.style.display = "block";
-    return;
-  }
+      if (isIOS() && isSafari()) {
+        const el = document.getElementById("install-ios");
+        if (el) el.style.display = "block";
+        return;
+      }
 
-  // Android/Chrome: aguarda evento beforeinstallprompt
-  // (o botão aparece quando o evento disparar)
-  // Para outros browsers sem suporte ao evento, mostra instrução genérica
-  if (!deferredPrompt) {
-    const gen = document.getElementById("install-generic");
-    if (gen) gen.style.display = "block";
-  }
-}
+      // Android/Chrome: aguarda evento beforeinstallprompt
+      // (o botão aparece quando o evento disparar)
+      // Para outros browsers sem suporte ao evento, mostra instrução genérica
+      if (!deferredPrompt) {
+        const gen = document.getElementById("install-generic");
+        if (gen) gen.style.display = "block";
+      }
+    }
 
-// Captura o evento de instalação do Chrome/Android
-window.addEventListener("beforeinstallprompt", e => {
-  e.preventDefault();
-  deferredPrompt = e;
+    // Captura o evento de instalação do Chrome/Android
+    window.addEventListener("beforeinstallprompt", e => {
+      e.preventDefault();
+      deferredPrompt = e;
 
-  const btn = document.getElementById("install-btn-android");
-  if (btn) btn.style.display = "flex";
+      const btn = document.getElementById("install-btn-android");
+      if (btn) btn.style.display = "flex";
 
-  // Esconde a instrução genérica se o botão nativo apareceu
-  const gen = document.getElementById("install-generic");
-  if (gen) gen.style.display = "none";
-});
+      // Esconde a instrução genérica se o botão nativo apareceu
+      const gen = document.getElementById("install-generic");
+      if (gen) gen.style.display = "none";
+    });
 
-// Instala via prompt nativo (Android/Chrome)
-async function instalarPWA() {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  if (outcome === "accepted") {
-    const secao = document.getElementById("install-section");
-    if (secao) secao.style.display = "none";
-  }
-}
+    // Instala via prompt nativo (Android/Chrome)
+    async function instalarPWA() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      if (outcome === "accepted") {
+        const secao = document.getElementById("install-section");
+        if (secao) secao.style.display = "none";
+      }
+    }
 
-// Esconde a seção ao instalar com sucesso
-window.addEventListener("appinstalled", () => {
-  const secao = document.getElementById("install-section");
-  if (secao) secao.style.display = "none";
-  deferredPrompt = null;
-});
+    // Esconde a seção ao instalar com sucesso
+    window.addEventListener("appinstalled", () => {
+      const secao = document.getElementById("install-section");
+      if (secao) secao.style.display = "none";
+      deferredPrompt = null;
+    });
 
-// Mostra os botões corretos quando a tela de login aparecer
-function mostrarTelaLogin() {
-  document.getElementById("tela-login").style.display = "flex";
-  setTimeout(mostrarBotoesInstalacao, 300);
-}
+    // Mostra os botões corretos quando a tela de login aparecer
+    function mostrarTelaLogin() {
+      document.getElementById("tela-login").style.display = "flex";
+      setTimeout(mostrarBotoesInstalacao, 300);
+    }
 
-// ════════════════════════════════════════
-// PAINEL DO ADMINISTRADOR
-// ════════════════════════════════════════
-const ADMIN_EMAILS = [
-  "joaovictorsekimantovani@gmail.com",
-  "jose.alli@servidor.educacao.sp.gov.br",
-  "alli@prof.educacao.sp.gov.br",
-  "luis.polizello@educacao.sp.gov.br",
-];
+    // ════════════════════════════════════════
+    // PAINEL DO ADMINISTRADOR
+    // ════════════════════════════════════════
+    const ADMIN_EMAILS = [
+      "joaovictorsekimantovani@gmail.com",
+      "jose.alli@servidor.educacao.sp.gov.br",
+      "alli@prof.educacao.sp.gov.br",
+      "luis.polizello@educacao.sp.gov.br",
+    ];
 
-function isAdmin() {
-  return ADMIN_EMAILS.includes(getEmailUsuarioLogado());
-}
+    function isAdmin() {
+      return ADMIN_EMAILS.includes(getEmailUsuarioLogado());
+    }
 
-// Estado do painel admin
-let adminEditLinha = null;
-let adminEditColuna = null;
-let adminEditReservaIdx = null; // -1 = nova reserva, >= 0 = editar existente
-let adminEditEquipState = resetEquip();
+    // Estado do painel admin
+    let adminEditLinha = null;
+    let adminEditColuna = null;
+    let adminEditReservaIdx = null; // -1 = nova reserva, >= 0 = editar existente
+    let adminEditEquipState = resetEquip();
 
-async function adminChamarEditar(linha, coluna, valor) {
-  // Usa a mesma rota /editar que já funciona (a verificação isAdmin() é feita no frontend)
-  return fetchComTimeout(`${API}/editar`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ linha, coluna, valor }),
-  }, 12000);
-}
+    async function adminChamarEditar(linha, coluna, valor) {
+      // Usa a mesma rota /editar que já funciona (a verificação isAdmin() é feita no frontend)
+      return fetchComTimeout(`${API}/editar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ linha, coluna, valor }),
+      }, 12000);
+    }
 
-function abrirPainelAdmin() {
-  if (!isAdmin()) return;
-  renderAdminGrid(dadosGlobais);
-  document.getElementById("overlay-admin").classList.add("open");
-}
+    function abrirPainelAdmin() {
+      if (!isAdmin()) return;
+      renderAdminGrid(dadosGlobais);
+      document.getElementById("overlay-admin").classList.add("open");
+    }
 
-function fecharPainelAdmin() {
-  document.getElementById("overlay-admin").classList.remove("open");
-  carregarAgenda();
-}
+    function fecharPainelAdmin() {
+      document.getElementById("overlay-admin").classList.remove("open");
+      carregarAgenda();
+    }
 
-document.getElementById("overlay-admin").addEventListener("click", function(e) {
-  if (e.target === this && !document.getElementById("overlay-admin-editar").classList.contains("open")) {
-    fecharPainelAdmin();
-  }
-});
+    document.getElementById("overlay-admin").addEventListener("click", function (e) {
+      if (e.target === this && !document.getElementById("overlay-admin-editar").classList.contains("open")) {
+        fecharPainelAdmin();
+      }
+    });
 
-function _adminSlotCellHtml(ln, col, val, mobile) {
-  const valUp = val.toUpperCase();
-  const h = HORARIOS[ln] || ["?","?"];
+    function _adminSlotCellHtml(ln, col, val, mobile) {
+      const valUp = val.toUpperCase();
+      const h = HORARIOS[ln] || ["?", "?"];
 
-  if (!val || valUp === "LIVRE" || val === "") {
-    if (mobile) return `
+      if (!val || valUp === "LIVRE" || val === "") {
+        if (mobile) return `
       <div class="admin-slot-row admin-slot-livre">
         <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
         <div class="admin-slot-content"><span class="admin-slot-badge">Livre</span></div>
@@ -2063,16 +2079,16 @@ function _adminSlotCellHtml(ln, col, val, mobile) {
           <button class="admin-action-blk" onclick="adminSetCell(${ln},${col},'BLOQUEADO')" title="Bloquear">🔒</button>
         </div>
       </div>`;
-    return `<td class="atd atd-slot atd-livre">
+        return `<td class="atd atd-slot atd-livre">
       <div class="admin-slot-actions">
         <button class="admin-action-add" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
         <button class="admin-action-blk" onclick="adminSetCell(${ln},${col},'BLOQUEADO')" title="Bloquear">🔒</button>
       </div>
     </td>`;
-  }
+      }
 
-  if (valUp === "BLOQUEADO") {
-    if (mobile) return `
+      if (valUp === "BLOQUEADO") {
+        if (mobile) return `
       <div class="admin-slot-row admin-slot-bloqueado">
         <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
         <div class="admin-slot-content"><span class="admin-slot-badge">🔒 Bloqueado</span></div>
@@ -2080,22 +2096,22 @@ function _adminSlotCellHtml(ln, col, val, mobile) {
           <button class="admin-action-unblk" onclick="adminSetCell(${ln},${col},'')" title="Desbloquear">✕</button>
         </div>
       </div>`;
-    return `<td class="atd atd-slot atd-bloqueado">
+        return `<td class="atd atd-slot atd-bloqueado">
       <span class="atd-bloq-ico">🔒</span>
       <div class="admin-slot-actions">
         <button class="admin-action-unblk" onclick="adminSetCell(${ln},${col},'')" title="Desbloquear">✕</button>
       </div>
     </td>`;
-  }
+      }
 
-  const reservas = listarReservas(val);
-  const rsvHtml = reservas.map((r, i) => `
+      const reservas = listarReservas(val);
+      const rsvHtml = reservas.map((r, i) => `
     <div class="admin-rsv-item">
       <button class="admin-rsv-nome" onclick="abrirModalAdminEditar(${ln},${col},${i})" title="Editar">${r.nome}</button>
       <button class="admin-rsv-del" onclick="adminDeletarRsv(${ln},${col},${i})" title="Remover">✕</button>
     </div>`).join("");
 
-  if (mobile) return `
+      if (mobile) return `
     <div class="admin-slot-row admin-slot-ocupado">
       <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
       <div class="admin-slot-content">${rsvHtml}</div>
@@ -2103,44 +2119,44 @@ function _adminSlotCellHtml(ln, col, val, mobile) {
         <button class="admin-action-add admin-action-add-extra" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
       </div>
     </div>`;
-  return `<td class="atd atd-slot atd-ocupado">
+      return `<td class="atd atd-slot atd-ocupado">
     ${rsvHtml}
     <div class="admin-slot-actions" style="margin-top:4px">
       <button class="admin-action-add admin-action-add-extra" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
     </div>
   </td>`;
-}
-
-function renderAdminGrid(dados) {
-  const wrap = document.getElementById("admin-grid-wrap");
-  if (!dados || dados.length < 2) {
-    wrap.innerHTML = `<p class="admin-empty">Carregue a agenda primeiro (↺).</p>`;
-    return;
-  }
-  const cab = dados[0] || [];
-  const DIAS_NOMES = DIAS_NOME;
-  const DIAS_ABV   = DIAS_ABREV;
-  const seg = getSegundaDaSemana();
-
-  // ── Mobile: day cards ──
-  let cardsHtml = "";
-  for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
-    const diaNome = cab[col-1] || DIAS_NOMES[col-1] || "";
-    const dt = new Date(seg);
-    dt.setDate(seg.getDate() + (col - 2));
-    const dtStr = `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}`;
-    let slotsHtml = "";
-    for (let ln = 2; ln <= 15; ln++) {
-      if (LINHAS_INTERVALO.has(ln)) {
-        slotsHtml += `<div class="admin-slot-row admin-slot-intervalo">☕ Intervalo</div>`;
-        continue;
-      }
-      if (!HORARIOS[ln]) continue;
-      const row = dados[ln - 1] || [];
-      const val = (row[col - 1] || "").trim();
-      slotsHtml += _adminSlotCellHtml(ln, col, val, true);
     }
-    cardsHtml += `
+
+    function renderAdminGrid(dados) {
+      const wrap = document.getElementById("admin-grid-wrap");
+      if (!dados || dados.length < 2) {
+        wrap.innerHTML = `<p class="admin-empty">Carregue a agenda primeiro (↺).</p>`;
+        return;
+      }
+      const cab = dados[0] || [];
+      const DIAS_NOMES = DIAS_NOME;
+      const DIAS_ABV = DIAS_ABREV;
+      const seg = getSegundaDaSemana();
+
+      // ── Mobile: day cards ──
+      let cardsHtml = "";
+      for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
+        const diaNome = cab[col - 1] || DIAS_NOMES[col - 1] || "";
+        const dt = new Date(seg);
+        dt.setDate(seg.getDate() + (col - 2));
+        const dtStr = `${String(dt.getDate()).padStart(2, "0")}/${String(dt.getMonth() + 1).padStart(2, "0")}`;
+        let slotsHtml = "";
+        for (let ln = 2; ln <= 15; ln++) {
+          if (LINHAS_INTERVALO.has(ln)) {
+            slotsHtml += `<div class="admin-slot-row admin-slot-intervalo">☕ Intervalo</div>`;
+            continue;
+          }
+          if (!HORARIOS[ln]) continue;
+          const row = dados[ln - 1] || [];
+          const val = (row[col - 1] || "").trim();
+          slotsHtml += _adminSlotCellHtml(ln, col, val, true);
+        }
+        cardsHtml += `
       <div class="admin-day-card" data-dia="${col}">
         <div class="admin-day-card-head">
           <span class="admin-day-name">${diaNome}</span>
@@ -2148,36 +2164,36 @@ function renderAdminGrid(dados) {
         </div>
         ${slotsHtml}
       </div>`;
-  }
+      }
 
-  // ── Desktop: table ──
-  let thead = `<tr><th class="atd atd-hora">Hora</th>`;
-  for (let c = COL_DIA_MIN; c <= COL_DIA_MAX; c++) {
-    const dt = new Date(seg);
-    dt.setDate(seg.getDate() + (c - 2));
-    const dtStr = `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}`;
-    thead += `<th class="atd atd-dia">${cab[c-1] || DIAS_ABV[c-1] || ""}<span class="atd-dia-date">${dtStr}</span></th>`;
-  }
-  thead += "</tr>";
+      // ── Desktop: table ──
+      let thead = `<tr><th class="atd atd-hora">Hora</th>`;
+      for (let c = COL_DIA_MIN; c <= COL_DIA_MAX; c++) {
+        const dt = new Date(seg);
+        dt.setDate(seg.getDate() + (c - 2));
+        const dtStr = `${String(dt.getDate()).padStart(2, "0")}/${String(dt.getMonth() + 1).padStart(2, "0")}`;
+        thead += `<th class="atd atd-dia">${cab[c - 1] || DIAS_ABV[c - 1] || ""}<span class="atd-dia-date">${dtStr}</span></th>`;
+      }
+      thead += "</tr>";
 
-  let tbody = "";
-  for (let ln = 2; ln <= 15; ln++) {
-    if (LINHAS_INTERVALO.has(ln)) {
-      tbody += `<tr><td colspan="7" class="atd-intervalo">☕ Intervalo</td></tr>`;
-      continue;
-    }
-    const h = HORARIOS[ln];
-    if (!h) continue;
-    let row = `<td class="atd atd-hora">${h[0]}<br><span class="atd-sep">–</span><br>${h[1]}</td>`;
-    for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
-      const dataRow = dados[ln - 1] || [];
-      const val = (dataRow[col - 1] || "").trim();
-      row += _adminSlotCellHtml(ln, col, val, false);
-    }
-    tbody += `<tr>${row}</tr>`;
-  }
+      let tbody = "";
+      for (let ln = 2; ln <= 15; ln++) {
+        if (LINHAS_INTERVALO.has(ln)) {
+          tbody += `<tr><td colspan="7" class="atd-intervalo">☕ Intervalo</td></tr>`;
+          continue;
+        }
+        const h = HORARIOS[ln];
+        if (!h) continue;
+        let row = `<td class="atd atd-hora">${h[0]}<br><span class="atd-sep">–</span><br>${h[1]}</td>`;
+        for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
+          const dataRow = dados[ln - 1] || [];
+          const val = (dataRow[col - 1] || "").trim();
+          row += _adminSlotCellHtml(ln, col, val, false);
+        }
+        tbody += `<tr>${row}</tr>`;
+      }
 
-  wrap.innerHTML = `
+      wrap.innerHTML = `
     <div class="admin-cards-view">${cardsHtml}</div>
     <div class="admin-table-wrap">
       <table class="admin-table">
@@ -2185,80 +2201,80 @@ function renderAdminGrid(dados) {
         <tbody>${tbody}</tbody>
       </table>
     </div>`;
-}
-
-function abrirModalAdminEditar(ln, col, reservaIdx) {
-  if (!isAdmin()) return;
-  adminEditLinha = ln;
-  adminEditColuna = col;
-  adminEditReservaIdx = reservaIdx;
-  adminEditEquipState = resetEquip();
-
-  const row = dadosGlobais[ln - 1] || [];
-  const val = (row[col - 1] || "").trim();
-  const h = HORARIOS[ln] || ["?","?"];
-  const cab = dadosGlobais[0] || [];
-  const DIAS_ABV = ["","Seg","Ter","Qua","Qui","Sex"];
-  const dia = cab[col-1] || DIAS_ABV[col-1] || "";
-
-  document.getElementById("admin-editar-error").textContent = "";
-  const nomeInput = document.getElementById("admin-nome-input");
-  const emailInput = document.getElementById("admin-email-input");
-  const apagarBtn = document.getElementById("admin-apagar-btn");
-
-  if (reservaIdx >= 0) {
-    const reservas = listarReservas(val);
-    const rsv = reservas[reservaIdx];
-    if (rsv) {
-      nomeInput.value = rsv.nome || "";
-      emailInput.value = rsv.email || "";
-      const reEquip = /(\d+)\s*(tv remota|notebook prata|notebook preto|tablet)/gi;
-      let m;
-      while ((m = reEquip.exec(rsv.equip || "")) !== null) {
-        const n = m[2].toLowerCase();
-        let key = null;
-        if (n === "tablet") key = "tablet";
-        else if (n === "notebook prata") key = "prata";
-        else if (n === "notebook preto") key = "preto";
-        else if (n === "tv remota") key = "tvremota";
-        if (key) {
-          adminEditEquipState[key].ativo = true;
-          adminEditEquipState[key].qtd = parseInt(m[1], 10);
-        }
-      }
     }
-    document.getElementById("admin-editar-title").textContent = `Editar · ${dia} ${h[0]}–${h[1]}`;
-    apagarBtn.style.display = "block";
-  } else {
-    nomeInput.value = "";
-    emailInput.value = "";
-    document.getElementById("admin-editar-title").textContent = `Adicionar · ${dia} ${h[0]}–${h[1]}`;
-    apagarBtn.style.display = "none";
-  }
 
-  renderAdminEquipRows();
-  document.getElementById("overlay-admin-editar").classList.add("open");
-}
+    function abrirModalAdminEditar(ln, col, reservaIdx) {
+      if (!isAdmin()) return;
+      adminEditLinha = ln;
+      adminEditColuna = col;
+      adminEditReservaIdx = reservaIdx;
+      adminEditEquipState = resetEquip();
 
-function fecharModalAdminEditar() {
-  document.getElementById("overlay-admin-editar").classList.remove("open");
-}
+      const row = dadosGlobais[ln - 1] || [];
+      const val = (row[col - 1] || "").trim();
+      const h = HORARIOS[ln] || ["?", "?"];
+      const cab = dadosGlobais[0] || [];
+      const DIAS_ABV = ["", "Seg", "Ter", "Qua", "Qui", "Sex"];
+      const dia = cab[col - 1] || DIAS_ABV[col - 1] || "";
 
-document.getElementById("overlay-admin-editar").addEventListener("click", function(e) {
-  if (e.target === this) fecharModalAdminEditar();
-});
+      document.getElementById("admin-editar-error").textContent = "";
+      const nomeInput = document.getElementById("admin-nome-input");
+      const emailInput = document.getElementById("admin-email-input");
+      const apagarBtn = document.getElementById("admin-apagar-btn");
 
-function renderAdminEquipRows() {
-  const c = document.getElementById("admin-equip-rows");
-  c.innerHTML = "";
-  Object.keys(ESTOQUE).forEach(tipo => {
-    const { emoji, nome } = ESTOQUE[tipo];
-    const ativo = adminEditEquipState[tipo].ativo;
-    const qtd = adminEditEquipState[tipo].qtd;
-    const row = document.createElement("div");
-    row.className = `equip-row ${tipo}${ativo ? " ativo" : ""}`;
-    row.id = `admin-equip-row-${tipo}`;
-    row.innerHTML = `
+      if (reservaIdx >= 0) {
+        const reservas = listarReservas(val);
+        const rsv = reservas[reservaIdx];
+        if (rsv) {
+          nomeInput.value = rsv.nome || "";
+          emailInput.value = rsv.email || "";
+          const reEquip = /(\d+)\s*(tv remota|notebook prata|notebook preto|tablet)/gi;
+          let m;
+          while ((m = reEquip.exec(rsv.equip || "")) !== null) {
+            const n = m[2].toLowerCase();
+            let key = null;
+            if (n === "tablet") key = "tablet";
+            else if (n === "notebook prata") key = "prata";
+            else if (n === "notebook preto") key = "preto";
+            else if (n === "tv remota") key = "tvremota";
+            if (key) {
+              adminEditEquipState[key].ativo = true;
+              adminEditEquipState[key].qtd = parseInt(m[1], 10);
+            }
+          }
+        }
+        document.getElementById("admin-editar-title").textContent = `Editar · ${dia} ${h[0]}–${h[1]}`;
+        apagarBtn.style.display = "block";
+      } else {
+        nomeInput.value = "";
+        emailInput.value = "";
+        document.getElementById("admin-editar-title").textContent = `Adicionar · ${dia} ${h[0]}–${h[1]}`;
+        apagarBtn.style.display = "none";
+      }
+
+      renderAdminEquipRows();
+      document.getElementById("overlay-admin-editar").classList.add("open");
+    }
+
+    function fecharModalAdminEditar() {
+      document.getElementById("overlay-admin-editar").classList.remove("open");
+    }
+
+    document.getElementById("overlay-admin-editar").addEventListener("click", function (e) {
+      if (e.target === this) fecharModalAdminEditar();
+    });
+
+    function renderAdminEquipRows() {
+      const c = document.getElementById("admin-equip-rows");
+      c.innerHTML = "";
+      Object.keys(ESTOQUE).forEach(tipo => {
+        const { emoji, nome } = ESTOQUE[tipo];
+        const ativo = adminEditEquipState[tipo].ativo;
+        const qtd = adminEditEquipState[tipo].qtd;
+        const row = document.createElement("div");
+        row.className = `equip-row ${tipo}${ativo ? " ativo" : ""}`;
+        row.id = `admin-equip-row-${tipo}`;
+        row.innerHTML = `
       <div class="equip-row-check" id="admin-check-${tipo}">${ativo ? "✔" : ""}</div>
       <span class="equip-row-emoji">${emoji}</span>
       <div class="equip-row-info">
@@ -2269,138 +2285,139 @@ function renderAdminEquipRows() {
         <span class="qty-num" id="admin-qty-num-${tipo}">${qtd}</span>
         <button class="qty-btn" onclick="event.stopPropagation();mudaAdminQtd('${tipo}',+1)">+</button>
       </div>`;
-    row.onclick = () => toggleAdminEquip(tipo);
-    c.appendChild(row);
-  });
-}
-
-function toggleAdminEquip(tipo) {
-  adminEditEquipState[tipo].ativo = !adminEditEquipState[tipo].ativo;
-  const row = document.getElementById(`admin-equip-row-${tipo}`);
-  const check = document.getElementById(`admin-check-${tipo}`);
-  const qw = document.getElementById(`admin-qty-wrap-${tipo}`);
-  if (adminEditEquipState[tipo].ativo) {
-    row.classList.add("ativo");
-    check.textContent = "✔";
-    qw.style.display = "flex";
-  } else {
-    row.classList.remove("ativo");
-    check.textContent = "";
-    qw.style.display = "none";
-  }
-}
-
-function mudaAdminQtd(tipo, delta) {
-  const max = ESTOQUE[tipo].total;
-  adminEditEquipState[tipo].qtd = Math.max(1, Math.min(max, adminEditEquipState[tipo].qtd + delta));
-  document.getElementById(`admin-qty-num-${tipo}`).textContent = adminEditEquipState[tipo].qtd;
-}
-
-async function salvarAdminCell() {
-  const nome = document.getElementById("admin-nome-input").value.trim();
-  const email = document.getElementById("admin-email-input").value.trim().toLowerCase();
-  const err = document.getElementById("admin-editar-error");
-  err.textContent = "";
-
-  if (!nome) { err.textContent = "✏️ Digite o nome do professor."; return; }
-  const sel = Object.keys(adminEditEquipState).filter(t => adminEditEquipState[t].ativo);
-  if (!sel.length) { err.textContent = "🎒 Selecione ao menos um equipamento."; return; }
-
-  const equipStr = sel.map(t => `${adminEditEquipState[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
-  const tag = email && email.includes("@") ? ` [${email}]` : "";
-  const novaReserva = `${nome}${tag} | ${equipStr}`;
-
-  const row = dadosGlobais[adminEditLinha - 1] || [];
-  const valAtual = (row[adminEditColuna - 1] || "").trim();
-  let valorFinal;
-  if (adminEditReservaIdx >= 0) {
-    const blocos = valAtual.split(" § ");
-    if (adminEditReservaIdx < blocos.length) {
-      blocos[adminEditReservaIdx] = novaReserva;
-    } else {
-      blocos.push(novaReserva);
+        row.onclick = () => toggleAdminEquip(tipo);
+        c.appendChild(row);
+      });
     }
-    valorFinal = blocos.join(" § ").trim();
-  } else {
-    const vUp = valAtual.toUpperCase();
-    valorFinal = (!valAtual || vUp === "" || vUp === "LIVRE" || vUp === "BLOQUEADO")
-      ? novaReserva
-      : `${valAtual} § ${novaReserva}`;
-  }
 
-  const btn = document.getElementById("admin-salvar-btn");
-  btn.textContent = "Salvando..."; btn.disabled = true;
-  try {
-    const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
-    if (!res.ok) {
-      const d = await res.json().catch(() => ({}));
-      throw new Error(d.erro || "Erro ao salvar");
+    function toggleAdminEquip(tipo) {
+      adminEditEquipState[tipo].ativo = !adminEditEquipState[tipo].ativo;
+      const row = document.getElementById(`admin-equip-row-${tipo}`);
+      const check = document.getElementById(`admin-check-${tipo}`);
+      const qw = document.getElementById(`admin-qty-wrap-${tipo}`);
+      if (adminEditEquipState[tipo].ativo) {
+        row.classList.add("ativo");
+        check.textContent = "✔";
+        qw.style.display = "flex";
+      } else {
+        row.classList.remove("ativo");
+        check.textContent = "";
+        qw.style.display = "none";
+      }
     }
-    if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
-    fecharModalAdminEditar();
-    renderAdminGrid(dadosGlobais);
-    showToast("✅ Reserva salva!", "success");
-  } catch (e) {
-    const msg = e.name === "AbortError" ? "Servidor demorou a responder. Tente novamente." : (e.message || "Erro ao salvar");
-    err.textContent = `✗ ${msg}`;
-  }
-  btn.textContent = "💾 Salvar"; btn.disabled = false;
-}
 
-async function apagarAdminCell() {
-  if (adminEditReservaIdx < 0) return;
-  const row = dadosGlobais[adminEditLinha - 1] || [];
-  const valAtual = (row[adminEditColuna - 1] || "").trim();
-  const blocos = valAtual.split(" § ");
-  blocos.splice(adminEditReservaIdx, 1);
-  const valorFinal = blocos.join(" § ").trim();
+    function mudaAdminQtd(tipo, delta) {
+      const max = ESTOQUE[tipo].total;
+      adminEditEquipState[tipo].qtd = Math.max(1, Math.min(max, adminEditEquipState[tipo].qtd + delta));
+      document.getElementById(`admin-qty-num-${tipo}`).textContent = adminEditEquipState[tipo].qtd;
+    }
 
-  const btn = document.getElementById("admin-apagar-btn");
-  btn.textContent = "Apagando..."; btn.disabled = true;
-  try {
-    const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
-    if (!res.ok) throw new Error("Erro ao apagar");
-    if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
-    fecharModalAdminEditar();
-    renderAdminGrid(dadosGlobais);
-    showToast("🗑 Reserva removida.", "success");
-  } catch (e) {
-    const msg = e.name === "AbortError" ? "Servidor demorou. Tente novamente." : "Erro ao apagar";
-    document.getElementById("admin-editar-error").textContent = `✗ ${msg}`;
-  }
-  btn.textContent = "🗑 Apagar Reserva"; btn.disabled = false;
-}
+    async function salvarAdminCell() {
+      const nome = document.getElementById("admin-nome-input").value.trim();
+      const email = document.getElementById("admin-email-input").value.trim().toLowerCase();
+      const err = document.getElementById("admin-editar-error");
+      err.textContent = "";
 
-async function adminDeletarRsv(ln, col, reservaIdx) {
-  if (!confirm("Remover esta reserva?")) return;
-  const row = dadosGlobais[ln - 1] || [];
-  const valAtual = (row[col - 1] || "").trim();
-  const blocos = valAtual.split(" § ");
-  blocos.splice(reservaIdx, 1);
-  const valorFinal = blocos.join(" § ").trim();
-  try {
-    const res = await adminChamarEditar(ln, col, valorFinal);
-    if (!res.ok) throw new Error();
-    if (dadosGlobais[ln - 1]) dadosGlobais[ln - 1][col - 1] = valorFinal;
-    renderAdminGrid(dadosGlobais);
-    showToast("🗑 Reserva removida.", "success");
-  } catch (e) {
-    showToast("✗ Erro ao remover reserva.", "error-toast");
-  }
-}
+      if (!nome) { err.textContent = "✏️ Digite o nome do professor."; return; }
+      const sel = Object.keys(adminEditEquipState).filter(t => adminEditEquipState[t].ativo);
+      if (!sel.length) { err.textContent = "🎒 Selecione ao menos um equipamento."; return; }
 
-async function adminSetCell(ln, col, valor) {
-  try {
-    const res = await adminChamarEditar(ln, col, valor);
-    if (!res.ok) throw new Error();
-    if (dadosGlobais[ln - 1]) dadosGlobais[ln - 1][col - 1] = valor;
-    renderAdminGrid(dadosGlobais);
-    const msg = valor === "BLOQUEADO" ? "🔒 Horário bloqueado." : "✅ Horário liberado.";
-    showToast(msg, "success");
-  } catch (e) {
-    showToast("✗ Erro ao atualizar horário.", "error-toast");
-  }
-}
-</script>
+      const equipStr = sel.map(t => `${adminEditEquipState[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
+      const tag = email && email.includes("@") ? ` [${email}]` : "";
+      const novaReserva = `${nome}${tag} | ${equipStr}`;
+
+      const row = dadosGlobais[adminEditLinha - 1] || [];
+      const valAtual = (row[adminEditColuna - 1] || "").trim();
+      let valorFinal;
+      if (adminEditReservaIdx >= 0) {
+        const blocos = valAtual.split(" § ");
+        if (adminEditReservaIdx < blocos.length) {
+          blocos[adminEditReservaIdx] = novaReserva;
+        } else {
+          blocos.push(novaReserva);
+        }
+        valorFinal = blocos.join(" § ").trim();
+      } else {
+        const vUp = valAtual.toUpperCase();
+        valorFinal = (!valAtual || vUp === "" || vUp === "LIVRE" || vUp === "BLOQUEADO")
+          ? novaReserva
+          : `${valAtual} § ${novaReserva}`;
+      }
+
+      const btn = document.getElementById("admin-salvar-btn");
+      btn.textContent = "Salvando..."; btn.disabled = true;
+      try {
+        const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
+        if (!res.ok) {
+          const d = await res.json().catch(() => ({}));
+          throw new Error(d.erro || "Erro ao salvar");
+        }
+        if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
+        fecharModalAdminEditar();
+        renderAdminGrid(dadosGlobais);
+        showToast("✅ Reserva salva!", "success");
+      } catch (e) {
+        const msg = e.name === "AbortError" ? "Servidor demorou a responder. Tente novamente." : (e.message || "Erro ao salvar");
+        err.textContent = `✗ ${msg}`;
+      }
+      btn.textContent = "💾 Salvar"; btn.disabled = false;
+    }
+
+    async function apagarAdminCell() {
+      if (adminEditReservaIdx < 0) return;
+      const row = dadosGlobais[adminEditLinha - 1] || [];
+      const valAtual = (row[adminEditColuna - 1] || "").trim();
+      const blocos = valAtual.split(" § ");
+      blocos.splice(adminEditReservaIdx, 1);
+      const valorFinal = blocos.join(" § ").trim();
+
+      const btn = document.getElementById("admin-apagar-btn");
+      btn.textContent = "Apagando..."; btn.disabled = true;
+      try {
+        const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
+        if (!res.ok) throw new Error("Erro ao apagar");
+        if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
+        fecharModalAdminEditar();
+        renderAdminGrid(dadosGlobais);
+        showToast("🗑 Reserva removida.", "success");
+      } catch (e) {
+        const msg = e.name === "AbortError" ? "Servidor demorou. Tente novamente." : "Erro ao apagar";
+        document.getElementById("admin-editar-error").textContent = `✗ ${msg}`;
+      }
+      btn.textContent = "🗑 Apagar Reserva"; btn.disabled = false;
+    }
+
+    async function adminDeletarRsv(ln, col, reservaIdx) {
+      if (!confirm("Remover esta reserva?")) return;
+      const row = dadosGlobais[ln - 1] || [];
+      const valAtual = (row[col - 1] || "").trim();
+      const blocos = valAtual.split(" § ");
+      blocos.splice(reservaIdx, 1);
+      const valorFinal = blocos.join(" § ").trim();
+      try {
+        const res = await adminChamarEditar(ln, col, valorFinal);
+        if (!res.ok) throw new Error();
+        if (dadosGlobais[ln - 1]) dadosGlobais[ln - 1][col - 1] = valorFinal;
+        renderAdminGrid(dadosGlobais);
+        showToast("🗑 Reserva removida.", "success");
+      } catch (e) {
+        showToast("✗ Erro ao remover reserva.", "error-toast");
+      }
+    }
+
+    async function adminSetCell(ln, col, valor) {
+      try {
+        const res = await adminChamarEditar(ln, col, valor);
+        if (!res.ok) throw new Error();
+        if (dadosGlobais[ln - 1]) dadosGlobais[ln - 1][col - 1] = valor;
+        renderAdminGrid(dadosGlobais);
+        const msg = valor === "BLOQUEADO" ? "🔒 Horário bloqueado." : "✅ Horário liberado.";
+        showToast(msg, "success");
+      } catch (e) {
+        showToast("✗ Erro ao atualizar horário.", "error-toast");
+      }
+    }
+  </script>
 </body>
+
 </html>
