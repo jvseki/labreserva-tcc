@@ -37,7 +37,7 @@ HORARIOS = {
 DIAS_NOME = ["", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 
 # Marca d'água (coluna H — não entra na limpeza semanal)
-MARCA_AGUA_CHAVE = "marca_agua_tcc_v2"
-MARCA_NICK = "JVSM"
-MARCA_AUTOR = "João Victor Silva Marcondes"
+MARCA_AGUA_CHAVE = "marca_agua_jvseki_v1"
+MARCA_NICK = "JVSEKI"
+MARCA_AUTOR = "João Victor Seki Mantovani"
 MARCA_TEXTO = "Sistema de reservas - Informativo"
