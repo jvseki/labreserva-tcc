@@ -1,0 +1,166 @@
+# Agendamento de Notebooks — Laboratório de Informática (TCC)
+
+Sistema web (PWA) para reserva de notebooks, tablets e equipamentos do laboratório escolar. Professores agendam por dia e horário; a coordenação acompanha tudo na **Google Sheets**. Inclui login Google, múltiplas reservas no mesmo horário, lista de espera com promoção automática e limpeza semanal controlada pelo servidor.
+
+**Planilha TCC:** [Google Sheets](https://docs.google.com/spreadsheets/d/1xJGkM1ZVYO9rIWBtW2tiqR2V6ZsI9-VIcwqUIHRoWx0/edit)
+
+---
+
+## Estrutura do projeto
+
+```
+labreserva-tcc/
+├── frontend/
+│   ├── index.html      # App completo (UI + lógica)
+│   ├── style.css
+│   ├── sw.js           # Service Worker (cache notebooks-v9)
+│   ├── manifest.json   # PWA
+│   └── icon-192.png / icon-512.png
+├── backend/
+│   ├── app.py          # API Flask
+│   ├── sheets.py       # Google Sheets (gspread)
+│   ├── config.py       # Planilha, horários, colunas, marca d'água
+│   ├── requirements.txt
+│   ├── Procfile        # Render: web: python app.py
+│   └── credenciais.json   # APENAS local — não commitar
+├── vercel.json
+└── readme
+```
+
+> O arquivo `frontend/script.js` é legado; o app em uso está em `frontend/index.html`.
+
+---
+
+## Configuração centralizada
+
+Tudo que depende da planilha está em **`backend/config.py`** (backend) e no bloco de constantes no topo de **`frontend/index.html`** (frontend):
+
+| Constante | Valor | Descrição |
+|-----------|-------|-----------|
+| `SHEET_ID` | `1xJGkM1ZVYO9rIWBtW2tiqR2V6ZsI9-VIcwqUIHRoWx0` | ID da planilha TCC |
+| `COL_DIA_MIN` / `COL_DIA_MAX` | 2 / 7 | Colunas B–G (Segunda a Sábado) |
+| `COL_MARCA_AGUA` | 8 | Coluna H — créditos do sistema |
+| `LINHAS_INTERVALO` | 5, 12 | Intervalos (não limpar, não reservar) |
+
+---
+
+## Planilha Google Sheets
+
+### Aba: Página1 (primeira aba — agenda)
+
+| Col A | Col B | Col C | Col D | Col E | Col F | Col G | Col H |
+|-------|-------|-------|-------|-------|-------|-------|-------|
+| Horário | Segunda | Terça | Quarta | Quinta | Sexta | Sábado | _(marca d'água)_ |
+
+- **Linha 1:** cabeçalho (nomes dos dias — não remover)
+- **Linhas 2–15:** horários de aula (coluna A fixa; agendamentos em B–G)
+- **Intervalos (só visual, manter vazios):** linhas **5** (09:30–09:50) e **12** (15:10–15:30)
+- **Coluna H:** créditos automáticos do sistema (fora da limpeza semanal)
+
+**Conteúdo das células (B–G):**
+
+| Valor | Significado |
+|-------|-------------|
+| _(vazio)_ | Livre |
+| `BLOQUEADO` | Bloqueado — não apaga na limpeza semanal |
+| `Maria [email@escola.com] \| 12 tablet` | Uma reserva |
+| `João \| 5 notebook prata § Maria \| 12 tablet` | Várias reservas no mesmo slot (`§` entre professores) |
+
+### Aba: Espera (criada automaticamente)
+
+| id | nome | email | linha | coluna | equipamentos | timestamp |
+
+### Aba: Config (criada automaticamente)
+
+Controle da **limpeza semanal** (chave `limpeza_YYYY-MM-DD`) e marca d'água.
+
+---
+
+## Horários (linhas da planilha)
+
+```
+Linha  2: 07:00 – 07:50        Linha  9: 12:20 – 13:30
+Linha  3: 07:50 – 08:40        Linha 10: 13:30 – 14:20
+Linha  4: 08:40 – 09:30        Linha 11: 14:20 – 15:10
+Linha  5: 09:30 – 09:50 ☐     Linha 12: 15:10 – 15:30 ☐
+Linha  6: 09:50 – 10:40        Linha 13: 15:30 – 16:20
+Linha  7: 10:40 – 11:30        Linha 14: 16:20 – 17:10
+Linha  8: 11:30 – 12:20        Linha 15: 17:10 – 18:00
+
+☐ = intervalo
+```
+
+---
+
+## Estoque de equipamentos
+
+Editar em **dois lugares** (manter iguais):
+
+1. `frontend/index.html` → `const ESTOQUE`
+2. `backend/app.py` → `ESTOQUE_TOTAL`
+
+---
+
+## Lógica de negócio
+
+### Calendário
+- Segunda a **sábado** com datas calculadas no mini-calendário.
+- **Sexta ≥ 18h, sábado ou domingo:** interface mostra a **semana seguinte**.
+
+### Limpeza semanal (servidor)
+- Na **primeira** requisição `GET /agenda` após **sexta 18h** (Brasília), o backend limpa **B2:G15** uma vez, registra na aba **Config**, preserva `BLOQUEADO` e não limpa linhas 5 e 12.
+
+---
+
+## API (backend)
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/agenda` | Matriz da planilha; dispara limpeza semanal se aplicável |
+| POST | `/editar` | `{ "linha", "coluna", "valor" }` |
+| GET/POST/DELETE | `/espera` | Lista de espera |
+| POST | `/promover` | Promove fila para a agenda |
+
+---
+
+## Deploy
+
+### Render (backend)
+1. Variável `GOOGLE_CREDENTIALS` = JSON da conta de serviço.
+2. Compartilhar a planilha TCC com o e-mail da conta de serviço como **Editor**.
+
+### Google Cloud
+1. Ativar **Google Sheets API** e **Google Drive API**.
+2. Conta de serviço → compartilhar planilha como Editor.
+
+---
+
+## Desenvolvimento local
+
+```bash
+cd backend
+pip install -r requirements.txt
+# credenciais.json em backend/ OU export GOOGLE_CREDENTIALS
+python app.py
+```
+
+---
+
+## Manutenção manual da planilha
+
+| Situação | Ação |
+|----------|------|
+| Cancelar uma reserva | Apagar célula ou usar “editar” no app |
+| Bloquear horário | Escrever `BLOQUEADO` |
+| Reset manual da semana | Limpar B2:G15 (respeitar BLOQUEADO) |
+
+---
+
+## Dependências
+
+```
+Flask
+flask-cors
+gspread
+oauth2client
+```
