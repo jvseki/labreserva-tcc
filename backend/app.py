@@ -9,6 +9,8 @@ from config import (
     LINHAS_INTERVALO,
     LINHA_INICIO,
     LINHA_FIM,
+    DIAS_NOME,
+    CABECALHO_CHAVE,
     MARCA_AGUA_CHAVE,
     MARCA_NICK,
     MARCA_AUTOR,
@@ -93,11 +95,28 @@ def config_set(chave, valor):
 MARCA_AGUA_RANGE = f"H1:H3"
 
 
+def garantir_cabecalho_planilha():
+    """Restaura B1:F1 (Seg–Sex) e limpa G1 — marca d'água não é dia da semana."""
+    if config_get(CABECALHO_CHAVE):
+        return
+    try:
+        for col in range(COL_DIA_MIN, COL_DIA_MAX + 1):
+            nome = DIAS_NOME[col - 1] if col - 1 < len(DIAS_NOME) else ""
+            if nome:
+                sheet.update_cell(1, col, nome)
+        sheet.update_cell(1, 7, "")
+        config_set(CABECALHO_CHAVE, "ok")
+        print("[cabecalho] Segunda a Sexta restaurado; G1 limpo")
+    except Exception as e:
+        print(f"[cabecalho] erro: {e}")
+
+
 def garantir_marca_agua_planilha():
     """
-    Grava créditos na coluna H (fora de B–G) e na aba Config.
-    Não é apagado pela limpeza semanal (só B2:G15).
+    Grava créditos na coluna H (fora de B–F) e na aba Config.
+    Não é apagado pela limpeza semanal (só B2:F15).
     """
+    garantir_cabecalho_planilha()
     if config_get(MARCA_AGUA_CHAVE):
         return
     try:
@@ -149,7 +168,7 @@ def agenda_tem_reservas(valores):
 
 
 def limpar_celulas_agenda():
-    """Limpa agendamentos B2:G15 (preserva intervalos e BLOQUEADO manual)."""
+    """Limpa agendamentos B2:F15 (preserva intervalos e BLOQUEADO manual)."""
     for ln in range(LINHA_INICIO, LINHA_FIM + 1):
         if ln in LINHAS_INTERVALO:
             continue

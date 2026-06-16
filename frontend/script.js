@@ -30,7 +30,7 @@ const HORARIOS = {
 };
 
 const COL_DIA_MIN = 2;
-const COL_DIA_MAX = 7;
+const COL_DIA_MAX = 6;
 
 // Guarda os dados globais da planilha
 let dadosGlobais = [];
@@ -60,8 +60,8 @@ function diaSemanaAtual() {
 }
 
 // Converte coluna de dado (1-based, sendo col 1 = "Horário") para dia da semana
-// Cabeçalho: [Horário, Segunda … Sábado]
-// col 2 = Segunda (dia 1) … col 7 = Sábado (dia 6)
+// Cabeçalho: [Horário, Segunda … Sexta]
+// col 2 = Segunda (dia 1) … col 6 = Sexta (dia 5)
 function colParaDiaSemana(col) {
   return col - 1; // col 2 → 1 (seg), col 3 → 2 (ter), …
 }

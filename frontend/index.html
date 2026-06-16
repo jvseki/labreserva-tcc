@@ -510,7 +510,7 @@ const API = "https://labreserva-tcc.onrender.com";
     // ── Planilha TCC (Google Sheets) ──
     // https://docs.google.com/spreadsheets/d/1xJGkM1ZVYO9rIWBtW2tiqR2V6ZsI9-VIcwqUIHRoWx0
     const COL_DIA_MIN = 2;  // B — Segunda
-    const COL_DIA_MAX = 7;  // G — Sábado
+    const COL_DIA_MAX = 6;  // F — Sexta
     const COL_MARCA_AGUA = 8; // H — créditos (fora da grade)
 
     const HORARIOS = {
@@ -520,8 +520,8 @@ const API = "https://labreserva-tcc.onrender.com";
       11: ["14:20", "15:10"], 12: ["15:10", "15:30"], 13: ["15:30", "16:20"],
       14: ["16:20", "17:10"], 15: ["17:10", "18:00"],
     };
-    const DIAS_NOME = ["", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-    const DIAS_ABREV = ["", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+    const DIAS_NOME = ["", "Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
+    const DIAS_ABREV = ["", "Seg", "Ter", "Qua", "Qui", "Sex"];
 
     // ════════════════════════════════════════
     // ESTADO DO USUÁRIO
@@ -699,7 +699,7 @@ const API = "https://labreserva-tcc.onrender.com";
       const seg = getSegundaDaSemana();
       const abrev = DIAS_ABREV.slice(1);
       cal.innerHTML = "";
-      for (let d = 0; d < 6; d++) {
+      for (let d = 0; d < 5; d++) {
         const dt = new Date(seg);
         dt.setDate(seg.getDate() + d);
         const div = document.createElement("div");
@@ -1055,7 +1055,7 @@ const API = "https://labreserva-tcc.onrender.com";
       const tabela = document.getElementById("tabela");
       tabela.innerHTML = "";
       const colgroup = document.createElement("colgroup");
-      colgroup.innerHTML = '<col class="col-hora"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia">';
+      colgroup.innerHTML = '<col class="col-hora"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia"><col class="col-dia">';
       tabela.appendChild(colgroup);
       let livre = 0, reservado = 0;
       const cab = dados[0] || [];
@@ -1066,7 +1066,7 @@ const API = "https://labreserva-tcc.onrender.com";
         const tr = document.createElement("tr");
         const linhaNum = i + 1;
         linha.forEach((celula, j) => {
-          if (j >= COL_DIA_MAX) return; /* colunas A–G — ignora marca d'água em H+ */
+          if (j >= COL_DIA_MAX) return; /* colunas A–F — ignora G+ e marca d'água em H */
           const isHdr = i === 0, isLbl = j === 0;
           const coluna = j + 1;
           const td = document.createElement(isHdr ? "th" : "td");
@@ -1078,8 +1078,9 @@ const API = "https://labreserva-tcc.onrender.com";
               const dStr = `${dt.getDate().toString().padStart(2, "0")}/${(dt.getMonth() + 1).toString().padStart(2, "0")}`;
               const isHoje = dt.toDateString() === hoje.toDateString();
               if (isHoje) td.classList.add("hoje-col");
-              td.innerHTML = `<span class="th-dia-nome">${celula}</span><span class="th-dia-data">${dStr}${isHoje ? " · hoje" : ""}</span>`;
-              td.onclick = () => abrirModalDia(coluna, celula, dados);
+              const diaNome = DIAS_NOME[coluna - 1] || celula;
+              td.innerHTML = `<span class="th-dia-nome">${diaNome}</span><span class="th-dia-data">${dStr}${isHoje ? " · hoje" : ""}</span>`;
+              td.onclick = () => abrirModalDia(coluna, diaNome, dados);
             }
             tr.appendChild(td); return;
           }
@@ -1166,7 +1167,7 @@ const API = "https://labreserva-tcc.onrender.com";
 
       for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
         try {
-          const diaNome = cab[col - 1] || DIAS_NOME[col - 1] || `Dia ${col - 1}`;
+          const diaNome = DIAS_NOME[col - 1] || cab[col - 1] || `Dia ${col - 1}`;
           const dt = new Date(seg); dt.setDate(seg.getDate() + (col - 2));
           const dStr = `${dt.getDate().toString().padStart(2, "0")}/${(dt.getMonth() + 1).toString().padStart(2, "0")}`;
           // Compara só a data (ano/mes/dia) sem depender de toDateString que varia por locale
@@ -2207,7 +2208,7 @@ const API = "https://labreserva-tcc.onrender.com";
       // ── Mobile: day cards ──
       let cardsHtml = "";
       for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
-        const diaNome = cab[col-1] || DIAS_NOMES[col-1] || "";
+        const diaNome = DIAS_NOMES[col-1] || cab[col-1] || "";
         const dt = new Date(seg);
         dt.setDate(seg.getDate() + (col - 2));
         const dtStr = `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}`;
@@ -2238,14 +2239,14 @@ const API = "https://labreserva-tcc.onrender.com";
         const dt = new Date(seg);
         dt.setDate(seg.getDate() + (c - 2));
         const dtStr = `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}`;
-        thead += `<th class="atd atd-dia">${cab[c-1] || DIAS_ABV[c-1] || ""}<span class="atd-dia-date">${dtStr}</span></th>`;
+        thead += `<th class="atd atd-dia">${DIAS_NOMES[c-1] || DIAS_ABV[c-1] || cab[c-1] || ""}<span class="atd-dia-date">${dtStr}</span></th>`;
       }
       thead += "</tr>";
 
       let tbody = "";
       for (let ln = 2; ln <= 15; ln++) {
         if (LINHAS_INTERVALO.has(ln)) {
-          tbody += `<tr><td colspan="7" class="atd-intervalo">☕ Intervalo</td></tr>`;
+          tbody += `<tr><td colspan="6" class="atd-intervalo">☕ Intervalo</td></tr>`;
           continue;
         }
         const h = HORARIOS[ln];

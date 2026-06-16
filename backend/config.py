@@ -7,9 +7,9 @@ SHEET_ID = "1xJGkM1ZVYO9rIWBtW2tiqR2V6ZsI9-VIcwqUIHRoWx0"
 SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/edit"
 
 # Colunas da aba Página1
-# A = horários | B–G = Segunda a Sábado | H = marca d'água (fora da grade)
+# A = horários | B–F = Segunda a Sexta | G livre | H = marca d'água
 COL_DIA_MIN = 2   # B — Segunda
-COL_DIA_MAX = 7   # G — Sábado
+COL_DIA_MAX = 6   # F — Sexta
 COL_MARCA_AGUA = 8  # H — créditos do sistema
 
 LINHAS_INTERVALO = {5, 12}
@@ -34,10 +34,13 @@ HORARIOS = {
     15: ("17:10", "18:00"),
 }
 
-DIAS_NOME = ["", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+DIAS_NOME = ["", "Segunda", "Terça", "Quarta", "Quinta", "Sexta"]
+
+# Cabeçalho da planilha (corrige G1 se tiver recebido a marca d'água por engano)
+CABECALHO_CHAVE = "cabecalho_seg_sex_v1"
 
 # Marca d'água (coluna H — não entra na limpeza semanal)
-MARCA_AGUA_CHAVE = "marca_agua_jvseki_v1"
+MARCA_AGUA_CHAVE = "marca_agua_jvseki_v2"
 MARCA_NICK = "JVSEKI"
 MARCA_AUTOR = "João Victor Seki Mantovani"
 MARCA_TEXTO = "Sistema de reservas - Informativo"

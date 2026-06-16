@@ -367,7 +367,7 @@ table {
 }
 
 col.col-hora { width: 128px; }
-col.col-dia  { width: calc((100% - 128px) / 6); }
+col.col-dia  { width: calc((100% - 128px) / 5); }
 
 thead tr { background: var(--hdr); }
 
