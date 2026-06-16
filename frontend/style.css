@@ -666,22 +666,28 @@ tbody tr:hover td:not(.label-col):not(.expirado):not(.intervalo-cell):not(.bloqu
 .horario-btn.bloqueado-slot .h-status{ color:var(--red); }
 .horario-btn.intervalo-slot .h-status{ color:var(--orange); }
 
-#resumo-selecao {
+#resumo-selecao,
+#admin-resumo-selecao {
   font-size:11px; font-weight:600; color:var(--ink2);
   background:var(--paper); border:1.5px solid var(--border);
   border-radius:var(--radius-sm); padding:6px 12px; margin-bottom:14px; text-align:center;
 }
-#resumo-selecao:not(.resumo-vazio):not(.com-aviso) {
+#resumo-selecao:not(.resumo-vazio):not(.com-aviso),
+#admin-resumo-selecao:not(.resumo-vazio):not(.com-aviso) {
   color:var(--blue); background:var(--blue-bg); border-color:var(--blue-bd);
 }
-#resumo-selecao.resumo-vazio { color:var(--ink2); background:var(--paper); border-color:var(--border); }
-#resumo-selecao.com-aviso {
+#resumo-selecao.resumo-vazio,
+#admin-resumo-selecao.resumo-vazio { color:var(--ink2); background:var(--paper); border-color:var(--border); }
+#resumo-selecao.com-aviso,
+#admin-resumo-selecao.com-aviso {
   color:var(--ink2); background:var(--orange-bg); border-color:var(--orange-bd); text-align:left;
 }
-#resumo-selecao .resumo-aviso {
+#resumo-selecao .resumo-aviso,
+#admin-resumo-selecao .resumo-aviso {
   margin-top:8px; font-size:10px; font-weight:500; line-height:1.45; color:#92400e;
 }
-#resumo-selecao .resumo-aviso strong { font-weight:700; }
+#resumo-selecao .resumo-aviso strong,
+#admin-resumo-selecao .resumo-aviso strong { font-weight:700; }
 
 /* ── Equipamentos ── */
 .equip-rows { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
@@ -755,11 +761,31 @@ tbody tr:hover td:not(.label-col):not(.expirado):not(.intervalo-cell):not(.bloqu
   font-size:13px; font-weight:700; z-index:300;
   opacity:0; transition:all .35s cubic-bezier(.34,1.56,.64,1);
   box-shadow:0 8px 30px var(--shadow);
-  white-space:nowrap;
+  display:flex; align-items:center; gap:10px;
+  max-width:min(92vw, 420px);
+  white-space:normal;
 }
+.toast-icon {
+  flex-shrink:0;
+  width:22px; height:22px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800;
+}
+.toast-text { flex:1; min-width:0; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 .toast.success     { border-color:var(--green-bd); color:var(--green); background:var(--green-bg); }
+.toast.success .toast-icon { background:var(--green); color:#fff; }
 .toast.error-toast { border-color:var(--red-bd);   color:var(--red);   background:var(--red-bg); }
+.toast.error-toast .toast-icon { background:var(--red); color:#fff; }
+.toast.toast--admin {
+  z-index:1300;
+  bottom:auto;
+  top:calc(14px + var(--safe-top));
+  transform:translateX(-50%) translateY(-24px);
+  box-shadow:0 6px 24px rgba(15,23,42,.18);
+}
+.toast.toast--admin.show { transform:translateX(-50%) translateY(0); }
 
 /* ══════════════════════════════════════
    MOBILE — tabela como cards
@@ -950,6 +976,14 @@ tbody tr:hover td:not(.label-col):not(.expirado):not(.intervalo-cell):not(.bloqu
 
 .equip-row.sem-estoque { opacity:1 !important; pointer-events:none; background:#f8fafc; }
 .equip-row.sem-estoque .fila-equip-btn { pointer-events:all; }
+
+#admin-equip-rows .equip-row.sem-estoque .admin-fila-actions {
+  pointer-events:all;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-shrink:0;
+}
 
 /* ── Badges equipamentos nas células ── */
 .cell-reserva { display:flex; align-items:flex-start; flex-wrap:wrap; gap:2px; margin-bottom:2px; }
@@ -1451,6 +1485,14 @@ tbody tr:hover td:not(.label-col):not(.expirado):not(.intervalo-cell):not(.bloqu
 .admin-slot-livre    { background:var(--green-bg); }
 .admin-slot-ocupado  { background:#f8fbff; }
 .admin-slot-bloqueado{ background:#f8fafc; }
+.admin-slot-passado { background:#e2e8f0; cursor:default; }
+.admin-slot-passado .admin-slot-hora { color:var(--gray-text); }
+.admin-slot-badge--passado {
+  color:var(--gray-text);
+  background:#e2e8f0;
+  border:1px solid var(--border);
+  font-style:italic;
+}
 .admin-slot-livre .admin-slot-hora    { color:var(--green); }
 .admin-slot-bloqueado .admin-slot-hora{ color:var(--ink3); }
 
@@ -1553,6 +1595,15 @@ tbody tr:hover td:not(.label-col):not(.expirado):not(.intervalo-cell):not(.bloqu
 .atd-livre   { background:var(--green-bg); }
 .atd-bloqueado{ background:#f8fafc; text-align:center; }
 .atd-ocupado { background:#f8fbff; }
+.atd-passado {
+  background:#e2e8f0 !important;
+  color:var(--gray-text);
+  font-style:italic;
+  font-size:12px;
+  font-weight:600;
+  text-align:center;
+  cursor:default;
+}
 .atd-bloq-ico { font-size:13px; display:block; margin-bottom:4px; color:var(--ink3); }
 
 .admin-table .admin-action-add,
@@ -1561,3 +1612,99 @@ tbody tr:hover td:not(.label-col):not(.expirado):not(.intervalo-cell):not(.bloqu
 .admin-table .admin-rsv-nome { font-size:10px; padding:3px 6px; min-height:28px; }
 .admin-table .admin-rsv-del  { width:28px; height:28px; font-size:11px; border-radius:5px; }
 .admin-table .admin-slot-actions { gap:3px; }
+
+/* ══════════════════════════════════════
+   ADMIN — ALERTAS E CONFIRMAÇÃO
+══════════════════════════════════════ */
+.admin-alert {
+  display:none;
+  align-items:flex-start;
+  gap:10px;
+  padding:11px 14px;
+  border-radius:var(--radius-sm);
+  font-size:13px;
+  font-weight:600;
+  line-height:1.4;
+  margin-top:10px;
+  margin-bottom:4px;
+}
+.admin-alert::before {
+  flex-shrink:0;
+  font-size:16px;
+  line-height:1.2;
+}
+.admin-alert--error {
+  background:var(--red-bg);
+  border:2px solid var(--red-bd);
+  color:var(--red);
+}
+.admin-alert--error::before { content:"✕"; }
+.admin-alert--warn {
+  background:var(--orange-bg);
+  border:2px solid var(--orange-bd);
+  color:var(--orange);
+}
+.admin-alert--warn::before { content:"⚠"; }
+
+.admin-confirm-overlay {
+  z-index:1250;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.admin-confirm-overlay.open { display:flex; }
+
+.admin-confirm-box {
+  background:var(--paper);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px 20px 18px;
+  max-width:340px;
+  width:100%;
+  text-align:center;
+  box-shadow:0 8px 30px var(--shadow), 0 20px 50px rgba(15,23,42,.15);
+  animation:popIn .22s cubic-bezier(.34,1.56,.64,1);
+}
+.admin-confirm-icon {
+  display:block;
+  font-size:32px;
+  margin-bottom:10px;
+}
+.admin-confirm-msg {
+  font-size:15px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.45;
+  margin-bottom:18px;
+}
+.admin-confirm-actions {
+  display:flex;
+  gap:10px;
+  flex-direction:column;
+}
+@media (min-width:400px) {
+  .admin-confirm-actions { flex-direction:row-reverse; }
+}
+.admin-confirm-btn {
+  flex:1;
+  padding:12px 16px;
+  border-radius:var(--radius-sm);
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  border:2px solid transparent;
+  min-height:46px;
+  transition:opacity .15s;
+}
+.admin-confirm-btn:active { opacity:.85; }
+.admin-confirm-btn--danger {
+  background:var(--red);
+  color:#fff;
+  border-color:#991b1b;
+}
+.admin-confirm-btn--cancel {
+  background:var(--gray-bg);
+  color:var(--ink2);
+  border-color:var(--border);
+}

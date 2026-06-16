@@ -4,8 +4,8 @@
   "description": "Laboratório Escolar — agendamento de equipamentos do laboratório de informática",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4efe4",
-  "theme_color": "#182a1a",
+  "background_color": "#f1f5f9",
+  "theme_color": "#1e1b4b",
   "orientation": "portrait-primary",
   "lang": "pt-BR",
   "icons": [

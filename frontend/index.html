@@ -79,7 +79,7 @@
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
     rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <link rel="stylesheet" href="style.css?v=indigo-tech-v1">
+  <link rel="stylesheet" href="style.css?v=indigo-tech-v2">
   <!-- © JVSM — João Victor Silva Marcondes -->
 </head>
 
@@ -448,13 +448,29 @@
         <label>📧 E-mail (opcional)</label>
         <input type="email" id="admin-email-input" placeholder="email@escola.gov.br" autocomplete="off">
       </div>
+      <div id="admin-horarios-sec" style="display:none">
+        <div class="sec-label">⏰ Horários — toque para selecionar (um ou mais)</div>
+        <div id="admin-horarios-lista"></div>
+        <div id="admin-resumo-selecao">Nenhum horário selecionado</div>
+      </div>
       <div class="sec-label">🎒 Equipamentos</div>
       <div class="equip-rows" id="admin-equip-rows"></div>
-      <p class="error-msg" id="admin-editar-error"></p>
+      <div class="admin-alert" id="admin-editar-error" role="alert" style="display:none"></div>
       <div class="editar-actions">
         <button class="btn-danger" id="admin-apagar-btn" onclick="apagarAdminCell()" style="display:none">🗑 Apagar
           Reserva</button>
         <button class="btn-primary" id="admin-salvar-btn" onclick="salvarAdminCell()">💾 Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay admin-confirm-overlay" id="overlay-admin-confirm">
+    <div class="admin-confirm-box">
+      <span class="admin-confirm-icon">⚠️</span>
+      <p class="admin-confirm-msg" id="admin-confirm-msg"></p>
+      <div class="admin-confirm-actions">
+        <button type="button" class="admin-confirm-btn admin-confirm-btn--cancel" id="admin-confirm-no">Cancelar</button>
+        <button type="button" class="admin-confirm-btn admin-confirm-btn--danger" id="admin-confirm-yes">Sim, remover</button>
       </div>
     </div>
   </div>
@@ -1798,9 +1814,54 @@ const API = "https://labreserva-tcc.onrender.com";
     // ════════════════════════════════════════
     function showToast(msg, type) {
       const t = document.getElementById("toast");
-      t.textContent = msg; t.className = `toast ${type} show`;
+      const icons = { success: "✓", "error-toast": "✕" };
+      const ic = icons[type] || "";
+      t.innerHTML = ic
+        ? `<span class="toast-icon" aria-hidden="true">${ic}</span><span class="toast-text">${msg}</span>`
+        : msg;
+      const inAdmin = document.getElementById("overlay-admin")?.classList.contains("open")
+        || document.getElementById("overlay-admin-editar")?.classList.contains("open");
+      t.className = `toast ${type} show${inAdmin ? " toast--admin" : ""}`;
       setTimeout(() => t.classList.remove("show"), 3500);
     }
+
+    function setAdminAlert(el, msg, type = "error") {
+      if (!el) return;
+      if (!msg) {
+        el.textContent = "";
+        el.className = "admin-alert";
+        el.style.display = "none";
+        return;
+      }
+      el.textContent = msg;
+      el.className = `admin-alert admin-alert--${type}`;
+      el.style.display = "flex";
+    }
+
+    let _adminConfirmCb = null;
+
+    function showAdminConfirm(msg, onConfirm) {
+      document.getElementById("admin-confirm-msg").textContent = msg;
+      _adminConfirmCb = onConfirm;
+      document.getElementById("overlay-admin-confirm").classList.add("open");
+    }
+
+    document.getElementById("admin-confirm-yes").onclick = () => {
+      document.getElementById("overlay-admin-confirm").classList.remove("open");
+      const cb = _adminConfirmCb;
+      _adminConfirmCb = null;
+      if (cb) cb();
+    };
+    document.getElementById("admin-confirm-no").onclick = () => {
+      document.getElementById("overlay-admin-confirm").classList.remove("open");
+      _adminConfirmCb = null;
+    };
+    document.getElementById("overlay-admin-confirm").addEventListener("click", e => {
+      if (e.target === e.currentTarget) {
+        e.currentTarget.classList.remove("open");
+        _adminConfirmCb = null;
+      }
+    });
 
     // ════════════════════════════════════════
     // LISTA DE ESPERA
@@ -1923,7 +1984,7 @@ const API = "https://labreserva-tcc.onrender.com";
       const banner = document.getElementById("promo-banner");
       const inner = document.getElementById("promo-inner");
       const cab = dadosGlobais[0] || [];
-      const DIAS_ABV = ["", "Seg", "Ter", "Qua", "Qui", "Sex"];
+      const DIAS_ABV = DIAS_ABREV;
       const itens = promovidos.map(p => {
         const h = HORARIOS[p.linha] || ["?", "?"];
         const dia = cab[p.coluna - 1] || DIAS_ABV[p.coluna - 1] || "";
@@ -2022,12 +2083,7 @@ const API = "https://labreserva-tcc.onrender.com";
     // ════════════════════════════════════════
     // PAINEL DO ADMINISTRADOR
     // ════════════════════════════════════════
-    const ADMIN_EMAILS = [
-      "joaovictorsekimantovani@gmail.com",
-      "jose.alli@servidor.educacao.sp.gov.br",
-      "alli@prof.educacao.sp.gov.br",
-      "luis.polizello@educacao.sp.gov.br",
-    ];
+    const ADMIN_EMAILS = ["joaovictorsekimantovani@gmail.com"];
 
     function isAdmin() {
       return ADMIN_EMAILS.includes(getEmailUsuarioLogado());
@@ -2038,6 +2094,7 @@ const API = "https://labreserva-tcc.onrender.com";
     let adminEditColuna = null;
     let adminEditReservaIdx = null; // -1 = nova reserva, >= 0 = editar existente
     let adminEditEquipState = resetEquip();
+    let adminHorariosSelecionados = [];
 
     async function adminChamarEditar(linha, coluna, valor) {
       // Usa a mesma rota /editar que já funciona (a verificação isAdmin() é feita no frontend)
@@ -2059,7 +2116,7 @@ const API = "https://labreserva-tcc.onrender.com";
       carregarAgenda();
     }
 
-    document.getElementById("overlay-admin").addEventListener("click", function (e) {
+    document.getElementById("overlay-admin").addEventListener("click", function(e) {
       if (e.target === this && !document.getElementById("overlay-admin-editar").classList.contains("open")) {
         fecharPainelAdmin();
       }
@@ -2067,64 +2124,73 @@ const API = "https://labreserva-tcc.onrender.com";
 
     function _adminSlotCellHtml(ln, col, val, mobile) {
       const valUp = val.toUpperCase();
-      const h = HORARIOS[ln] || ["?", "?"];
+      const h = HORARIOS[ln] || ["?","?"];
+
+      if (ePassadoHoje(col, ln)) {
+        if (mobile) return `
+          <div class="admin-slot-row admin-slot-passado">
+            <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
+            <div class="admin-slot-content"><span class="admin-slot-badge admin-slot-badge--passado">🕐 Passado</span></div>
+          </div>`;
+        return `<td class="atd atd-slot atd-passado">🕐 Passado</td>`;
+      }
 
       if (!val || valUp === "LIVRE" || val === "") {
         if (mobile) return `
-      <div class="admin-slot-row admin-slot-livre">
-        <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
-        <div class="admin-slot-content"><span class="admin-slot-badge">Livre</span></div>
-        <div class="admin-slot-actions">
-          <button class="admin-action-add" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
-          <button class="admin-action-blk" onclick="adminSetCell(${ln},${col},'BLOQUEADO')" title="Bloquear">🔒</button>
-        </div>
-      </div>`;
+          <div class="admin-slot-row admin-slot-livre">
+            <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
+            <div class="admin-slot-content"><span class="admin-slot-badge">Livre</span></div>
+            <div class="admin-slot-actions">
+              <button class="admin-action-add" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
+              <button class="admin-action-blk" onclick="adminSetCell(${ln},${col},'BLOQUEADO')" title="Bloquear">🔒</button>
+            </div>
+          </div>`;
         return `<td class="atd atd-slot atd-livre">
-      <div class="admin-slot-actions">
-        <button class="admin-action-add" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
-        <button class="admin-action-blk" onclick="adminSetCell(${ln},${col},'BLOQUEADO')" title="Bloquear">🔒</button>
-      </div>
-    </td>`;
+          <div class="admin-slot-actions">
+            <button class="admin-action-add" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
+            <button class="admin-action-blk" onclick="adminSetCell(${ln},${col},'BLOQUEADO')" title="Bloquear">🔒</button>
+          </div>
+        </td>`;
       }
 
       if (valUp === "BLOQUEADO") {
         if (mobile) return `
-      <div class="admin-slot-row admin-slot-bloqueado">
-        <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
-        <div class="admin-slot-content"><span class="admin-slot-badge">🔒 Bloqueado</span></div>
-        <div class="admin-slot-actions">
-          <button class="admin-action-unblk" onclick="adminSetCell(${ln},${col},'')" title="Desbloquear">✕</button>
-        </div>
-      </div>`;
+          <div class="admin-slot-row admin-slot-bloqueado">
+            <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
+            <div class="admin-slot-content"><span class="admin-slot-badge">🔒 Bloqueado</span></div>
+            <div class="admin-slot-actions">
+              <button class="admin-action-unblk" onclick="adminSetCell(${ln},${col},'')" title="Desbloquear">✕</button>
+            </div>
+          </div>`;
         return `<td class="atd atd-slot atd-bloqueado">
-      <span class="atd-bloq-ico">🔒</span>
-      <div class="admin-slot-actions">
-        <button class="admin-action-unblk" onclick="adminSetCell(${ln},${col},'')" title="Desbloquear">✕</button>
-      </div>
-    </td>`;
+          <span class="atd-bloq-ico">🔒</span>
+          <div class="admin-slot-actions">
+            <button class="admin-action-unblk" onclick="adminSetCell(${ln},${col},'')" title="Desbloquear">✕</button>
+          </div>
+        </td>`;
       }
 
       const reservas = listarReservas(val);
       const rsvHtml = reservas.map((r, i) => `
-    <div class="admin-rsv-item">
-      <button class="admin-rsv-nome" onclick="abrirModalAdminEditar(${ln},${col},${i})" title="Editar">${r.nome}</button>
-      <button class="admin-rsv-del" onclick="adminDeletarRsv(${ln},${col},${i})" title="Remover">✕</button>
-    </div>`).join("");
+        <div class="admin-rsv-item">
+          <button class="admin-rsv-nome" onclick="abrirModalAdminEditar(${ln},${col},${i})" title="Editar">${r.nome}</button>
+          <button class="admin-rsv-del" onclick="adminDeletarRsv(${ln},${col},${i})" title="Remover">✕</button>
+        </div>`).join("");
 
       if (mobile) return `
-    <div class="admin-slot-row admin-slot-ocupado">
-      <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
-      <div class="admin-slot-content">${rsvHtml}</div>
-      <div class="admin-slot-actions">
-        <button class="admin-action-add admin-action-add-extra" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
-      </div>
-    </div>`;
+        <div class="admin-slot-row admin-slot-ocupado">
+          <div class="admin-slot-hora">${h[0]}<br>–<br>${h[1]}</div>
+          <div class="admin-slot-content">${rsvHtml}</div>
+          <div class="admin-slot-actions">
+            <button class="admin-action-add admin-action-add-extra" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
+          </div>
+        </div>`;
       return `<td class="atd atd-slot atd-ocupado">
-    ${rsvHtml}
-    <div class="admin-slot-actions" style="margin-top:4px">
-      <button class="admin-action-add admin-action-add-extra" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
-    </div>
-  </td>`;
+        ${rsvHtml}
+        <div class="admin-slot-actions" style="margin-top:4px">
+          <button class="admin-action-add admin-action-add-extra" onclick="abrirModalAdminEditar(${ln},${col},-1)" title="Adicionar">+</button>
+        </div>
+      </td>`;
     }
 
     function renderAdminGrid(dados) {
@@ -2135,16 +2201,16 @@ const API = "https://labreserva-tcc.onrender.com";
       }
       const cab = dados[0] || [];
       const DIAS_NOMES = DIAS_NOME;
-      const DIAS_ABV = DIAS_ABREV;
+      const DIAS_ABV   = DIAS_ABREV;
       const seg = getSegundaDaSemana();
 
       // ── Mobile: day cards ──
       let cardsHtml = "";
       for (let col = COL_DIA_MIN; col <= COL_DIA_MAX; col++) {
-        const diaNome = cab[col - 1] || DIAS_NOMES[col - 1] || "";
+        const diaNome = cab[col-1] || DIAS_NOMES[col-1] || "";
         const dt = new Date(seg);
         dt.setDate(seg.getDate() + (col - 2));
-        const dtStr = `${String(dt.getDate()).padStart(2, "0")}/${String(dt.getMonth() + 1).padStart(2, "0")}`;
+        const dtStr = `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}`;
         let slotsHtml = "";
         for (let ln = 2; ln <= 15; ln++) {
           if (LINHAS_INTERVALO.has(ln)) {
@@ -2157,13 +2223,13 @@ const API = "https://labreserva-tcc.onrender.com";
           slotsHtml += _adminSlotCellHtml(ln, col, val, true);
         }
         cardsHtml += `
-      <div class="admin-day-card" data-dia="${col}">
-        <div class="admin-day-card-head">
-          <span class="admin-day-name">${diaNome}</span>
-          <span class="admin-day-date">${dtStr}</span>
-        </div>
-        ${slotsHtml}
-      </div>`;
+          <div class="admin-day-card" data-dia="${col}">
+            <div class="admin-day-card-head">
+              <span class="admin-day-name">${diaNome}</span>
+              <span class="admin-day-date">${dtStr}</span>
+            </div>
+            ${slotsHtml}
+          </div>`;
       }
 
       // ── Desktop: table ──
@@ -2171,8 +2237,8 @@ const API = "https://labreserva-tcc.onrender.com";
       for (let c = COL_DIA_MIN; c <= COL_DIA_MAX; c++) {
         const dt = new Date(seg);
         dt.setDate(seg.getDate() + (c - 2));
-        const dtStr = `${String(dt.getDate()).padStart(2, "0")}/${String(dt.getMonth() + 1).padStart(2, "0")}`;
-        thead += `<th class="atd atd-dia">${cab[c - 1] || DIAS_ABV[c - 1] || ""}<span class="atd-dia-date">${dtStr}</span></th>`;
+        const dtStr = `${String(dt.getDate()).padStart(2,"0")}/${String(dt.getMonth()+1).padStart(2,"0")}`;
+        thead += `<th class="atd atd-dia">${cab[c-1] || DIAS_ABV[c-1] || ""}<span class="atd-dia-date">${dtStr}</span></th>`;
       }
       thead += "</tr>";
 
@@ -2194,13 +2260,13 @@ const API = "https://labreserva-tcc.onrender.com";
       }
 
       wrap.innerHTML = `
-    <div class="admin-cards-view">${cardsHtml}</div>
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>${thead}</thead>
-        <tbody>${tbody}</tbody>
-      </table>
-    </div>`;
+        <div class="admin-cards-view">${cardsHtml}</div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>${thead}</thead>
+            <tbody>${tbody}</tbody>
+          </table>
+        </div>`;
     }
 
     function abrirModalAdminEditar(ln, col, reservaIdx) {
@@ -2212,12 +2278,12 @@ const API = "https://labreserva-tcc.onrender.com";
 
       const row = dadosGlobais[ln - 1] || [];
       const val = (row[col - 1] || "").trim();
-      const h = HORARIOS[ln] || ["?", "?"];
+      const h = HORARIOS[ln] || ["?","?"];
       const cab = dadosGlobais[0] || [];
-      const DIAS_ABV = ["", "Seg", "Ter", "Qua", "Qui", "Sex"];
-      const dia = cab[col - 1] || DIAS_ABV[col - 1] || "";
+      const DIAS_ABV = DIAS_ABREV;
+      const dia = cab[col-1] || DIAS_ABV[col-1] || "";
 
-      document.getElementById("admin-editar-error").textContent = "";
+      setAdminAlert(document.getElementById("admin-editar-error"), "");
       const nomeInput = document.getElementById("admin-nome-input");
       const emailInput = document.getElementById("admin-email-input");
       const apagarBtn = document.getElementById("admin-apagar-btn");
@@ -2244,53 +2310,250 @@ const API = "https://labreserva-tcc.onrender.com";
           }
         }
         document.getElementById("admin-editar-title").textContent = `Editar · ${dia} ${h[0]}–${h[1]}`;
+        document.getElementById("admin-editar-sub").textContent = "";
         apagarBtn.style.display = "block";
+        document.getElementById("admin-horarios-sec").style.display = "none";
+        adminHorariosSelecionados = [];
       } else {
         nomeInput.value = "";
         emailInput.value = "";
-        document.getElementById("admin-editar-title").textContent = `Adicionar · ${dia} ${h[0]}–${h[1]}`;
+        document.getElementById("admin-editar-title").textContent = `Adicionar · ${dia}`;
+        document.getElementById("admin-editar-sub").textContent = "Selecione um ou mais horários";
         apagarBtn.style.display = "none";
+        document.getElementById("admin-horarios-sec").style.display = "block";
+        adminHorariosSelecionados = [ln];
+        renderAdminHorariosBtns(col, dadosGlobais);
       }
 
       renderAdminEquipRows();
       document.getElementById("overlay-admin-editar").classList.add("open");
     }
 
-    function fecharModalAdminEditar() {
-      document.getElementById("overlay-admin-editar").classList.remove("open");
+    function marcarBotoesAdminHorarioSelecionados() {
+      const lista = document.getElementById("admin-horarios-lista");
+      if (!lista) return;
+      lista.querySelectorAll(".horario-btn[data-ln]").forEach(btn => {
+        const ln = parseInt(btn.dataset.ln, 10);
+        const on = adminHorariosSelecionados.includes(ln);
+        btn.classList.toggle("selecionado", on);
+        if (!on) btn.blur();
+      });
     }
 
-    document.getElementById("overlay-admin-editar").addEventListener("click", function (e) {
+    function renderAdminHorariosBtns(col, dados) {
+      const c = document.getElementById("admin-horarios-lista");
+      if (!c) return;
+      c.innerHTML = "";
+      for (let ln = 2; ln <= 15; ln++) {
+        const ld = dados[ln - 1]; if (!ld) continue;
+        const h = HORARIOS[ln]; if (!h) continue;
+        const celVal = ld[col - 1] || "";
+        const val = celVal.trim().toUpperCase().replace(/\s+/g, " ");
+        const passado = ePassadoHoje(col, ln);
+        const intervalo = LINHAS_INTERVALO.has(ln);
+        const bloqueado = val === "BLOQUEADO" && !intervalo;
+        const temRes = celVal.includes("|");
+
+        const btn = document.createElement("button");
+        btn.className = "horario-btn";
+        btn.type = "button";
+        btn.dataset.ln = String(ln);
+
+        if (passado) {
+          btn.classList.add("passado"); btn.disabled = true;
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">🕐 ${h[0]}–${h[1]}</span></div><span class="h-status">passado</span>`;
+        } else if (intervalo) {
+          btn.classList.add("intervalo-slot"); btn.disabled = true;
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">☕ ${h[0]}–${h[1]}</span></div><span class="h-status">intervalo</span>`;
+        } else if (bloqueado) {
+          btn.classList.add("bloqueado-slot"); btn.disabled = true;
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span></div><span class="h-status">bloqueado</span>`;
+        } else {
+          let extra = "";
+          if (temRes) {
+            const reservas = listarReservas(celVal);
+            extra = `<span class="h-status" style="color:var(--blue)">${reservas.map(r => r.nome).join(" + ")}</span>`;
+          }
+          const tag = slotDispTag(col, ln, dados);
+          btn.innerHTML = `<div class="h-left"><span class="h-hora">${h[0]}–${h[1]}</span><span class="h-disp">${tag}</span>${extra}</div>`;
+          btn.onclick = () => toggleAdminHorario(ln, btn);
+        }
+        c.appendChild(btn);
+      }
+      marcarBotoesAdminHorarioSelecionados();
+      atualizarAdminResumo();
+    }
+
+    function toggleAdminHorario(ln, btn) {
+      const idx = adminHorariosSelecionados.indexOf(ln);
+      if (idx === -1) adminHorariosSelecionados.push(ln);
+      else adminHorariosSelecionados.splice(idx, 1);
+      if (btn) btn.blur();
+      marcarBotoesAdminHorarioSelecionados();
+      sincronizarAdminEquipComHorarios();
+      atualizarAdminResumo();
+      renderAdminEquipRows();
+    }
+
+    function textoAvisoDispDivergenteAdmin(coluna, dados) {
+      if (adminHorariosSelecionados.length < 2) return "";
+      const partes = [];
+      Object.keys(ESTOQUE).forEach(tipo => {
+        if (!equipDispDiverge(coluna, adminHorariosSelecionados, dados, tipo)) return;
+        const det = adminHorariosSelecionados
+          .map(ln => {
+            const q = dispSlot(coluna, ln, dados)[tipo];
+            return `${labelHorario(ln)}: ${q}`;
+          })
+          .join(" · ");
+        const min = dispSelecao(coluna, adminHorariosSelecionados, dados)[tipo];
+        partes.push(
+          `<strong>${ESTOQUE[tipo].nome}</strong> (${det}). Máximo em todos os horários: <strong>${min}</strong>.`
+        );
+      });
+      if (!partes.length) return "";
+      return (
+        "⚠️ A disponibilidade muda entre os horários — " +
+        partes.join(" ") +
+        " Se precisar de quantidades diferentes, reserve manhã e tarde em duas etapas."
+      );
+    }
+
+    function atualizarAdminResumo() {
+      const el = document.getElementById("admin-resumo-selecao");
+      if (!el) return;
+      const n = adminHorariosSelecionados.length;
+      if (n === 0) {
+        el.textContent = "Nenhum horário selecionado";
+        el.className = "resumo-vazio";
+        return;
+      }
+      const base = `${n} horário${n > 1 ? "s" : ""} selecionado${n > 1 ? "s" : ""}`;
+      const aviso = textoAvisoDispDivergenteAdmin(adminEditColuna, dadosGlobais);
+      if (aviso) {
+        el.innerHTML = `${base}<div class="resumo-aviso">${aviso}</div>`;
+        el.className = "com-aviso";
+      } else {
+        el.textContent = base;
+        el.className = "";
+      }
+    }
+
+    function sincronizarAdminEquipComHorarios() {
+      if (!adminHorariosSelecionados.length) return;
+      const disp = dispSelecao(adminEditColuna, adminHorariosSelecionados, dadosGlobais);
+      Object.keys(ESTOQUE).forEach(tipo => {
+        if (disp[tipo] <= 0) {
+          adminEditEquipState[tipo].ativo = false;
+          adminEditEquipState[tipo].qtd = 1;
+        } else if (adminEditEquipState[tipo].ativo && adminEditEquipState[tipo].qtd > disp[tipo]) {
+          adminEditEquipState[tipo].qtd = disp[tipo];
+        }
+      });
+    }
+
+    function fecharModalAdminEditar() {
+      document.getElementById("overlay-admin-editar").classList.remove("open");
+      adminHorariosSelecionados = [];
+    }
+
+    document.getElementById("overlay-admin-editar").addEventListener("click", function(e) {
       if (e.target === this) fecharModalAdminEditar();
     });
+
+    // Disponibilidade no slot considerando as reservas já existentes na célula.
+    // Ao EDITAR uma reserva (idx>=0), devolve o equipamento dela ao estoque (não conta contra si mesma).
+    let adminDispAtual = {};
+
+    function adminDispSlot(ln, col) {
+      const disp = dispSlot(col, ln, dadosGlobais);
+      if (adminEditReservaIdx >= 0) {
+        const row = dadosGlobais[ln - 1] || [];
+        const val = (row[col - 1] || "").trim();
+        const reservas = listarReservas(val);
+        const rsv = reservas[adminEditReservaIdx];
+        if (rsv && rsv.equip) {
+          const usado = extrairReserva(`x | ${rsv.equip}`) || {};
+          Object.keys(ESTOQUE).forEach(k => { disp[k] = (disp[k] || 0) + (usado[k] || 0); });
+        }
+      }
+      return disp;
+    }
 
     function renderAdminEquipRows() {
       const c = document.getElementById("admin-equip-rows");
       c.innerHTML = "";
+
+      const editando = adminEditReservaIdx >= 0;
+      const nHor = adminHorariosSelecionados.length;
+
+      if (editando) {
+        adminDispAtual = adminDispSlot(adminEditLinha, adminEditColuna);
+      } else if (nHor > 0) {
+        sincronizarAdminEquipComHorarios();
+        adminDispAtual = dispSelecao(adminEditColuna, adminHorariosSelecionados, dadosGlobais);
+      } else {
+        adminDispAtual = Object.fromEntries(Object.keys(ESTOQUE).map(k => [k, ESTOQUE[k].total]));
+      }
+
       Object.keys(ESTOQUE).forEach(tipo => {
         const { emoji, nome } = ESTOQUE[tipo];
-        const ativo = adminEditEquipState[tipo].ativo;
+        const d = adminDispAtual[tipo] || 0;
+        const esgotado = d <= 0;
+        let ativo = adminEditEquipState[tipo].ativo;
+        if (esgotado) { ativo = false; adminEditEquipState[tipo].ativo = false; }
+        if (ativo && adminEditEquipState[tipo].qtd > d) adminEditEquipState[tipo].qtd = d;
         const qtd = adminEditEquipState[tipo].qtd;
+
+        const maxFila = ESTOQUE[tipo].total;
+        let dispLabel;
+        if (esgotado) {
+          dispLabel = !editando && nHor > 1
+            ? "esgotado em pelo menos um horário"
+            : `esgotado neste horário · máx. ${maxFila} na fila`;
+        } else if (!editando && nHor > 1 && equipDispDiverge(adminEditColuna, adminHorariosSelecionados, dadosGlobais, tipo)) {
+          const det = adminHorariosSelecionados
+            .map(ln => `${HORARIOS[ln][0]}: ${dispSlot(adminEditColuna, ln, dadosGlobais)[tipo]}`)
+            .join(" · ");
+          dispLabel = `máx. ${d} em todos (${det})`;
+        } else {
+          dispLabel = `${d} disponíve${d === 1 ? "l" : "is"}${!editando && nHor > 1 ? ` em cada um dos ${nHor} horários` : ""}`;
+        }
+
         const row = document.createElement("div");
-        row.className = `equip-row ${tipo}${ativo ? " ativo" : ""}`;
+        row.className = `equip-row ${tipo}${ativo ? " ativo" : ""}${esgotado ? " sem-estoque" : ""}`;
         row.id = `admin-equip-row-${tipo}`;
+
+        const filaBtn = esgotado
+          ? `<div class="admin-fila-actions">
+            <div class="equip-row-qty" id="admin-fila-qty-wrap-${tipo}">
+              <button class="qty-btn" onclick="event.stopPropagation();mudaAdminFilaQtd('${tipo}',-1)"${qtd <= 1 ? " disabled" : ""}>−</button>
+              <span class="qty-num" id="admin-fila-qty-num-${tipo}">${qtd}</span>
+              <button class="qty-btn" onclick="event.stopPropagation();mudaAdminFilaQtd('${tipo}',+1)"${qtd >= maxFila ? " disabled" : ""}>+</button>
+            </div>
+            <button class="fila-equip-btn" onclick="event.stopPropagation();adminFilaEquip('${tipo}')">⏳ fila de espera</button>
+          </div>`
+          : `<div class="equip-row-qty" id="admin-qty-wrap-${tipo}" style="display:${ativo ? "flex" : "none"}">
+            <button class="qty-btn" onclick="event.stopPropagation();mudaAdminQtd('${tipo}',-1)">−</button>
+            <span class="qty-num" id="admin-qty-num-${tipo}">${qtd}</span>
+            <button class="qty-btn" onclick="event.stopPropagation();mudaAdminQtd('${tipo}',+1)">+</button>
+          </div>`;
+
         row.innerHTML = `
-      <div class="equip-row-check" id="admin-check-${tipo}">${ativo ? "✔" : ""}</div>
-      <span class="equip-row-emoji">${emoji}</span>
-      <div class="equip-row-info">
-        <div class="equip-row-name">${nome}</div>
-      </div>
-      <div class="equip-row-qty" id="admin-qty-wrap-${tipo}" style="display:${ativo ? "flex" : "none"}">
-        <button class="qty-btn" onclick="event.stopPropagation();mudaAdminQtd('${tipo}',-1)">−</button>
-        <span class="qty-num" id="admin-qty-num-${tipo}">${qtd}</span>
-        <button class="qty-btn" onclick="event.stopPropagation();mudaAdminQtd('${tipo}',+1)">+</button>
-      </div>`;
-        row.onclick = () => toggleAdminEquip(tipo);
+          <div class="equip-row-check" id="admin-check-${tipo}">${ativo ? "✔" : ""}</div>
+          <span class="equip-row-emoji">${emoji}</span>
+          <div class="equip-row-info">
+            <div class="equip-row-name">${nome}</div>
+            <div class="equip-row-disp">${dispLabel}</div>
+          </div>
+          ${filaBtn}`;
+        if (!esgotado) row.onclick = () => toggleAdminEquip(tipo);
         c.appendChild(row);
       });
     }
 
     function toggleAdminEquip(tipo) {
+      if ((adminDispAtual[tipo] || 0) <= 0) return;
       adminEditEquipState[tipo].ativo = !adminEditEquipState[tipo].ativo;
       const row = document.getElementById(`admin-equip-row-${tipo}`);
       const check = document.getElementById(`admin-check-${tipo}`);
@@ -2307,102 +2570,226 @@ const API = "https://labreserva-tcc.onrender.com";
     }
 
     function mudaAdminQtd(tipo, delta) {
-      const max = ESTOQUE[tipo].total;
+      const max = adminDispAtual[tipo] || ESTOQUE[tipo].total;
       adminEditEquipState[tipo].qtd = Math.max(1, Math.min(max, adminEditEquipState[tipo].qtd + delta));
       document.getElementById(`admin-qty-num-${tipo}`).textContent = adminEditEquipState[tipo].qtd;
+    }
+
+    function mudaAdminFilaQtd(tipo, delta) {
+      const max = ESTOQUE[tipo].total;
+      adminEditEquipState[tipo].qtd = Math.max(1, Math.min(max, adminEditEquipState[tipo].qtd + delta));
+      const numEl = document.getElementById(`admin-fila-qty-num-${tipo}`);
+      if (numEl) numEl.textContent = adminEditEquipState[tipo].qtd;
+      const row = document.getElementById(`admin-equip-row-${tipo}`);
+      if (row) {
+        const btns = row.querySelectorAll(".admin-fila-actions .qty-btn");
+        if (btns[0]) btns[0].disabled = adminEditEquipState[tipo].qtd <= 1;
+        if (btns[1]) btns[1].disabled = adminEditEquipState[tipo].qtd >= max;
+      }
+    }
+
+    async function adminFilaEquip(tipo) {
+      const nome = document.getElementById("admin-nome-input").value.trim();
+      const email = document.getElementById("admin-email-input").value.trim().toLowerCase();
+      const err = document.getElementById("admin-editar-error");
+      if (!nome) { setAdminAlert(err, "Digite o nome do professor para colocar na fila."); return; }
+      if (!email || !email.includes("@")) {
+        setAdminAlert(err, "Informe o e-mail do professor para usar a fila de espera.");
+        return;
+      }
+      const linhas = adminEditReservaIdx >= 0
+        ? [adminEditLinha]
+        : adminHorariosSelecionados;
+      if (!linhas.length) { setAdminAlert(err, "Selecione ao menos um horário."); return; }
+      setAdminAlert(err, "");
+      const qtd = adminEditEquipState[tipo].qtd || 1;
+      const equipStr = `${qtd} ${ESTOQUE[tipo].label}`;
+      let ok = 0;
+      try {
+        for (const ln of linhas) {
+          const res = await fetchComTimeout(`${API}/espera`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, email, linha: ln, coluna: adminEditColuna, equipamentos: equipStr }),
+          }, 12000);
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.erro || "Erro ao adicionar na fila");
+          ok++;
+        }
+        fecharModalAdminEditar();
+        showToast(`${nome} entrou na lista de espera (${qtd} ${ESTOQUE[tipo].nome}${ok > 1 ? ` · ${ok} horários` : ""}).`, "success");
+      } catch (e) {
+        const msg = e.name === "AbortError" ? "Servidor demorou. Tente novamente." : (e.message || "Erro ao adicionar na fila");
+        setAdminAlert(err, ok > 0 ? `${msg} (${ok} de ${linhas.length} horários salvos)` : msg);
+      }
     }
 
     async function salvarAdminCell() {
       const nome = document.getElementById("admin-nome-input").value.trim();
       const email = document.getElementById("admin-email-input").value.trim().toLowerCase();
       const err = document.getElementById("admin-editar-error");
-      err.textContent = "";
+      setAdminAlert(err, "");
 
-      if (!nome) { err.textContent = "✏️ Digite o nome do professor."; return; }
+      if (!nome) { setAdminAlert(err, "Digite o nome do professor."); return; }
       const sel = Object.keys(adminEditEquipState).filter(t => adminEditEquipState[t].ativo);
-      if (!sel.length) { err.textContent = "🎒 Selecione ao menos um equipamento."; return; }
+      if (!sel.length) { setAdminAlert(err, "Selecione ao menos um equipamento."); return; }
+
+      const editando = adminEditReservaIdx >= 0;
+      const linhasAlvo = editando ? [adminEditLinha] : adminHorariosSelecionados;
+      if (!editando && !linhasAlvo.length) { setAdminAlert(err, "Selecione ao menos um horário."); return; }
+
+      const dispMin = editando
+        ? adminDispSlot(adminEditLinha, adminEditColuna)
+        : dispSelecao(adminEditColuna, linhasAlvo, dadosGlobais);
+      const semEstoque = sel.filter(t => adminEditEquipState[t].qtd > (dispMin[t] || 0));
+      if (semEstoque.length) {
+        const nomes = semEstoque.map(t => ESTOQUE[t].nome).join(", ");
+        setAdminAlert(err, `Sem estoque para: ${nomes}. Use a fila de espera ou reduza a quantidade.`, "warn");
+        return;
+      }
+
+      if (!editando) {
+        for (const ln of linhasAlvo) {
+          const dispLn = dispSlot(adminEditColuna, ln, dadosGlobais);
+          for (const t of sel) {
+            if (adminEditEquipState[t].qtd > dispLn[t]) {
+              setAdminAlert(err,
+                `Em ${labelHorario(ln)} só há ${dispLn[t]} ${ESTOQUE[t].label}(s), mas você pediu ${adminEditEquipState[t].qtd}. ` +
+                `Reduza a quantidade ou desmarque horários com menos disponibilidade.`,
+                "warn"
+              );
+              return;
+            }
+          }
+        }
+      } else {
+        const disp = adminDispSlot(adminEditLinha, adminEditColuna);
+        const semEstoqueEdit = sel.filter(t => adminEditEquipState[t].qtd > (disp[t] || 0));
+        if (semEstoqueEdit.length) {
+          const nomes = semEstoqueEdit.map(t => ESTOQUE[t].nome).join(", ");
+          setAdminAlert(err, `Sem estoque para: ${nomes}. Use a fila de espera ou reduza a quantidade.`, "warn");
+          return;
+        }
+      }
 
       const equipStr = sel.map(t => `${adminEditEquipState[t].qtd} ${ESTOQUE[t].label}`).join(" + ");
       const tag = email && email.includes("@") ? ` [${email}]` : "";
       const novaReserva = `${nome}${tag} | ${equipStr}`;
 
-      const row = dadosGlobais[adminEditLinha - 1] || [];
-      const valAtual = (row[adminEditColuna - 1] || "").trim();
-      let valorFinal;
-      if (adminEditReservaIdx >= 0) {
-        const blocos = valAtual.split(" § ");
-        if (adminEditReservaIdx < blocos.length) {
-          blocos[adminEditReservaIdx] = novaReserva;
-        } else {
-          blocos.push(novaReserva);
-        }
-        valorFinal = blocos.join(" § ").trim();
-      } else {
-        const vUp = valAtual.toUpperCase();
-        valorFinal = (!valAtual || vUp === "" || vUp === "LIVRE" || vUp === "BLOQUEADO")
-          ? novaReserva
-          : `${valAtual} § ${novaReserva}`;
-      }
-
       const btn = document.getElementById("admin-salvar-btn");
       btn.textContent = "Salvando..."; btn.disabled = true;
-      try {
-        const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
-        if (!res.ok) {
-          const d = await res.json().catch(() => ({}));
-          throw new Error(d.erro || "Erro ao salvar");
+
+      if (editando) {
+        const row = dadosGlobais[adminEditLinha - 1] || [];
+        const valAtual = (row[adminEditColuna - 1] || "").trim();
+        const blocos = valAtual.split(" § ");
+        if (adminEditReservaIdx < blocos.length) blocos[adminEditReservaIdx] = novaReserva;
+        else blocos.push(novaReserva);
+        const valorFinal = blocos.join(" § ").trim();
+        try {
+          const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
+          if (!res.ok) {
+            const d = await res.json().catch(() => ({}));
+            throw new Error(d.erro || "Erro ao salvar");
+          }
+          if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
+          fecharModalAdminEditar();
+          renderAdminGrid(dadosGlobais);
+          showToast("✅ Reserva salva!", "success");
+        } catch (e) {
+          const msg = e.name === "AbortError" ? "Servidor demorou a responder. Tente novamente." : (e.message || "Erro ao salvar");
+          setAdminAlert(err, msg);
         }
-        if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
-        fecharModalAdminEditar();
-        renderAdminGrid(dadosGlobais);
-        showToast("✅ Reserva salva!", "success");
-      } catch (e) {
-        const msg = e.name === "AbortError" ? "Servidor demorou a responder. Tente novamente." : (e.message || "Erro ao salvar");
-        err.textContent = `✗ ${msg}`;
+        btn.textContent = "💾 Salvar"; btn.disabled = false;
+        return;
       }
+
+      let salvos = 0, erros = 0;
+      const falhasHorario = [];
+      for (const ln of linhasAlvo) {
+        const dispLn = dispSlot(adminEditColuna, ln, dadosGlobais);
+        if (sel.some(t => adminEditEquipState[t].qtd > dispLn[t])) {
+          falhasHorario.push(labelHorario(ln));
+          erros++;
+          continue;
+        }
+        try {
+          const ld = dadosGlobais[ln - 1];
+          const valorAtual = ld ? (ld[adminEditColuna - 1] || "").trim() : "";
+          const vUp = valorAtual.toUpperCase();
+          const valorFinal = (!valorAtual || vUp === "" || vUp === "LIVRE" || vUp === "BLOQUEADO")
+            ? novaReserva
+            : `${valorAtual} § ${novaReserva}`;
+          const res = await adminChamarEditar(ln, adminEditColuna, valorFinal);
+          if (!res.ok) throw new Error();
+          salvos++;
+          if (dadosGlobais[ln - 1]) dadosGlobais[ln - 1][adminEditColuna - 1] = valorFinal;
+        } catch (e) {
+          erros++;
+          falhasHorario.push(labelHorario(ln));
+        }
+      }
+
       btn.textContent = "💾 Salvar"; btn.disabled = false;
+
+      if (falhasHorario.length && salvos === 0) {
+        setAdminAlert(err, `Não foi possível salvar (${falhasHorario.join(", ")}). Atualize a agenda e tente de novo.`);
+        return;
+      }
+      fecharModalAdminEditar();
+      renderAdminGrid(dadosGlobais);
+      if (erros === 0) {
+        showToast(`✅ ${salvos} horário${salvos > 1 ? "s" : ""} reservado${salvos > 1 ? "s" : ""}!`, "success");
+      } else if (salvos > 0) {
+        showToast(`⚠️ ${salvos} salvo(s), ${erros} falhou.`, "error-toast");
+      } else {
+        showToast("Erro ao salvar. Tente novamente.", "error-toast");
+      }
     }
 
     async function apagarAdminCell() {
       if (adminEditReservaIdx < 0) return;
-      const row = dadosGlobais[adminEditLinha - 1] || [];
-      const valAtual = (row[adminEditColuna - 1] || "").trim();
-      const blocos = valAtual.split(" § ");
-      blocos.splice(adminEditReservaIdx, 1);
-      const valorFinal = blocos.join(" § ").trim();
+      showAdminConfirm("Remover esta reserva deste horário?", async () => {
+        const row = dadosGlobais[adminEditLinha - 1] || [];
+        const valAtual = (row[adminEditColuna - 1] || "").trim();
+        const blocos = valAtual.split(" § ");
+        blocos.splice(adminEditReservaIdx, 1);
+        const valorFinal = blocos.join(" § ").trim();
 
-      const btn = document.getElementById("admin-apagar-btn");
-      btn.textContent = "Apagando..."; btn.disabled = true;
-      try {
-        const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
-        if (!res.ok) throw new Error("Erro ao apagar");
-        if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
-        fecharModalAdminEditar();
-        renderAdminGrid(dadosGlobais);
-        showToast("🗑 Reserva removida.", "success");
-      } catch (e) {
-        const msg = e.name === "AbortError" ? "Servidor demorou. Tente novamente." : "Erro ao apagar";
-        document.getElementById("admin-editar-error").textContent = `✗ ${msg}`;
-      }
-      btn.textContent = "🗑 Apagar Reserva"; btn.disabled = false;
+        const btn = document.getElementById("admin-apagar-btn");
+        btn.textContent = "Apagando..."; btn.disabled = true;
+        try {
+          const res = await adminChamarEditar(adminEditLinha, adminEditColuna, valorFinal);
+          if (!res.ok) throw new Error("Erro ao apagar");
+          if (dadosGlobais[adminEditLinha - 1]) dadosGlobais[adminEditLinha - 1][adminEditColuna - 1] = valorFinal;
+          fecharModalAdminEditar();
+          renderAdminGrid(dadosGlobais);
+          showToast("Reserva removida.", "success");
+        } catch (e) {
+          const msg = e.name === "AbortError" ? "Servidor demorou. Tente novamente." : "Erro ao apagar";
+          setAdminAlert(document.getElementById("admin-editar-error"), msg);
+        }
+        btn.textContent = "🗑 Apagar Reserva"; btn.disabled = false;
+      });
     }
 
     async function adminDeletarRsv(ln, col, reservaIdx) {
-      if (!confirm("Remover esta reserva?")) return;
-      const row = dadosGlobais[ln - 1] || [];
-      const valAtual = (row[col - 1] || "").trim();
-      const blocos = valAtual.split(" § ");
-      blocos.splice(reservaIdx, 1);
-      const valorFinal = blocos.join(" § ").trim();
-      try {
-        const res = await adminChamarEditar(ln, col, valorFinal);
-        if (!res.ok) throw new Error();
-        if (dadosGlobais[ln - 1]) dadosGlobais[ln - 1][col - 1] = valorFinal;
-        renderAdminGrid(dadosGlobais);
-        showToast("🗑 Reserva removida.", "success");
-      } catch (e) {
-        showToast("✗ Erro ao remover reserva.", "error-toast");
-      }
+      showAdminConfirm("Remover esta reserva deste horário?", async () => {
+        const row = dadosGlobais[ln - 1] || [];
+        const valAtual = (row[col - 1] || "").trim();
+        const blocos = valAtual.split(" § ");
+        blocos.splice(reservaIdx, 1);
+        const valorFinal = blocos.join(" § ").trim();
+        try {
+          const res = await adminChamarEditar(ln, col, valorFinal);
+          if (!res.ok) throw new Error();
+          if (dadosGlobais[ln - 1]) dadosGlobais[ln - 1][col - 1] = valorFinal;
+          renderAdminGrid(dadosGlobais);
+          showToast("Reserva removida.", "success");
+        } catch (e) {
+          showToast("Erro ao remover reserva.", "error-toast");
+        }
+      });
     }
 
     async function adminSetCell(ln, col, valor) {

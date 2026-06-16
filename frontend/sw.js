@@ -4,7 +4,7 @@
 //      (sempre pega versão mais recente do Vercel)
 // ══════════════════════════════════════
 
-const CACHE_NAME = "notebooks-v17";
+const CACHE_NAME = "notebooks-v18";
 
 // Só cacheia assets que mudam raramente (fontes, css, ícones)
 // index.html é EXCLUÍDO propositalmente
@@ -13,7 +13,7 @@ const ASSETS_ESTATICOS = [
   "/manifest.json",
   "/icon-192.png",
   "/icon-512.png",
-  "https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Mono:wght@500;600&display=swap"
+  "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
 ];
 
 // ── Mensagens da página (SKIP_WAITING para forçar update) ──

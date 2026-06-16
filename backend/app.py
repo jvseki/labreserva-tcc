@@ -131,9 +131,6 @@ def garantir_marca_agua_planilha():
 
 ADMIN_EMAILS = {
     "joaovictorsekimantovani@gmail.com",
-    "jose.alli@servidor.educacao.sp.gov.br",
-    "alli@prof.educacao.sp.gov.br",
-    "luis.polizello@educacao.sp.gov.br",
 }
 
 
